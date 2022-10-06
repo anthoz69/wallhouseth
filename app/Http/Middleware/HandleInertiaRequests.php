@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -39,5 +40,14 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             //
         ]);
+    }
+
+    public function rootView(Request $request)
+    {
+        if (str_contains(Route::current()->uri, 'backoffice')) {
+            return $this->rootView = 'backoffice';
+        } else {
+            return $this->rootView = 'app';
+        }
     }
 }
