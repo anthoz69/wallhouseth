@@ -45,9 +45,9 @@ class HandleInertiaRequests extends Middleware
     public function rootView(Request $request)
     {
         if (str_contains(Route::current()->uri, 'backoffice')) {
-            return $this->rootView = 'backoffice';
+            return $this->rootView = 'layouts/backoffice';
         } else {
-            return $this->rootView = 'app';
+            return $this->rootView = 'layouts/app';
         }
     }
 }
