@@ -46,8 +46,13 @@ class HandleInertiaRequests extends Middleware
     {
         if (str_contains(Route::current()->uri, 'backoffice')) {
             return $this->rootView = 'layouts/backoffice';
-        } else {
-            return $this->rootView = 'layouts/app';
         }
+        if (in_array(Route::current()->uri, [
+            'login', 'forgot-password', 'register'])) {
+            return $this->rootView = 'layouts/guest';
+        }
+
+        return $this->rootView = 'layouts/app';
+
     }
 }

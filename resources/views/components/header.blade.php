@@ -17,8 +17,8 @@
                         <li class="onhover-dropdown mobile-account"><i class="fa fa-user" aria-hidden="true"></i>
                             My Account
                             <ul class="onhover-show-div">
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">register</a></li>
+                                <li><a href="{{ route('login') }}">Login</a></li>
+                                <li><a href="{{ route('register') }}">register</a></li>
                             </ul>
                         </li>
                     </ul>
