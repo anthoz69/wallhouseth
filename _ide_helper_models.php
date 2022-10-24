@@ -12,6 +12,24 @@
 
 namespace App\Models{
 /**
+ * App\Models\Category
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $child
+ * @property-read int|null $child_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $children
+ * @property-read int|null $children_count
+ * @property-read Category|null $parent
+ * @property-read Category|null $parents
+ * @method static \Database\Factories\CategoryFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category query()
+ */
+	class Category extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Coupon
  *
  * @property int $id

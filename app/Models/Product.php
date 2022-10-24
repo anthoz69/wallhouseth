@@ -15,4 +15,21 @@ class Product extends Model
         'other_image' => 'json',
         'status' => ProductStatus::class,
     ];
+
+    protected $fillable = [
+        'sku',
+        'barcode',
+        'name',
+        'price',
+        'stock_available',
+        'attributes',
+        'main_image',
+        'other_image',
+        'width',
+        'length',
+        'height',
+        'kg',
+        'status',
+        'original_data',
+    ];
 }

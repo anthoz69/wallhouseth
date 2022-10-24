@@ -18,12 +18,16 @@ return new class extends Migration
             $table->id();
             $table->string('sku', 255)->unique();
             $table->string('barcode', 150)->index()->nullable();
-            $table->decimal('price', 13, 2)->default(0);
             $table->string('name', 255);
+            $table->decimal('price', 13, 2)->default(0);
             $table->unsignedBigInteger('stock_available')->default(0);
             $table->json('attributes');
             $table->string('main_image', 255);
             $table->json('other_image');
+            $table->decimal('width')->default(0);
+            $table->decimal('length')->default(0);
+            $table->decimal('height')->default(0);
+            $table->decimal('kg')->default(0);
             $table->string('status')->default(ProductStatus::WaitForTranslate)->index();
             $table->json('original_data');
             $table->timestamps();
