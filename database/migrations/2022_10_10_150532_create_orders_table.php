@@ -17,7 +17,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('ref')->unique();
-            $table->string('status')->default(OrderStatus::WaitPayment);
+            $table->string('status')->index()->default(OrderStatus::WaitPayment);
+            $table->string('payment_method')->index();
             $table->json('payment');
             $table->timestamps();
         });

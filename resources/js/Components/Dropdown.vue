@@ -14,6 +14,11 @@ const props = defineProps({
         type: Array,
         default: () => ['py-1', 'bg-white'],
     },
+    typeLink: {
+        type: Boolean,
+        default: false
+    },
+    active: Boolean,
 });
 
 let open = ref(false);
@@ -44,10 +49,22 @@ const alignmentClasses = computed(() => {
 
     return 'origin-top';
 });
+
+const classNavLink = computed(() => {
+    return props.typeLink
+        ? 'inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition'
+        : '';
+})
+
+const classActive = computed(() => {
+    return props.active
+        ? 'border-b-2 border-indigo-400'
+        : 'border-b-2 border-transparent'
+})
 </script>
 
 <template>
-    <div class="relative">
+    <div class="relative" :class="[classNavLink, classActive]">
         <div @click="open = ! open">
             <slot name="trigger" />
         </div>
@@ -66,7 +83,7 @@ const alignmentClasses = computed(() => {
             <div
                 v-show="open"
                 class="absolute z-50 mt-2 rounded-md shadow-lg"
-                :class="[widthClass, alignmentClasses]"
+                :class="[widthClass, alignmentClasses, { 'top-[50px]': typeLink }]"
                 style="display: none;"
                 @click="open = false"
             >

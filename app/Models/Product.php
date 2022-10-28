@@ -32,4 +32,13 @@ class Product extends Model
         'status',
         'original_data',
     ];
+
+    protected $appends = [
+        'status_label',
+    ];
+
+    public function getStatusLabelAttribute()
+    {
+        return ProductStatus::fromValue($this->status)->description;
+    }
 }

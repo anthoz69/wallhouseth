@@ -2,17 +2,22 @@
 
 namespace App\Enums;
 
+use BenSampo\Enum\Attributes\Description;
 use BenSampo\Enum\Enum;
 
-/**
- * @method static static OptionOne()
- * @method static static OptionTwo()
- * @method static static OptionThree()
- */
 final class ProductStatus extends Enum
 {
+    #[Description('รอแปลภาษา')]
     const WaitForTranslate = 0;
+    #[Description('รอดึงรูปภาพ')]
     const WaitForStoreImage = 1;
+    #[Description('แสดง')]
     const Publish = 2;
+    #[Description('ซ่อน')]
     const UnPublish = 3;
+
+    public function toArray(): mixed
+    {
+        return $this;
+    }
 }

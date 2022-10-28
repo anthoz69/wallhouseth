@@ -1,17 +1,19 @@
 <?php
 
 use App\Http\Controllers\Backoffice\CouponController;
+use App\Http\Controllers\Backoffice\DashboardController;
+use App\Http\Controllers\Backoffice\ProductController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-    Route::resource('coupon', CouponController::class);
+    Route::resource('products', ProductController::class);
+
+    Route::resource('coupons', CouponController::class);
 });

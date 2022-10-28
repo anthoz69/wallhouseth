@@ -17,10 +17,24 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, app, props, plugin }) {
-        return createApp({ render: () => h(app, props) })
+        const instant = createApp({ render: () => h(app, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
-            .mount(el);
+
+        instant.config.globalProperties.$currency = (number) => {
+            const formatter = new Intl.NumberFormat('th', {
+                style: 'currency',
+                currency: 'THB',
+            })
+
+            return formatter.format(number)
+        }
+
+        instant.config.globalProperties.$comma = (number) => {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
+        return instant.mount(el)
     },
 });
 
