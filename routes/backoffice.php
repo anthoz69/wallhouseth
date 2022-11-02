@@ -13,6 +13,10 @@ Route::middleware([
     Route::get('/', [DashboardController::class, 'index'])
         ->name('dashboard');
 
+    Route::get('products/import', [ProductController::class, 'getImport'])
+        ->name('products.import.index');
+    Route::post('products/import', [ProductController::class, 'storeImport'])
+        ->name('products.import.store');
     Route::resource('products', ProductController::class);
 
     Route::resource('coupons', CouponController::class);

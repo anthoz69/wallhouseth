@@ -73,6 +73,9 @@ const logout = () => {
                                         <DropdownLink :href="route('backoffice.products.index')">
                                             รายการสินค้า
                                         </DropdownLink>
+                                        <DropdownLink :href="route('backoffice.products.import.index')">
+                                            นำเข้า Excel
+                                        </DropdownLink>
                                     </template>
                                 </Dropdown>
 

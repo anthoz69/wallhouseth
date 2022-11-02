@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Http\Controllers\Controller;
+use App\Imports\ProductsImport;
 use App\Models\Product;
+use Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -85,5 +89,23 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getImport(Request $request)
+    {
+        return Inertia::render('Product/Import', [
+            'file_url' => Storage::url('template-import-product.xlsx'),
+        ]);
+    }
+
+    public function storeImport(Request $request)
+    {
+        $request->validate([
+            'file' => ['required', 'mimes:csv,xlsx,xls'],
+        ]);
+
+        Excel::import(new ProductsImport(), request()->file('file'));
+
+        return $this->jsonResponse();
     }
 }

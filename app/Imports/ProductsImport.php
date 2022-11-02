@@ -4,14 +4,15 @@ namespace App\Imports;
 
 use App\Models\Product;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ProductsImport implements ToModel
+class ProductsImport implements ToModel, WithValidation
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param  array  $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         return new Product([
@@ -30,5 +31,35 @@ class ProductsImport implements ToModel
             'status' => $row[0],
             'original_data' => $row[0],
         ]);
+    }
+
+    public function rules(): array
+    {
+        return [
+            '0' => [
+                'required', 'numeric',
+            ],
+            '1' => [
+                'required', 'alpha_num', 'max:255',
+            ],
+            '2' => [
+                'required', 'string', 'max:255',
+            ],
+            '3' => [
+                'required', 'numeric', 'min:0',
+            ],
+            '4' => [
+                'required', 'min:0',
+            ],
+            '5' => [
+                'nullable', 'string',
+            ],
+            '6' => [
+                'required', 'string',
+            ],
+            '7' => [
+                'required', 'string',
+            ],
+        ];
     }
 }
