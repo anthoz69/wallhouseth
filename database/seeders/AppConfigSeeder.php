@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AppConfig;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,8 +15,11 @@ class AppConfigSeeder extends Seeder
      */
     public function run()
     {
-        AppConfigSeeder::create([
-
+        AppConfig::insert([
+            [
+                'key' => 'app_name',
+                'value' => 'test_app_name'
+            ]
         ]);
     }
 }
