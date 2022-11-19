@@ -11,6 +11,17 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'original_id',
+        'parent_category_id',
+        'original_data',
+    ];
+
+    protected $casts = [
+        'original_data' => 'json',
+    ];
+
     // One level child
     public function child(): HasMany
     {

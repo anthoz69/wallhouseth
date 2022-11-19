@@ -1,17 +1,27 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { useForm } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
+import { ref } from 'vue'
 
 const props = defineProps({
-    file_url: String
+    file_url: String,
+    errors: Object,
 })
 
 const form = useForm({
     file: null
 })
 
+let errors = ref({})
+
 const onSubmitHandle = () => {
-    form.post(route('backoffice.products.import.store'))
+    errors.value = {}
+    Inertia.post(route('backoffice.products.import.store'), form.data(), {
+        onError: err => {
+            errors.value = err
+        },
+    })
 }
 </script>
 
@@ -35,6 +45,12 @@ const onSubmitHandle = () => {
                 </div>
 
                 <div class="text-red-400 mt-1" v-if="form.errors.file">{{ form.errors.file }}</div>
+
+                <div class="mt-2">
+                    <ul>
+                        <li class="text-red-400" v-for="e in errors">{{ e }}</li>
+                    </ul>
+                </div>
 
                 <div class="flex justify-end">
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

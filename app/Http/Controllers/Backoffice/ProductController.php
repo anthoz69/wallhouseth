@@ -8,8 +8,10 @@ use App\Models\Product;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class ProductController extends Controller
 {
@@ -104,8 +106,17 @@ class ProductController extends Controller
             'file' => ['required', 'mimes:csv,xlsx,xls'],
         ]);
 
-        Excel::import(new ProductsImport(), request()->file('file'));
+        try {
+            Excel::import(new ProductsImport(), request()->file('file'));
+        } catch (ValidationException $exception) {
+            $failures = $exception->failures();
+            $errors = collect($failures)->map(function ($el) {
+                return __('ข้อมูลในแถวที่ :row คอลัมน์ :message', ['row' => $el->row(), 'message' => $el->errors()[0]]);
+            })->toArray();
 
-        return $this->jsonResponse();
+            return Redirect::back()->withErrors($errors);
+        }
+
+        return Redirect::back()->with('success', 'Save Success');
     }
 }

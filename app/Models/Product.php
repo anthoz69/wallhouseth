@@ -13,6 +13,7 @@ class Product extends Model
     protected $casts = [
         'attributes' => 'json',
         'other_image' => 'json',
+        'original_data' => 'json',
         'status' => ProductStatus::class,
     ];
 
@@ -31,6 +32,7 @@ class Product extends Model
         'kg',
         'status',
         'original_data',
+        'category_id',
     ];
 
     protected $appends = [
@@ -40,5 +42,10 @@ class Product extends Model
     public function getStatusLabelAttribute()
     {
         return ProductStatus::fromValue($this->status)->description;
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class);
     }
 }

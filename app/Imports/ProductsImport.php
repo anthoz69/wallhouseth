@@ -2,34 +2,70 @@
 
 namespace App\Imports;
 
+use App\Models\Category;
 use App\Models\Product;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ProductsImport implements ToModel, WithValidation
+class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithStartRow
 {
-    /**
-     * @param  array  $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
     public function model(array $row)
     {
+        $categories = explode(",", $row[5]);
+        $categoryIds = explode(",", $row[8]);
+//        $row[8] cate id
+
+        try {
+            $cat1 = Category::firstOrCreate([
+                'name' => $categories[0],
+            ], [
+                'name' => $categories[0],
+                'original_id' => $categoryIds[0] ?? 0,
+                'parent_category_id' => null,
+            ]);
+            $cateId = $cat1->id ?? null;
+            if (isset($categories[1])) {
+                $cat2 = Category::firstOrCreate([
+                    'name' => $categories[1],
+                ], [
+                    'name' => $categories[1],
+                    'original_id' => $categoryIds[1] ?? 0,
+                    'parent_category_id' => $cat1->id,
+                ]);
+                $cateId = $cat2->id ?? null;
+            }
+            if (isset($categories[2])) {
+                $cat3 = Category::firstOrCreate([
+                    'name' => $categories[2],
+                ], [
+                    'name' => $categories[2],
+                    'original_id' => $categoryIds[2] ?? 0,
+                    'parent_category_id' => $cat2->id,
+                ]);
+                $cateId = $cat3->id ?? null;
+            }
+        } catch (\Exception $e) {
+            $cateId = null;
+            dd($e->getMessage());
+        }
+
         return new Product([
             'sku' => $row[0],
-            'barcode' => $row[0],
-            'name' => $row[0],
-            'price' => $row[0],
-            'stock_available' => $row[0],
-            'attributes' => $row[0],
-            'main_image' => $row[0],
-            'other_image' => $row[0],
-            'width' => $row[0],
-            'length' => $row[0],
-            'height' => $row[0],
-            'kg' => $row[0],
-            'status' => $row[0],
-            'original_data' => $row[0],
+            'barcode' => $row[1],
+            'price' => $row[2],
+            'name' => $row[3],
+            'attributes' => $row[4],
+            'main_image' => $row[6],
+            'other_image' => explode("|", $row[7]),
+            'category_id' => $cateId,
+            'width' => $row[9] ?? 0,
+            'length' => $row[10] ?? 0,
+            'height' => $row[11] ?? 0,
+            'kg' => $row[12] ?? 0,
+            'original_data' => $row,
         ]);
     }
 
@@ -37,22 +73,22 @@ class ProductsImport implements ToModel, WithValidation
     {
         return [
             '0' => [
-                'required', 'numeric',
+                'required', 'alpha_num',
             ],
             '1' => [
                 'required', 'alpha_num', 'max:255',
             ],
             '2' => [
-                'required', 'string', 'max:255',
+                'required', 'numeric',
             ],
             '3' => [
-                'required', 'numeric', 'min:0',
+                'required', 'string',
             ],
             '4' => [
-                'required', 'min:0',
+                'required', 'string',
             ],
             '5' => [
-                'nullable', 'string',
+                'required', 'string',
             ],
             '6' => [
                 'required', 'string',
@@ -60,6 +96,26 @@ class ProductsImport implements ToModel, WithValidation
             '7' => [
                 'required', 'string',
             ],
+            '8' => [
+                'required', 'string',
+            ],
+            '9' => [
+                'nullable', 'numeric',
+            ],
+            '10' => [
+                'nullable', 'numeric',
+            ],
+            '11' => [
+                'nullable', 'numeric',
+            ],
+            '12' => [
+                'nullable', 'numeric',
+            ],
         ];
+    }
+
+    public function startRow(): int
+    {
+        return 2;
     }
 }

@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->decimal('kg')->default(0);
             $table->string('status')->default(ProductStatus::WaitForTranslate)->index();
             $table->foreignId('category_id')->nullable()->constrained();
-            $table->json('original_data');
+            $table->json('original_data')->nullable();
             $table->timestamps();
         });
     }
