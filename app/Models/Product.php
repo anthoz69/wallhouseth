@@ -41,6 +41,10 @@ class Product extends Model
 
     public function getStatusLabelAttribute()
     {
+        if (! $this->status) {
+            return '';
+        }
+
         return ProductStatus::fromValue($this->status)->description;
     }
 

@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue'
 import Pagination from '@/Components/Pagination.vue'
 import {Link} from '@inertiajs/inertia-vue3'
+import PrimaryButton from '@/Components/PrimaryButton.vue'
 
 const props = defineProps({
     products: Object
@@ -10,6 +11,9 @@ const props = defineProps({
 
 <template>
     <AppLayout title="รายการสินค้า">
+        <div class="flex justify-end mb-3">
+            <Link class="btn btn-sm" :href="route('backoffice.products.create')">Create</Link>
+        </div>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 รายการสินค้า

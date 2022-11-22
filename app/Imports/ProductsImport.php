@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -57,9 +58,11 @@ class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithSta
             'barcode' => $row[1],
             'price' => $row[2],
             'name' => $row[3],
-            'attributes' => $row[4],
-            'main_image' => $row[6],
-            'other_image' => explode("|", $row[7]),
+            'attributes' => explode(",", $row[4]),
+            'main_image' => 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $row[6]),
+            'other_image' => array_map(function ($image) {
+                return 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
+            }, explode("|", $row[7])),
             'category_id' => $cateId,
             'width' => $row[9] ?? 0,
             'length' => $row[10] ?? 0,
@@ -73,7 +76,7 @@ class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithSta
     {
         return [
             '0' => [
-                'required', 'alpha_num',
+                'required', 'alpha_num', 'unique:products,sku',
             ],
             '1' => [
                 'required', 'alpha_num', 'max:255',

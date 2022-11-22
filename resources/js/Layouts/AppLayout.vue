@@ -218,7 +218,7 @@ const logout = () => {
             </header>
 
             <!-- Page Content -->
-            <main class="max-w-7xl mx-auto mt-7 sm:px-6 lg:px-8">
+            <main class="max-w-7xl mx-auto mt-7 sm:px-6 lg:px-8 px-5">
                 <slot />
             </main>
         </div>
