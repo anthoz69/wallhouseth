@@ -2,15 +2,81 @@
 
 namespace App\Models;
 
+use \DateTimeInterface;
+use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
     use HasFactory;
+    use HasAdvancedFilter;
+    use SoftDeletes;
 
-    public function details()
+    public const PAYMENT_STATUS_SELECT = [
+        '1' => 'รอชำระเงิน',
+        '2' => 'รอตรวจสอบ',
+        '3' => 'ชำระแล้ว',
+    ];
+
+    public const STATUS_SELECT = [
+        '1' => 'รอตรวจสอบ',
+        '2' => 'เตรียมจัดส่ง',
+        '3' => 'จัดส่งแล้ว',
+    ];
+
+    public $table = 'orders';
+
+    public $orderable = [
+        'id',
+        'owner.name',
+        'owner.email',
+        'ref',
+        'status',
+        'payment_status',
+    ];
+
+    public $filterable = [
+        'id',
+        'owner.name',
+        'owner.email',
+        'ref',
+        'status',
+        'payment_status',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $fillable = [
+        'owner_id',
+        'ref',
+        'status',
+        'payment_status',
+        'tracking',
+    ];
+
+    public function owner()
     {
-        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function getStatusLabelAttribute($value)
+    {
+        return static::STATUS_SELECT[$this->status] ?? null;
+    }
+
+    public function getPaymentStatusLabelAttribute($value)
+    {
+        return static::PAYMENT_STATUS_SELECT[$this->payment_status] ?? null;
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 }

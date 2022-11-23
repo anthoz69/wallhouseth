@@ -2,52 +2,42 @@
 
 namespace App\Models;
 
+use \DateTimeInterface;
+use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
     use HasFactory;
+    use HasAdvancedFilter;
+    use SoftDeletes;
+
+    public $table = 'categories';
+
+    public $orderable = [
+        'id',
+        'name',
+    ];
+
+    public $filterable = [
+        'id',
+        'name',
+    ];
 
     protected $fillable = [
         'name',
-        'original_id',
-        'parent_category_id',
-        'original_data',
     ];
 
-    protected $casts = [
-        'original_data' => 'json',
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
-    // One level child
-    public function child(): HasMany
+    protected function serializeDate(DateTimeInterface $date)
     {
-        return $this->hasMany(self::class, 'parent_category_id');
-    }
-
-    // Recursive children
-    public function children(): HasMany
-    {
-        return $this->hasMany(self::class, 'parent_category_id')->with('children');
-    }
-
-    // One level parent
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(self::class, 'parent_category_id');
-    }
-
-    // Recursive parents
-    public function parents(): BelongsTo
-    {
-        return $this->belongsTo(self::class, 'parent_category_id')->with('parent');
-    }
-
-    public function products(): HasMany
-    {
-        return $this->hasMany(Product::class, 'category_id', 'id');
+        return $date->format('Y-m-d H:i:s');
     }
 }

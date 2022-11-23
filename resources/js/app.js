@@ -1,41 +1,47 @@
-import './bootstrap';
-import '../css/app.css';
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
 
-import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+require('./bootstrap')
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+/* Sidebar - Side navigation menu on mobile/responsive mode */
+window.toggleNavbar = function (collapseID) {
+  document.getElementById(collapseID).classList.toggle('hidden')
+  document.getElementById(collapseID).classList.toggle('bg-white')
+  document.getElementById(collapseID).classList.toggle('m-2')
+  document.getElementById(collapseID).classList.toggle('py-3')
+  document.getElementById(collapseID).classList.toggle('px-6')
+}
 
-import.meta.glob([
-    '../assets/**'
-])
+/* Opens sidebar navigation that contains sub-items */
+window.openSubNav = function (el) {
+  el.nextElementSibling.classList.toggle('hidden')
+}
 
-createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
-    setup({ el, app, props, plugin }) {
-        const instant = createApp({ render: () => h(app, props) })
-            .use(plugin)
-            .use(ZiggyVue, Ziggy)
+window.initialSubNavLoad = function () {
+  document.getElementsByClassName('has-sub sidebar-nav-active').forEach(function(el) {
+    window.openSubNav(el)
+  })
+}
 
-        instant.config.globalProperties.$currency = (number) => {
-            const formatter = new Intl.NumberFormat('th', {
-                style: 'currency',
-                currency: 'THB',
-            })
+/* Opens sidebar navigation that contains sub-items */
+initialSubNavLoad()
 
-            return formatter.format(number)
-        }
+/* Function for dropdowns */
+window.openDropdown = function openDropdown(event, dropdownID) {
+  let element = event.target;
+  while (element.nodeName !== "A") {
+    element = element.parentNode;
+  }
+  Popper.createPopper(element, document.getElementById(dropdownID), {
+    placement: "bottom-start",
+  });
+  document.getElementById(dropdownID).classList.toggle("hidden");
+  document.getElementById(dropdownID).classList.toggle("block");
 
-        instant.config.globalProperties.$comma = (number) => {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
-
-        return instant.mount(el)
-    },
-});
-
-InertiaProgress.init({ color: '#4B5563' });
+  if (dropdownID == 'nav-notification-dropdown') {
+    fetch('/admin/user-alerts/seen')
+  }
+}
