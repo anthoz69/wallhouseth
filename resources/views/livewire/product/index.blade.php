@@ -65,8 +65,8 @@
                             @include('components.table.sort', ['field' => 'stock_available'])
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.attributes') }}
-                            @include('components.table.sort', ['field' => 'attributes'])
+                            {{ trans('cruds.product.fields.features') }}
+                            @include('components.table.sort', ['field' => 'features'])
                         </th>
                         <th>
                             {{ trans('cruds.product.fields.main_image') }}
@@ -123,7 +123,7 @@
                                 {{ $product->stock_available }}
                             </td>
                             <td>
-                                {{ $product->attributes }}
+                                {{ $product->features_label }}
                             </td>
                             <td>
                                 @foreach($product->main_image as $key => $entry)

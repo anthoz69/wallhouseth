@@ -67,10 +67,10 @@
                         </tr>
                         <tr>
                             <th>
-                                {{ trans('cruds.product.fields.attributes') }}
+                                {{ trans('cruds.product.fields.features') }}
                             </th>
                             <td>
-                                {{ $product->attributes }}
+                                {{ $product->features }}
                             </td>
                         </tr>
                         <tr>

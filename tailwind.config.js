@@ -18,7 +18,21 @@ module.exports = {
         blueGray: colors.blueGray,
         lightBlue: colors.sky,
         orange: colors.orange,
-        red: colors.red
+        red: colors.red,
+        primary: {
+            300: 'rgb(47,75,192)',
+            400: 'rgb(40, 58, 151)',
+            500: 'rgb(33,51,141)',
+        },
+        second: {
+            300: '#FFF200',
+            400: '#FFCF01',
+            500: '#FFC20E',
+            600: '#FDB913',
+            700: '#FCAF17',
+            800: '#FAA61A',
+            900: '#F99D1C',
+        },
       },
       minHeight: {
         'screen-75': '75vh'

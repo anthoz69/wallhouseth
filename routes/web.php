@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Product
     Route::post('products/media', [ProductController::class, 'storeMedia'])->name('products.storeMedia');
+    Route::get('products/import', [ProductController::class, 'import'])->name('products.import');
     Route::resource('products', ProductController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Category

@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->decimal('price', 15, 2);
             $table->integer('stock_available')->nullable();
-            $table->longText('attributes')->nullable();
+            $table->longText('features')->nullable();
             $table->float('width', 15, 2)->nullable();
             $table->float('length', 15, 2)->nullable();
             $table->float('height', 15, 2)->nullable();

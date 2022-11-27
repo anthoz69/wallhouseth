@@ -34,7 +34,7 @@ class Product extends Model implements HasMedia
         'name',
         'price',
         'stock_available',
-        'attributes',
+        'features',
         'width',
         'length',
         'height',
@@ -49,7 +49,7 @@ class Product extends Model implements HasMedia
         'name',
         'price',
         'stock_available',
-        'attributes',
+        'features',
         'width',
         'length',
         'height',
@@ -68,26 +68,33 @@ class Product extends Model implements HasMedia
         'deleted_at',
     ];
 
+    protected $casts = [
+        'features' => 'json',
+        'other_image' => 'json',
+        'original_data' => 'json',
+    ];
+
     protected $fillable = [
         'sku',
         'barcode',
         'name',
         'price',
         'stock_available',
-        'attributes',
+        'features',
         'width',
         'length',
         'height',
         'kg',
         'status',
+        'original_data',
     ];
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $thumbnailWidth  = 50;
+        $thumbnailWidth = 50;
         $thumbnailHeight = 50;
 
-        $thumbnailPreviewWidth  = 120;
+        $thumbnailPreviewWidth = 120;
         $thumbnailPreviewHeight = 120;
 
         $this->addMediaConversion('thumbnail')
@@ -122,6 +129,15 @@ class Product extends Model implements HasMedia
 
             return $media;
         });
+    }
+
+    public function getFeaturesLabelAttribute()
+    {
+        if (empty($this->features)) {
+            return '';
+        }
+
+        return implode(", ", $this->features);
     }
 
     public function categories()

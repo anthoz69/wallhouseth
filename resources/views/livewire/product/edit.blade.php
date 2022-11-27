@@ -50,14 +50,14 @@
             {{ trans('cruds.product.fields.stock_available_helper') }}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('product.attributes') ? 'invalid' : '' }}">
-        <label class="form-label" for="attributes">{{ trans('cruds.product.fields.attributes') }}</label>
-        <textarea class="form-control" name="attributes" id="attributes" wire:model.defer="product.attributes" rows="4"></textarea>
+    <div class="form-group {{ $errors->has('product.features') ? 'invalid' : '' }}">
+        <label class="form-label" for="features">{{ trans('cruds.product.fields.features') }}</label>
+        <textarea class="form-control" name="features" id="features" wire:model.defer="product.features" rows="4"></textarea>
         <div class="validation-message">
-            {{ $errors->first('product.attributes') }}
+            {{ $errors->first('product.features') }}
         </div>
         <div class="help-block">
-            {{ trans('cruds.product.fields.attributes_helper') }}
+            {{ trans('cruds.product.fields.features_helper') }}
         </div>
     </div>
     <div class="form-group {{ $errors->has('mediaCollections.product_main_image') ? 'invalid' : '' }}">

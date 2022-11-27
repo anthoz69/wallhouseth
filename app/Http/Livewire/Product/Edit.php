@@ -28,7 +28,8 @@ class Edit extends Component
     {
         $collection = collect($this->mediaCollections[$media['collection_name']]);
 
-        $this->mediaCollections[$media['collection_name']] = $collection->reject(fn ($item) => $item['uuid'] === $media['uuid'])->toArray();
+        $this->mediaCollections[$media['collection_name']] = $collection->reject(fn($item
+        ) => $item['uuid'] === $media['uuid'])->toArray();
 
         $this->mediaToRemove[] = $media['uuid'];
     }
@@ -40,11 +41,11 @@ class Edit extends Component
 
     public function mount(Product $product)
     {
-        $this->product    = $product;
+        $this->product = $product;
         $this->categories = $this->product->categories()->pluck('id')->toArray();
         $this->initListsForFields();
         $this->mediaCollections = [
-            'product_main_image'  => $product->main_image,
+            'product_main_image' => $product->main_image,
             'product_other_image' => $product->other_image,
         ];
     }
@@ -68,8 +69,8 @@ class Edit extends Component
     protected function syncMedia(): void
     {
         collect($this->mediaCollections)->flatten(1)
-            ->each(fn ($item) => Media::where('uuid', $item['uuid'])
-            ->update(['model_id' => $this->product->id]));
+            ->each(fn($item) => Media::where('uuid', $item['uuid'])
+                ->update(['model_id' => $this->product->id]));
 
         Media::whereIn('uuid', $this->mediaToRemove)->delete();
     }
@@ -100,7 +101,7 @@ class Edit extends Component
                 'max:2147483647',
                 'nullable',
             ],
-            'product.attributes' => [
+            'product.features' => [
                 'string',
                 'nullable',
             ],
@@ -154,6 +155,6 @@ class Edit extends Component
     protected function initListsForFields(): void
     {
         $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
-        $this->listsForFields['status']     = $this->product::STATUS_SELECT;
+        $this->listsForFields['status'] = $this->product::STATUS_SELECT;
     }
 }

@@ -50,7 +50,7 @@ class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithSta
             }
         } catch (\Exception $e) {
             $cateId = null;
-            dd($e->getMessage());
+            throw $e;
         }
 
         return new Product([
@@ -58,7 +58,7 @@ class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithSta
             'barcode' => $row[1],
             'price' => $row[2],
             'name' => $row[3],
-            'attributes' => explode(",", $row[4]),
+            'features' => explode(",", $row[4]),
             'main_image' => 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $row[6]),
             'other_image' => array_map(function ($image) {
                 return 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
@@ -69,6 +69,7 @@ class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithSta
             'height' => $row[11] ?? 0,
             'kg' => $row[12] ?? 0,
             'original_data' => $row,
+            'status' => 0,
         ]);
     }
 

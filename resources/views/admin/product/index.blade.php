@@ -9,11 +9,17 @@
                     {{ trans('global.list') }}
                 </h6>
 
-                @can('product_create')
-                    <a class="btn btn-indigo" href="{{ route('admin.products.create') }}">
-                        {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
+                <div>
+                    <a class="btn btn-indigo" href="{{ route('admin.products.import') }}">
+                        {{ trans('Import Excel') }}
                     </a>
-                @endcan
+
+                    @can('product_create')
+                        <a class="btn btn-indigo" href="{{ route('admin.products.create') }}">
+                            {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
+                        </a>
+                    @endcan
+                </div>
             </div>
         </div>
         @livewire('product.index')

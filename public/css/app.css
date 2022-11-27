@@ -85,6 +85,8 @@
     padding-bottom: 0.5rem;
     font-size: 0.75rem;
     line-height: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
     --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -131,17 +133,17 @@
 
 .btn.btn-indigo {
     --tw-bg-opacity: 1;
-    background-color: rgba(99, 102, 241, var(--tw-bg-opacity));
+    background-color: rgba(40, 58, 151, var(--tw-bg-opacity));
     --tw-text-opacity: 1;
     color: rgba(255, 255, 255, var(--tw-text-opacity))}
 
 .btn.btn-indigo:focus {
     --tw-ring-opacity: 1;
-    --tw-ring-color: rgba(99, 102, 241, var(--tw-ring-opacity))}
+    --tw-ring-color: rgba(47, 75, 192, var(--tw-ring-opacity))}
 
 .btn.btn-indigo:active {
     --tw-bg-opacity: 1;
-    background-color: rgba(79, 70, 229, var(--tw-bg-opacity))}
+    background-color: rgba(33, 51, 141, var(--tw-bg-opacity))}
 
 .btn.btn-secondary {
     --tw-bg-opacity: 1;
@@ -231,17 +233,16 @@
     --tw-bg-opacity: 1;
     background-color: rgba(225, 29, 72, var(--tw-bg-opacity))}
 
-
 .sidebar-nav-active {
     display: block;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
     --tw-text-opacity: 1;
-    color: rgba(236, 72, 153, var(--tw-text-opacity))}
+    color: rgba(40, 58, 151, var(--tw-text-opacity))}
 
 .sidebar-nav-active > i {
     margin-right: 0.5rem;
@@ -257,8 +258,8 @@
     display: block;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
     --tw-text-opacity: 1;
@@ -1046,9 +1047,6 @@ input[type=text].form-control:focus, input[type=email].form-control:focus, input
 html, body {
     font-family: 'Sarabun', sans-serif !important;
 }
-
-
-
 
 /*! tailwindcss v2.2.19 | MIT License | https://tailwindcss.com *//*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -2299,9 +2297,17 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
 }
+.bg-primary-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(40, 58, 151, var(--tw-bg-opacity));
+}
 .bg-blueGray-300 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(203, 213, 225, var(--tw-bg-opacity));
+}
+.bg-primary-300 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(47, 75, 192, var(--tw-bg-opacity));
 }
 .p-4 {
 	padding: 1rem;
