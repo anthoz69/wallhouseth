@@ -147,14 +147,6 @@
                                 {{ $product->status_label }}
                             </td>
                         </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.product.fields.original_data') }}
-                            </th>
-                            <td>
-                                {{ $product->original_data }}
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

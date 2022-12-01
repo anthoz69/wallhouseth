@@ -11,7 +11,7 @@ class Edit extends Component
 {
     public Product $product;
 
-    public array $categories = [];
+    public string $categories = '';
 
     public array $mediaToRemove = [];
 
@@ -42,7 +42,7 @@ class Edit extends Component
     public function mount(Product $product)
     {
         $this->product = $product;
-        $this->categories = $this->product->categories()->pluck('id')->toArray();
+        $this->categories = $this->product->categories()->first()->id;
         $this->initListsForFields();
         $this->mediaCollections = [
             'product_main_image' => $product->main_image,
@@ -139,12 +139,12 @@ class Edit extends Component
             ],
             'categories' => [
                 'required',
-                'array',
-            ],
-            'categories.*.id' => [
                 'integer',
-                'exists:categories,id',
             ],
+//            'categories.*.id' => [
+//                'integer',
+//                'exists:categories,id',
+//            ],
             'product.status' => [
                 'required',
                 'in:' . implode(',', array_keys($this->listsForFields['status'])),
@@ -154,7 +154,8 @@ class Edit extends Component
 
     protected function initListsForFields(): void
     {
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
+        $this->listsForFields['categories'] = Category::whereNull('category_id_map')
+            ->with(['children'])->get()->toArray();
         $this->listsForFields['status'] = $this->product::STATUS_SELECT;
     }
 }

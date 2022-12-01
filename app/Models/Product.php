@@ -59,7 +59,7 @@ class Product extends Model implements HasMedia
 
     protected $appends = [
         'main_image',
-        'other_image',
+//        'other_image',
     ];
 
     protected $dates = [
@@ -69,7 +69,6 @@ class Product extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'features' => 'json',
         'other_image' => 'json',
         'original_data' => 'json',
     ];
@@ -97,14 +96,14 @@ class Product extends Model implements HasMedia
         $thumbnailPreviewWidth = 120;
         $thumbnailPreviewHeight = 120;
 
-        $this->addMediaConversion('thumbnail')
-            ->width($thumbnailWidth)
-            ->height($thumbnailHeight)
-            ->fit('crop', $thumbnailWidth, $thumbnailHeight);
-        $this->addMediaConversion('preview_thumbnail')
-            ->width($thumbnailPreviewWidth)
-            ->height($thumbnailPreviewHeight)
-            ->fit('crop', $thumbnailPreviewWidth, $thumbnailPreviewHeight);
+//        $this->addMediaConversion('thumbnail')
+//            ->width($thumbnailWidth)
+//            ->height($thumbnailHeight)
+//            ->fit('crop', $thumbnailWidth, $thumbnailHeight);
+//        $this->addMediaConversion('preview_thumbnail')
+//            ->width($thumbnailPreviewWidth)
+//            ->height($thumbnailPreviewHeight)
+//            ->fit('crop', $thumbnailPreviewWidth, $thumbnailPreviewHeight);
     }
 
     public function getMainImageAttribute()
@@ -112,8 +111,8 @@ class Product extends Model implements HasMedia
         return $this->getMedia('product_main_image')->map(function ($item) {
             $media = $item->toArray();
             $media['url'] = $item->getUrl();
-            $media['thumbnail'] = $item->getUrl('thumbnail');
-            $media['preview_thumbnail'] = $item->getUrl('preview_thumbnail');
+            $media['thumbnail'] = $item->getUrl();
+            $media['preview_thumbnail'] = $item->getUrl();
 
             return $media;
         });
@@ -124,20 +123,11 @@ class Product extends Model implements HasMedia
         return $this->getMedia('product_other_image')->map(function ($item) {
             $media = $item->toArray();
             $media['url'] = $item->getUrl();
-            $media['thumbnail'] = $item->getUrl('thumbnail');
-            $media['preview_thumbnail'] = $item->getUrl('preview_thumbnail');
+            $media['thumbnail'] = $item->getUrl();
+            $media['preview_thumbnail'] = $item->getUrl();
 
             return $media;
         });
-    }
-
-    public function getFeaturesLabelAttribute()
-    {
-        if (empty($this->features)) {
-            return '';
-        }
-
-        return implode(", ", $this->features);
     }
 
     public function categories()

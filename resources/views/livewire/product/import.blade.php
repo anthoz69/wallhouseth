@@ -1,13 +1,17 @@
 <form wire:submit.prevent="submit" class="pt-3" action="">
-    <div class="form-group {{ $errors->has('file') ? 'invalid' : '' }}">
+    <div class="form-group">
+        <label class="form-label">ตัวอย่างไฟล์</label>
+        <div>
+            <a class="btn bg-second-600 text-white" href="{{ route('admin.excel-download') }}">ดาวโหลด</a>
+        </div>
+    </div>
+    <div class="form-group mt-7 {{ $errors->has('file') || $errors->has('error_rows') ? 'invalid' : '' }}">
         <label class="form-label required" for="file">{{ trans('cruds.product.fields.excel') }}</label>
         <input class="form-control" type="file" name="file" id="file" required wire:model="file">
-        <div class="validation-message">
+        <div class="validation-message mt-2">
             {{ $errors->first('file') }}
             @if($errors->has('error_rows'))
-                @foreach($errors->first('error_rows') as $err)
-                    <span>{{ $err }}</span>
-                @endforeach
+                <span>{{ $errors->first('error_rows') }}</span>
             @endif
         </div>
         <div class="help-block">

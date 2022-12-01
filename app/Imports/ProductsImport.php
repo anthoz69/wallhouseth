@@ -2,49 +2,55 @@
 
 namespace App\Imports;
 
+use App\Jobs\ConvertProductToPublish;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Row;
 
-class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithStartRow
+class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, OnEachRow
 {
-    public function model(array $row)
+    public array $datas = [];
+
+    public function onRow(Row $row)
     {
+        $row = $row->toArray();
         $categories = explode(",", $row[5]);
         $categoryIds = explode(",", $row[8]);
 //        $row[8] cate id
 
         try {
             $cat1 = Category::firstOrCreate([
-                'name' => $categories[0],
+                'name' => trim($categories[0]),
             ], [
-                'name' => $categories[0],
-                'original_id' => $categoryIds[0] ?? 0,
-                'parent_category_id' => null,
+                'name' => trim($categories[0]),
+                'original_data' => $categoryIds[0] ?? 0,
+                'category_id_map' => null,
             ]);
             $cateId = $cat1->id ?? null;
             if (isset($categories[1])) {
                 $cat2 = Category::firstOrCreate([
-                    'name' => $categories[1],
+                    'name' => trim($categories[1]),
                 ], [
-                    'name' => $categories[1],
-                    'original_id' => $categoryIds[1] ?? 0,
-                    'parent_category_id' => $cat1->id,
+                    'name' => trim($categories[1]),
+                    'original_data' => $categoryIds[1] ?? 0,
+                    'category_id_map' => $cat1->id,
                 ]);
                 $cateId = $cat2->id ?? null;
             }
             if (isset($categories[2])) {
                 $cat3 = Category::firstOrCreate([
-                    'name' => $categories[2],
+                    'name' => trim($categories[2]),
                 ], [
-                    'name' => $categories[2],
-                    'original_id' => $categoryIds[2] ?? 0,
-                    'parent_category_id' => $cat2->id,
+                    'name' => trim($categories[2]),
+                    'original_data' => $categoryIds[2] ?? 0,
+                    'category_id_map' => $cat2->id,
                 ]);
                 $cateId = $cat3->id ?? null;
             }
@@ -53,24 +59,26 @@ class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithSta
             throw $e;
         }
 
-        return new Product([
+        $product = Product::create([
             'sku' => $row[0],
             'barcode' => $row[1],
             'price' => $row[2],
-            'name' => $row[3],
-            'features' => explode(",", $row[4]),
-            'main_image' => 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $row[6]),
-            'other_image' => array_map(function ($image) {
-                return 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
-            }, explode("|", $row[7])),
-            'category_id' => $cateId,
-            'width' => $row[9] ?? 0,
-            'length' => $row[10] ?? 0,
-            'height' => $row[11] ?? 0,
-            'kg' => $row[12] ?? 0,
+            'stock_available' => $this->onEmpty($row[13], 0),
+            'name' => $this->onEmpty(trim($row[3])),
+            'features' => $this->onEmpty(trim($row[4])),
+            'width' => $this->onEmpty($row[9], 0),
+            'length' => $this->onEmpty($row[10], 0),
+            'height' => $this->onEmpty($row[11], 0),
+            'kg' => $this->onEmpty($row[12], 0),
             'original_data' => $row,
             'status' => 0,
         ]);
+
+        $product->categories()->attach($cateId);
+
+        $this->datas[] = $product;
+
+        return $product;
     }
 
     public function rules(): array
@@ -115,11 +123,28 @@ class ProductsImport implements ToModel, WithValidation, SkipsEmptyRows, WithSta
             '12' => [
                 'nullable', 'numeric',
             ],
+            '13' => [
+                'nullable', 'numeric',
+            ],
         ];
     }
 
     public function startRow(): int
     {
         return 2;
+    }
+
+    public function customValidationAttributes()
+    {
+        return ['0' => 'sku'];
+    }
+
+    public function onEmpty($value, $default = null)
+    {
+        if (empty($value)) {
+            return $default;
+        }
+
+        return $value;
     }
 }

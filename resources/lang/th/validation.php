@@ -104,7 +104,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => ':attribute ต้องจัดเรียงเป็นแถว',
     'timezone' => ':attribute ต้องเป็นโซนที่ถูกต้อง',
-    'unique' => ':attribute ถูกเลือกไปแล้ว',
+    'unique' => ':attribute ซ้ำในฐานข้อมูล',
     'uploaded' => ':attribute อัพโหลดไม่สำเร็จ',
     'url' => ':attribute ฟอร์แมทไม่ถูกต้อง',
     'uuid' => 'The :attribute must be a valid UUID.',

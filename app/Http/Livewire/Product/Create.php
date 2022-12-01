@@ -11,7 +11,7 @@ class Create extends Component
 {
     public Product $product;
 
-    public array $categories = [];
+    public string $categories = '';
 
     public array $mediaToRemove = [];
 
@@ -57,7 +57,7 @@ class Create extends Component
         $this->validate();
 
         $this->product->save();
-        $this->product->categories()->sync($this->categories);
+        $this->product->categories()->sync([$this->categories]);
         $this->syncMedia();
 
         return redirect()->route('admin.products.index');
@@ -136,12 +136,12 @@ class Create extends Component
             ],
             'categories' => [
                 'required',
-                'array',
-            ],
-            'categories.*.id' => [
                 'integer',
-                'exists:categories,id',
             ],
+//            'categories.*.id' => [
+//                'integer',
+//                'exists:categories,id',
+//            ],
             'product.status' => [
                 'required',
                 'in:' . implode(',', array_keys($this->listsForFields['status'])),
@@ -151,7 +151,8 @@ class Create extends Component
 
     protected function initListsForFields(): void
     {
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
+        $this->listsForFields['categories'] = Category::whereNull('category_id_map')
+            ->with(['children'])->get()->toArray();
         $this->listsForFields['status'] = $this->product::STATUS_SELECT;
     }
 }

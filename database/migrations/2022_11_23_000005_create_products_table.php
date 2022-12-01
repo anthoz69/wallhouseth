@@ -14,12 +14,12 @@ class CreateProductsTable extends Migration
             $table->string('barcode')->nullable();
             $table->string('name');
             $table->decimal('price', 15, 2);
-            $table->integer('stock_available')->nullable();
+            $table->integer('stock_available')->default(0)->nullable();
             $table->longText('features')->nullable();
-            $table->float('width', 15, 2)->nullable();
-            $table->float('length', 15, 2)->nullable();
-            $table->float('height', 15, 2)->nullable();
-            $table->float('kg', 15, 2)->nullable();
+            $table->float('width', 15, 2)->default(0)->nullable();
+            $table->float('length', 15, 2)->default(0)->nullable();
+            $table->float('height', 15, 2)->default(0)->nullable();
+            $table->float('kg', 15, 2)->default(0)->nullable();
             $table->string('status');
             $table->longText('original_data')->nullable();
             $table->timestamps();

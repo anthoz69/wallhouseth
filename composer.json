@@ -9,6 +9,7 @@
         "dompdf/dompdf": "^1.2",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
+        "joggapp/laravel-google-translate": "^8.1",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
@@ -18,6 +19,7 @@
         "spatie/laravel-medialibrary": "^10.0.7"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.12",
         "fakerphp/faker": "^1.9.1",
         "laravel/dusk": "^6.22",
         "laravel/sail": "^1.16",
@@ -52,11 +54,18 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "helper": [
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:models -N",
+            "php artisan ide-helper:meta"
         ]
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "barryvdh/laravel-ide-helper"
+            ]
         }
     },
     "config": {

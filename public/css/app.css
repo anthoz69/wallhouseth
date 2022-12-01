@@ -2012,6 +2012,12 @@ select {
 .-ml-px {
 	margin-left: -1px;
 }
+.mt-5 {
+	margin-top: 1.25rem;
+}
+.mt-7 {
+	margin-top: 1.75rem;
+}
 .block {
 	display: block;
 }
@@ -2305,9 +2311,17 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(203, 213, 225, var(--tw-bg-opacity));
 }
-.bg-primary-300 {
+.bg-second-300 {
 	--tw-bg-opacity: 1;
-	background-color: rgba(47, 75, 192, var(--tw-bg-opacity));
+	background-color: rgba(255, 242, 0, var(--tw-bg-opacity));
+}
+.bg-second-800 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(250, 166, 26, var(--tw-bg-opacity));
+}
+.bg-second-600 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(253, 185, 19, var(--tw-bg-opacity));
 }
 .p-4 {
 	padding: 1rem;

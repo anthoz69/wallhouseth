@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Product;
 
 use App\Imports\ProductsImport;
+use App\Jobs\ConvertProductToPublish;
+use App\Models\Product;
+use Illuminate\Support\Facades\Bus;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
 use Livewire\Component;
@@ -19,13 +22,20 @@ class Import extends Component
         $this->validate();
 
         try {
-            Excel::import(new ProductsImport, $this->file);
+            $import = new ProductsImport;
+            Excel::import($import, $this->file);
+
+            foreach ($import->datas as $item) {
+                ConvertProductToPublish::dispatch($item->sku);
+            }
         } catch (ValidationException $e) {
             $failures = $e->failures();
             $errors = collect($failures)->map(function ($el) {
                 return __('ข้อมูลในแถวที่ :row คอลัมน์ :message', ['row' => $el->row(), 'message' => $el->errors()[0]]);
             })->toArray();
             $this->addError('error_rows', $errors);
+
+            return redirect()->back();
         }
 
         return redirect()->route('admin.products.index');

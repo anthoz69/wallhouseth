@@ -7,6 +7,7 @@ use App\Models\Product;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -71,5 +72,10 @@ class ProductController extends Controller
     public function import()
     {
         return view('admin.product.import');
+    }
+
+    public function download()
+    {
+        return Storage::download('import_template.xlsx');
     }
 }

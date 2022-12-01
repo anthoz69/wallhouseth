@@ -65,14 +65,7 @@
                             @include('components.table.sort', ['field' => 'stock_available'])
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.features') }}
-                            @include('components.table.sort', ['field' => 'features'])
-                        </th>
-                        <th>
                             {{ trans('cruds.product.fields.main_image') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.product.fields.other_image') }}
                         </th>
                         <th>
                             {{ trans('cruds.product.fields.width') }}
@@ -123,17 +116,7 @@
                                 {{ $product->stock_available }}
                             </td>
                             <td>
-                                {{ $product->features_label }}
-                            </td>
-                            <td>
                                 @foreach($product->main_image as $key => $entry)
-                                    <a class="link-photo" href="{{ $entry['url'] }}">
-                                        <img src="{{ $entry['thumbnail'] }}" alt="{{ $entry['name'] }}" title="{{ $entry['name'] }}">
-                                    </a>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach($product->other_image as $key => $entry)
                                     <a class="link-photo" href="{{ $entry['url'] }}">
                                         <img src="{{ $entry['thumbnail'] }}" alt="{{ $entry['name'] }}" title="{{ $entry['name'] }}">
                                     </a>

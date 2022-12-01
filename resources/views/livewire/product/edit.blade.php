@@ -122,7 +122,7 @@
     </div>
     <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
         <label class="form-label required" for="categories">{{ trans('cruds.product.fields.categories') }}</label>
-        <x-select-list class="form-control" required id="categories" name="categories" wire:model="categories" :options="$this->listsForFields['categories']" multiple />
+        <x-select-list2 class="form-control" required id="categories" name="categories" wire:model="categories" :options="$this->listsForFields['categories']" />
         <div class="validation-message">
             {{ $errors->first('categories') }}
         </div>

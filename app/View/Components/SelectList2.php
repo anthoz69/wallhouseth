@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SelectList extends Component
+class SelectList2 extends Component
 {
     public $options;
 
@@ -26,6 +26,6 @@ class SelectList extends Component
      */
     public function render()
     {
-        return view('components.select-list');
+        return view('components.select-list2');
     }
 }
