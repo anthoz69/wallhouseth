@@ -19,19 +19,29 @@ class Category extends Model
 
     public $table = 'categories';
 
+    public const STATUS_SELECT = [
+        '0' => 'รอแปลภาษา',
+        '1' => 'แสดง',
+    ];
+
     public $orderable = [
         'id',
         'name',
+        'category_id_map',
+        'status',
     ];
 
     public $filterable = [
         'id',
         'name',
+        'category_id_map',
+        'status',
     ];
 
     protected $fillable = [
         'name',
         'category_id_map',
+        'status',
         'original_data',
     ];
 

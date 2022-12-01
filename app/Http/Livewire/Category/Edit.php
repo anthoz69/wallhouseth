@@ -8,10 +8,13 @@ use Livewire\Component;
 class Edit extends Component
 {
     public Category $category;
+    public $listsForFields = [];
 
     public function mount(Category $category)
     {
         $this->category = $category;
+
+        $this->initListsForFields();
     }
 
     public function render()
@@ -35,6 +38,22 @@ class Edit extends Component
                 'string',
                 'required',
             ],
+            'category.category_id_map' => [
+                'string',
+                'nullable',
+            ],
+            'category.status' => [
+                'string',
+                'required',
+            ],
         ];
+    }
+
+    protected function initListsForFields(): void
+    {
+        $this->listsForFields['categories'] = Category::whereNull('category_id_map')
+            ->whereNot('id', $this->category->id)
+            ->with(['children'])->get()->toArray();
+        $this->listsForFields['status'] = $this->category::STATUS_SELECT;
     }
 }

@@ -27,6 +27,9 @@
             {{ $errors->first('product.name') }}
         </div>
         <div class="help-block">
+            @if(isset($product->original_data[3]))
+                {{ $product->original_data[3] }}
+            @endif
             {{ trans('cruds.product.fields.name_helper') }}
         </div>
     </div>
@@ -57,6 +60,10 @@
             {{ $errors->first('product.features') }}
         </div>
         <div class="help-block">
+            @if(isset($product->original_data[4]))
+                {{ $product->original_data[4] }}
+            @endif
+            <br>
             {{ trans('cruds.product.fields.features_helper') }}
         </div>
     </div>

@@ -35,10 +35,13 @@
                         </tr>
                         <tr>
                             <th>
-                                {{ trans('cruds.category.fields.original_data') }}
+                                {{ trans('cruds.category.fields.category_id_map') }}
                             </th>
                             <td>
-                                {{ $category->original_data }}
+                                {{ $category->parent->name }}
+                                <a href="{{ route('admin.categories.edit', $category->category_id_map) }}" class="btn btn-indigo mr-2">
+                                    {{ trans('global.edit') }}
+                                </a>
                             </td>
                         </tr>
                     </tbody>

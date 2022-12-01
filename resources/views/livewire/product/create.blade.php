@@ -130,24 +130,6 @@
             {{ trans('cruds.product.fields.categories_helper') }}
         </div>
     </div>
-{{--    <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">--}}
-{{--        <label class="form-label required">{{ trans('cruds.product.fields.categories') }}</label>--}}
-{{--        <select class="form-control" wire:model="categories">--}}
-{{--            <option value="null" disabled>{{ trans('global.pleaseSelect') }}...</option>--}}
-{{--            @foreach($this->listsForFields['categories'] as $category)--}}
-{{--                <option value="{{ $category['id'] }}"> {{ $category['name'] }}</option>--}}
-{{--                @if (count($category['children']))--}}
-{{--                    @include('livewire.product.select-category', ['category' => $category['children']])--}}
-{{--                @endif--}}
-{{--            @endforeach--}}
-{{--        </select>--}}
-{{--        <div class="validation-message">--}}
-{{--            {{ $errors->first('product.status') }}--}}
-{{--        </div>--}}
-{{--        <div class="help-block">--}}
-{{--            {{ trans('cruds.product.fields.status_helper') }}--}}
-{{--        </div>--}}
-{{--    </div>--}}
     <div class="form-group {{ $errors->has('product.status') ? 'invalid' : '' }}">
         <label class="form-label required">{{ trans('cruds.product.fields.status') }}</label>
         <select class="form-control" wire:model="product.status">

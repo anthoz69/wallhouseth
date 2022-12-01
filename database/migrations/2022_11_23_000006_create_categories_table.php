@@ -13,6 +13,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('category_id_map')->nullable();
             $table->longText('original_data')->nullable();
+            $table->unsignedSmallInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
