@@ -88,7 +88,7 @@
                 @endcan
                 @can('setting_access')
                     <li class="items-center">
-                        <a class="has-sub {{ request()->is("admin/slides*")||request()->is("admin/banners*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="#" onclick="window.openSubNav(this)">
+                        <a class="has-sub {{ request()->is("admin/slides*")||request()->is("admin/banners*")||request()->is("admin/popups*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="#" onclick="window.openSubNav(this)">
                             <i class="fa-fw fas c-sidebar-nav-icon fa-cogs">
                             </i>
                             {{ trans('cruds.setting.title') }}
@@ -109,6 +109,15 @@
                                         <i class="fa-fw c-sidebar-nav-icon fas fa-chalkboard-teacher">
                                         </i>
                                         {{ trans('cruds.banner.title') }}
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('popup_access')
+                                <li class="items-center">
+                                    <a class="{{ request()->is("admin/popups*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="{{ route("admin.popups.index") }}">
+                                        <i class="fa-fw c-sidebar-nav-icon fab fa-adversal">
+                                        </i>
+                                        {{ trans('cruds.popup.title') }}
                                     </a>
                                 </li>
                             @endcan
