@@ -305,4 +305,27 @@ return [
         'title' => 'ตั้งค่า',
         'title_singular' => 'ตั้งค่า',
     ],
+    'popup' => [
+        'title' => 'Popup',
+        'title_singular' => 'Popup',
+        'fields' => [
+            'id' => 'ID',
+            'id_helper' => ' ',
+            'key' => 'Key',
+            'key_helper' => ' ',
+            'bg' => 'Bg',
+            'bg_helper' => ' ',
+            'url' => 'Url',
+            'url_helper' => ' ',
+            'enable' => 'Enable',
+            'enable_helper' => ' ',
+            'created_at' => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at' => 'Updated at',
+            'updated_at_helper' => ' ',
+            'deleted_at' => 'Deleted at',
+            'deleted_at_helper' => ' ',
+        ],
+    ],
+
 ];

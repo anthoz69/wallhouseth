@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderDetailController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PopupController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SlideController;
@@ -60,6 +61,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Order Detail
     Route::resource('order-details', OrderDetailController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Popup
+    Route::post('popups/media', [PopupController::class, 'storeMedia'])->name('popups.storeMedia');
+    Route::resource('popups', PopupController::class, ['except' => ['store', 'update', 'destroy']]);
 });
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth']], function () {
