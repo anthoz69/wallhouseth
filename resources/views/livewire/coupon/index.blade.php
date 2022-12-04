@@ -57,6 +57,10 @@
                             @include('components.table.sort', ['field' => 'amount'])
                         </th>
                         <th>
+                            {{ trans('cruds.coupon.fields.price') }}
+                            @include('components.table.sort', ['field' => 'price'])
+                        </th>
+                        <th>
                         </th>
                     </tr>
                 </thead>
@@ -77,6 +81,9 @@
                             </td>
                             <td>
                                 {{ $coupon->amount }}
+                            </td>
+                            <td>
+                                {{ number_format($coupon->price) }}
                             </td>
                             <td>
                                 <div class="flex justify-end">

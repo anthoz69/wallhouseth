@@ -12,7 +12,8 @@ class CreateCouponsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('code')->unique();
-            $table->integer('amount');
+            $table->integer('amount')->default(0);
+            $table->integer('price')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

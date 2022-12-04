@@ -31,6 +31,17 @@
         </div>
     </div>
 
+    <div class="form-group {{ $errors->has('coupon.price') ? 'invalid' : '' }}">
+        <label class="form-label required" for="price">{{ trans('cruds.coupon.fields.price') }}</label>
+        <input class="form-control" type="number" name="price" id="price" required wire:model.defer="coupon.price" step="1">
+        <div class="validation-message">
+            {{ $errors->first('coupon.price') }}
+        </div>
+        <div class="help-block">
+            {{ trans('cruds.coupon.fields.price_helper') }}
+        </div>
+    </div>
+
     <div class="form-group">
         <button class="btn btn-indigo mr-2" type="submit">
             {{ trans('global.save') }}

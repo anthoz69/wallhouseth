@@ -46,6 +46,12 @@ class Edit extends Component
                 'max:2147483647',
                 'required',
             ],
+            'coupon.price' => [
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+                'required',
+            ],
         ];
     }
 }

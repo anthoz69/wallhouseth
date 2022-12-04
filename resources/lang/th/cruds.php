@@ -147,6 +147,8 @@ return [
             'code_helper' => ' ',
             'amount' => 'จำนวน',
             'amount_helper' => ' ',
+            'price' => 'ส่่วนลด (บาท)',
+            'price_helper' => 'ราคาส่วนลดจะคำนวนจากยอดในใบเสร็จ และไม่รวมกับค่าขนส่ง',
             'created_at' => 'Created at',
             'created_at_helper' => ' ',
             'updated_at' => 'Updated at',

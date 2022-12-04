@@ -11,7 +11,7 @@ class Create extends Component
 
     public function mount(Coupon $coupon)
     {
-        $this->coupon         = $coupon;
+        $this->coupon = $coupon;
         $this->coupon->amount = '0';
     }
 
@@ -42,6 +42,12 @@ class Create extends Component
                 'unique:coupons,code',
             ],
             'coupon.amount' => [
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+                'required',
+            ],
+            'coupon.price' => [
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',

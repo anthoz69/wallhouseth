@@ -21,6 +21,7 @@ class Coupon extends Model
         'name',
         'code',
         'amount',
+        'price',
     ];
 
     public $filterable = [
@@ -28,12 +29,14 @@ class Coupon extends Model
         'name',
         'code',
         'amount',
+        'price',
     ];
 
     protected $fillable = [
         'name',
         'code',
         'amount',
+        'price',
     ];
 
     protected $dates = [
