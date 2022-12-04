@@ -14,12 +14,17 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserAddressController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\UserProfileController;
+use App\Http\Controllers\User\HomeController as UserHomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/login');
+Auth::routes(['register' => true]);
 
-Auth::routes(['register' => false]);
+
+Route::get('/', [UserHomeController::class, 'index']);
+
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth']], function () {
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
