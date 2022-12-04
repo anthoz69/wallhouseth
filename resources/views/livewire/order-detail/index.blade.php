@@ -44,6 +44,10 @@
                             {{ trans('cruds.orderDetail.fields.id') }}
                             @include('components.table.sort', ['field' => 'id'])
                         </th>
+                        <th class="w-28">
+                            {{ trans('cruds.orderDetail.fields.order') }}
+                            @include('components.table.sort', ['field' => 'order'])
+                        </th>
                         <th>
                             {{ trans('cruds.orderDetail.fields.amount') }}
                             @include('components.table.sort', ['field' => 'amount'])
@@ -64,6 +68,9 @@
                             </td>
                             <td>
                                 {{ $orderDetail->id }}
+                            </td>
+                            <td>
+                                <a class="text-blue-500 underline" href="{{ route('admin.orders.show', ['order' => $orderDetail->order]) }}">#{{ $orderDetail->order->id }}</a>
                             </td>
                             <td>
                                 {{ $orderDetail->amount }}

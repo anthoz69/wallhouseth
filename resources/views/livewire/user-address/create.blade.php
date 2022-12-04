@@ -80,6 +80,19 @@
             {{ trans('cruds.userAddress.fields.owner_helper') }}
         </div>
     </div>
+    <div class="form-group {{ $errors->has('userAddress.is_bill_same_address') ? 'invalid' : '' }}">
+        <label class="form-label required">{{ trans('cruds.userAddress.fields.is_bill_same_address') }}</label>
+        @foreach($this->listsForFields['is_bill_same_address'] as $key => $value)
+            <label class="radio-label"><input type="radio" name="is_bill_same_address" wire:model="userAddress.is_bill_same_address" value="{{ $key }}">{{ $value }}</label>
+        @endforeach
+        <div class="validation-message">
+            {{ $errors->first('userAddress.is_bill_same_address') }}
+        </div>
+        <div class="help-block">
+            {{ trans('cruds.userAddress.fields.is_bill_same_address_helper') }}
+        </div>
+    </div>
+
     <div class="form-group {{ $errors->has('userAddress.bill_address') ? 'invalid' : '' }}">
         <label class="form-label" for="bill_address">{{ trans('cruds.userAddress.fields.bill_address') }}</label>
         <textarea class="form-control" name="bill_address" id="bill_address" wire:model.defer="userAddress.bill_address" rows="4"></textarea>
@@ -140,18 +153,7 @@
             {{ trans('cruds.userAddress.fields.bill_phone_helper') }}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('userAddress.is_bill_same_address') ? 'invalid' : '' }}">
-        <label class="form-label required">{{ trans('cruds.userAddress.fields.is_bill_same_address') }}</label>
-        @foreach($this->listsForFields['is_bill_same_address'] as $key => $value)
-            <label class="radio-label"><input type="radio" name="is_bill_same_address" wire:model="userAddress.is_bill_same_address" value="{{ $key }}">{{ $value }}</label>
-        @endforeach
-        <div class="validation-message">
-            {{ $errors->first('userAddress.is_bill_same_address') }}
-        </div>
-        <div class="help-block">
-            {{ trans('cruds.userAddress.fields.is_bill_same_address_helper') }}
-        </div>
-    </div>
+
 
     <div class="form-group">
         <button class="btn btn-indigo mr-2" type="submit">

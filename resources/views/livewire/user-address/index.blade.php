@@ -45,6 +45,14 @@
                             @include('components.table.sort', ['field' => 'id'])
                         </th>
                         <th>
+                            {{ trans('cruds.userAddress.fields.owner') }}
+                            @include('components.table.sort', ['field' => 'owner.name'])
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.email') }}
+                            @include('components.table.sort', ['field' => 'owner.email'])
+                        </th>
+                        <th>
                             {{ trans('cruds.userAddress.fields.name') }}
                             @include('components.table.sort', ['field' => 'name'])
                         </th>
@@ -73,14 +81,6 @@
                             @include('components.table.sort', ['field' => 'phone'])
                         </th>
                         <th>
-                            {{ trans('cruds.userAddress.fields.owner') }}
-                            @include('components.table.sort', ['field' => 'owner.name'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.user.fields.email') }}
-                            @include('components.table.sort', ['field' => 'owner.email'])
-                        </th>
-                        <th>
                         </th>
                     </tr>
                 </thead>
@@ -92,6 +92,20 @@
                             </td>
                             <td>
                                 {{ $userAddress->id }}
+                            </td>
+                            <td>
+                                @if($userAddress->owner)
+                                    <a class="text-blue-500 underline" href="{{ route('admin.users.show', ['user' => $userAddress->owner]) }}">{{ $userAddress->owner->name ?? '' }}</a>
+                                @endif
+                            </td>
+                            <td>
+                                @if($userAddress->owner)
+                                    <a class="link-light-blue" href="mailto:{{ $userAddress->owner->email ?? '' }}">
+                                        <i class="far fa-envelope fa-fw">
+                                        </i>
+                                        {{ $userAddress->owner->email ?? '' }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 {{ $userAddress->name }}
@@ -113,20 +127,6 @@
                             </td>
                             <td>
                                 {{ $userAddress->phone }}
-                            </td>
-                            <td>
-                                @if($userAddress->owner)
-                                    <span class="badge badge-relationship">{{ $userAddress->owner->name ?? '' }}</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if($userAddress->owner)
-                                    <a class="link-light-blue" href="mailto:{{ $userAddress->owner->email ?? '' }}">
-                                        <i class="far fa-envelope fa-fw">
-                                        </i>
-                                        {{ $userAddress->owner->email ?? '' }}
-                                    </a>
-                                @endif
                             </td>
                             <td>
                                 <div class="flex justify-end">

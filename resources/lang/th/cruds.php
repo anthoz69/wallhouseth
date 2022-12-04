@@ -246,7 +246,7 @@ return [
             'bill_phone' => 'เบอร์โทร',
             'bill_phone_helper' => ' ',
             'is_bill_same_address' => 'ที่อยู่ออกใบเสร็จ',
-            'is_bill_same_address_helper' => ' ',
+            'is_bill_same_address_helper' => 'หากเลือกที่อยู่อื่นกรุณากรอกด้านล่าง',
         ],
     ],
     'order' => [
