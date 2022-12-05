@@ -4,6 +4,7 @@ namespace App\Models;
 
 use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,6 +18,14 @@ class Slide extends Model implements HasMedia
     use HasAdvancedFilter;
     use SoftDeletes;
     use InteractsWithMedia;
+
+    protected static function booted()
+    {
+        static::addGlobalScope('seq', function (Builder $builder) {
+            $builder->orderBy('sort')
+                ->oldest();
+        });
+    }
 
     public const NEW_TAB_RADIO = [
         '1' => 'New Tab',
@@ -61,10 +70,10 @@ class Slide extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $thumbnailWidth  = 50;
+        $thumbnailWidth = 50;
         $thumbnailHeight = 50;
 
-        $thumbnailPreviewWidth  = 120;
+        $thumbnailPreviewWidth = 120;
         $thumbnailPreviewHeight = 120;
 
         $this->addMediaConversion('thumbnail')
@@ -99,8 +108,18 @@ class Slide extends Model implements HasMedia
         return static::NEW_TAB_RADIO[$this->new_tab] ?? null;
     }
 
+    public function getIsNewTabAttribute()
+    {
+        return $this->new_tab == "1";
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function scopeIsEnable($query)
+    {
+        return $query->where('enable', 1);
     }
 }

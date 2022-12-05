@@ -7,6 +7,7 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -17,6 +18,13 @@ class Popup extends Model implements HasMedia
     use HasAdvancedFilter;
     use SoftDeletes;
     use InteractsWithMedia;
+
+    protected static function booted()
+    {
+        static::saving(function ($popup) {
+            $popup->key = Str::random();
+        });
+    }
 
     public const ENABLE_RADIO = [
         '1' => 'ปิด',
@@ -54,10 +62,10 @@ class Popup extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $thumbnailWidth  = 50;
+        $thumbnailWidth = 50;
         $thumbnailHeight = 50;
 
-        $thumbnailPreviewWidth  = 120;
+        $thumbnailPreviewWidth = 120;
         $thumbnailPreviewHeight = 120;
 
         $this->addMediaConversion('thumbnail')
@@ -90,5 +98,10 @@ class Popup extends Model implements HasMedia
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function scopeIsEnable($query)
+    {
+        return $query->where('enable', 2);
     }
 }

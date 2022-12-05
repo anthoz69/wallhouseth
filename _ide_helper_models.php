@@ -54,6 +54,7 @@ namespace App\Models{
  * @property string $name
  * @property string|null $category_id_map
  * @property string|null $original_data
+ * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -76,6 +77,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereOriginalData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
@@ -91,6 +93,7 @@ namespace App\Models{
  * @property string $name
  * @property string $code
  * @property int $amount
+ * @property int $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -105,6 +108,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Coupon withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Coupon withoutTrashed()
@@ -214,6 +218,39 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Popup
+ *
+ * @property int $id
+ * @property string|null $key
+ * @property string $url
+ * @property string $enable
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $bg
+ * @property-read mixed $enable_label
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup advancedFilter($data)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Popup onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup whereEnable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|Popup withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Popup withoutTrashed()
+ */
+	class Popup extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Product
  *
  * @property int $id
@@ -311,6 +348,7 @@ namespace App\Models{
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
  * @method static \Illuminate\Database\Eloquent\Builder|Slide advancedFilter($data)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slide isEnable()
  * @method static \Illuminate\Database\Eloquent\Builder|Slide newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Slide newQuery()
  * @method static \Illuminate\Database\Query\Builder|Slide onlyTrashed()
