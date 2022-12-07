@@ -127,7 +127,8 @@
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
     <script>
-        @if (!empty($popup) && ($popup->key !== cookie()->get('popup_key')))
+        @dd(cookie('popup_key')->getValue())
+        @if (!empty($popup) && ($popup->key !== cookie('popup_key')))
         function setCookie(cName, cValue, expDays) {
             let date = new Date();
             date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
