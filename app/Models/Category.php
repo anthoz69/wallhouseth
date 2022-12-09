@@ -7,6 +7,7 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use phpDocumentor\Reflection\Types\Collection;
@@ -77,9 +78,14 @@ class Category extends Model
         return $this->belongsTo(self::class, 'category_id_map')->with('parent');
     }
 
-    public function products(): HasMany
+    public function products(): BelongsToMany
     {
-        return $this->hasMany(Product::class, 'category_id', 'id');
+        return $this->belongsToMany(Product::class);
+    }
+
+    public function scopeOnlyParent($query)
+    {
+        return $query->where('category_id_map', null);
     }
 
     protected function serializeDate(DateTimeInterface $date)

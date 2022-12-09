@@ -77,6 +77,7 @@ class Product extends Model implements HasMedia
         'sku',
         'barcode',
         'name',
+        'image',
         'price',
         'stock_available',
         'features',

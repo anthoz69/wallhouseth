@@ -13,6 +13,7 @@ class CreateProductsTable extends Migration
             $table->string('sku')->unique();
             $table->string('barcode')->nullable();
             $table->string('name');
+            $table->string('image')->nullable();
             $table->decimal('price', 15, 2);
             $table->integer('stock_available')->default(0)->nullable();
             $table->longText('features')->nullable();

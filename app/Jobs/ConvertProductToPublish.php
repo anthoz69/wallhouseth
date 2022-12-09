@@ -78,6 +78,7 @@ class ConvertProductToPublish implements ShouldQueue
         $product->name = $translateResponse->firstWhere('source_text',
             $originalData[3])['translated_text'] ?? $originalData[3];
         $product->features = implode(", ", $features);
+        $product->image = str_replace(config('app.url'), '', $product->getFirstMediaUrl('product_main_image'));
         $product->status = 2;
         $product->save();
     }

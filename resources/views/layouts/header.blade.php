@@ -156,9 +156,9 @@
                                         <div class="mobile-back text-end">Back<i class="fa fa-angle-right ps-2"
                                                 aria-hidden="true"></i></div>
                                     </li>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="/">หน้าแรก</a></li>
                                     <li class="mega" id="hover-cls">
-                                        <a href="#">feature <div class="lable-nav">new</div></a>
+                                        <a href="#">หมวดหมู่</a>
                                         <ul class="mega-menu full-mega-menu">
                                             <li>
                                                 <div class="container">
@@ -166,7 +166,7 @@
                                                         <div class="col mega-box">
                                                             <div class="link-section">
                                                                 <div class="menu-title">
-                                                                    <h5>invoice template</h5>
+                                                                    <h5>หมวด 1</h5>
                                                                 </div>
                                                                 <div class="menu-content">
                                                                     <ul>
@@ -339,7 +339,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">shop</a>
+                                        <a href="#">บัญชีของฉัน</a>
                                         <ul>
                                             <li><a href="category-page(vegetables).html">tab style<span
                                                         class="new-tag">new</span></a></li>
@@ -392,25 +392,6 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="onhover-div mobile-setting">
-                                        <div><img src="../assets/images/icon/setting.png"
-                                                class="img-fluid blur-up lazyload" alt=""> <i
-                                                class="ti-settings"></i></div>
-                                        <div class="show-div setting">
-                                            <h6>language</h6>
-                                            <ul>
-                                                <li><a href="#">english</a></li>
-                                                <li><a href="#">french</a></li>
-                                            </ul>
-                                            <h6>currency</h6>
-                                            <ul class="list-inline">
-                                                <li><a href="#">euro</a></li>
-                                                <li><a href="#">rupees</a></li>
-                                                <li><a href="#">pound</a></li>
-                                                <li><a href="#">doller</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
                                     <li class="onhover-div mobile-cart">
                                         <div><img src="../assets/images/icon/cart.png"
                                                 class="img-fluid blur-up lazyload" alt=""> <i
@@ -450,8 +431,10 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="buttons"><a href="cart.html" class="view-cart">view
-                                                        cart</a> <a href="#" class="checkout">checkout</a></div>
+                                                <div class="buttons">
+                                                    <a href="cart.html" class="view-cart">view cart</a>
+                                                    <a href="#" class="checkout">checkout</a>
+                                                </div>
                                             </li>
                                         </ul>
                                     </li>

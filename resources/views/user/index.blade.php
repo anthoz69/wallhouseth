@@ -27,12 +27,6 @@
     <!-- collection banner end -->
 
     <div>
-        @include('components.user.section-category-product', ['category' => ''])
-    </div>
-    <div>
-        @include('components.user.section-category-product', ['category' => ''])
-    </div>
-    <div>
-        @include('components.user.section-category-product', ['category' => ''])
+        @include('components.user.section-category-product', ['category' => $categorySection1])
     </div>
 @endsection

@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "darryldecode/cart": "^4.2",
         "dompdf/dompdf": "^1.2",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
@@ -16,7 +17,8 @@
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "^1.0",
-        "spatie/laravel-medialibrary": "^10.0.7"
+        "spatie/laravel-medialibrary": "^10.0.7",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",

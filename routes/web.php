@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserAddressController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\UserProfileController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\HomeController as UserHomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,15 @@ Auth::routes(['register' => true]);
 
 
 Route::get('/', [UserHomeController::class, 'index']);
+Route::get('cart', [CartController::class, 'index'])
+    ->name('cart');
+Route::get('checkout', [CheckoutController::class, 'index'])
+    ->name('checkout');
+
+Route::get('products', [\App\Http\Controllers\User\ProductController::class, 'index'])
+    ->name('products.index');
+Route::get('products/{product}', [\App\Http\Controllers\User\ProductController::class, 'show'])
+    ->name('products.show');
 
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard']);

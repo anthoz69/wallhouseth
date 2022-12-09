@@ -27,7 +27,7 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
 
         try {
             $cat1 = Category::firstOrCreate([
-                'name' => trim($categories[0]),
+                'original_data' => trim($categoryIds[0]),
             ], [
                 'name' => trim($categories[0]),
                 'original_data' => $categoryIds[0] ?? 0,
@@ -36,7 +36,7 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
             $cateId = $cat1->id ?? null;
             if (isset($categories[1])) {
                 $cat2 = Category::firstOrCreate([
-                    'name' => trim($categories[1]),
+                    'original_data' => trim($categoryIds[1]),
                 ], [
                     'name' => trim($categories[1]),
                     'original_data' => $categoryIds[1] ?? 0,
@@ -46,7 +46,7 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
             }
             if (isset($categories[2])) {
                 $cat3 = Category::firstOrCreate([
-                    'name' => trim($categories[2]),
+                    'original_data' => trim($categoryIds[2]),
                 ], [
                     'name' => trim($categories[2]),
                     'original_data' => $categoryIds[2] ?? 0,
@@ -62,7 +62,7 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
         $product = Product::create([
             'sku' => $row[0],
             'barcode' => $row[1],
-            'price' => $row[2],
+            'price' => $this->getPrice($row[2]),
             'stock_available' => $this->onEmpty($row[13], 0),
             'name' => $this->onEmpty(trim($row[3])),
             'features' => $this->onEmpty(trim($row[4])),
@@ -146,5 +146,16 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
         }
 
         return $value;
+    }
+
+    /**
+     * @param $price
+     * @return float
+     */
+    public function getPrice($price): float
+    {
+        $profit = bcmul($price, 0.3, 2);
+
+        return round(bcadd($price, $profit, 2), 2);
     }
 }
