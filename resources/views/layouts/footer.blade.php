@@ -8,9 +8,8 @@
                         <h4>about</h4>
                     </div>
                     <div class="footer-contant">
-                        <div class="footer-logo"><img src="../assets/images/icon/logo/18.png" alt=""></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                        <div class="footer-logo"><img src="{{ asset('assets/logo/logo-landv2.png') }}" alt=""></div>
+                        <p>สเปค คอร์รัปชัน รีดไถแคชเชียร์เซอร์ไพรส์ เพทนาการมวลชนรีทัช มาร์เก็ตติ้งแครอท โฟล์คแผดเผาแมคเคอเรล ตุ๋ยพีเรียดมอนสเตอร์มิวสิคคอมเพล็กซ์ อพาร์ตเมนท์พาสปอร์ตเกมส์ เกย์แบรนด์ซีเรียสแกสโซฮอล์สไตรค์</p>
                         <div class="footer-social">
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
@@ -61,11 +60,9 @@
                         </div>
                         <div class="footer-contant">
                             <ul class="contact-list">
-                                <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India
-                                    345-659</li>
+                                <li><i class="fa fa-map-marker"></i>Shoda 3 plus Store</li>
                                 <li><i class="fa fa-phone"></i>Call Us: 123-456-7898</li>
-                                <li><i class="fa fa-envelope"></i>Email Us: <a href="#">Support@Fiot.com</a></li>
-                                <li><i class="fa fa-fax"></i>Fax: 123456</li>
+                                <li><i class="fa fa-envelope"></i>Email Us: <a href="#" class="text-lowercase">shoda3plus@shoda3plus.com</a></li>
                             </ul>
                         </div>
                     </div>
@@ -78,7 +75,7 @@
             <div class="row">
                 <div class="col-xl-6 col-md-6 col-sm-12">
                     <div class="footer-end">
-                        <p><i class="fa fa-copyright" aria-hidden="true"></i> {{ date('Y') }} Shoda 3 Plus</p>
+                        <p>Copyright <i class="fa fa-copyright" aria-hidden="true"></i> All Right Reserved {{ date('Y') }} Shoda 3 Plus</p>
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-12">

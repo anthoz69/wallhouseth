@@ -3,6 +3,7 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   mode: 'jit',
+    important: true,
   purge: {
     enabled: false,
     content: ['./resources/views/**/*.blade.php', './safelist.txt'],

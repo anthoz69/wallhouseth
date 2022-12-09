@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App;
 use App\Models\Popup;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -25,9 +26,11 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $popup = Popup::isEnable()->latest()->first();
-        View::composer('user.*', function ($view) use ($popup) {
-            $view->with('popup', $popup);
-        });
+        if (!App::runningInConsole()) {
+            $popup = Popup::isEnable()->latest()->first();
+            View::composer('user.*', function ($view) use ($popup) {
+                $view->with('popup', $popup);
+            });
+        }
     }
 }

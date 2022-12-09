@@ -1439,7 +1439,7 @@ header {
 
                 &:hover {
                     i {
-                        color: var(--theme-color);
+                        //color: var(--theme-color);
                         transition: all 0.5s ease;
                     }
                 }
@@ -2494,8 +2494,8 @@ header {
         }
     }
     .pixelstrap {
-        a, 
-        a:hover, 
+        a,
+        a:hover,
         a:active {
             padding-top: 32px;
             padding-bottom: 32px;

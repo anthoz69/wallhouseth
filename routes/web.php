@@ -23,7 +23,8 @@ Auth::routes(['register' => true]);
 
 Route::get('/', [UserHomeController::class, 'index']);
 
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth']], function () {
+Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
+    Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard']);
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
