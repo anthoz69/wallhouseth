@@ -18,7 +18,7 @@ class Edit extends Component
 
     public function mount(User $user)
     {
-        $this->user  = $user;
+        $this->user = $user;
         $this->roles = $this->user->roles()->pluck('id')->toArray();
         $this->initListsForFields();
     }
@@ -49,6 +49,9 @@ class Edit extends Component
                 'email:rfc',
                 'required',
                 'unique:users,email,' . $this->user->id,
+            ],
+            'user.phone' => [
+                'nullable',
             ],
             'password' => [
                 'string',

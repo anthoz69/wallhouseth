@@ -53,6 +53,10 @@
                             @include('components.table.sort', ['field' => 'email'])
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.phone') }}
+                            @include('components.table.sort', ['field' => 'phone'])
+                        </th>
+                        <th>
                             {{ trans('cruds.user.fields.email_verified_at') }}
                             @include('components.table.sort', ['field' => 'email_verified_at'])
                         </th>
@@ -86,6 +90,7 @@
                                     {{ $user->email }}
                                 </a>
                             </td>
+                            <td>{{ $user->phone }}</td>
                             <td>
                                 {{ $user->email_verified_at }}
                             </td>

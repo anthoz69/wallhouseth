@@ -80,36 +80,53 @@
                         </p>
 
                         <form action="{{ route('register') }}" method="post" class="theme-form">
+                            @csrf
                             <div class="form-row row">
-                                <div class="col-md-6">
-                                    <label for="fname"><span class="text-red-500">*</span>ชื่อ</label>
-                                    <input type="text" class="form-control" id="fname" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="lname"><span class="text-red-500">*</span>นามสกุล</label>
-                                    <input type="text" class="form-control" id="lname" required>
-                                </div>
+                                <div class="12">
+                                    <label for="fname"><span class="text-red-500">*</span>ชื่อ-นามสกุล</label>
+                                    <input name="name" type="text" class="form-control {{ $errors->register->has('name') ? ' ring ring-red-300' : '' }}" id="fname" value="{{ old('name') }}" required>
+                                    @error('name', 'register')
+                                    <span class="text-red-500">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                    @enderror
+                                    </div>
                             </div>
                             <div class="form-row row">
                                 <div class="col-md-6">
-                                    <label for="email"><span class="text-red-500">*</span>อีเมล</label>
-                                    <input type="text" class="form-control" id="email" required>
+                                    <label for="email_reg"><span class="text-red-500">*</span>อีเมล</label>
+                                    <input name="email_reg" type="email" class="form-control {{ $errors->register->has('email_reg') ? ' ring ring-red-300' : '' }}" id="email" value="{{ old('email_reg') }}" required>
+                                    @error('email', 'register')
+                                        <span class="text-red-500">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="phone"><span class="text-red-500">*</span>เบอร์โทรศัพท์</label>
-                                    <input type="text" class="form-control" id="phone" required>
+                                    <input name="phone" type="text" class="form-control {{ $errors->register->has('phone') ? ' ring ring-red-300' : '' }}" id="phone" value="{{ old('phone') }}" required>
+                                    @error('phone', 'register')
+                                        <span class="text-red-500">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-row row">
                                 <div class="col-md-6">
                                     <label for="review"><span class="text-red-500">*</span>รหัสผ่าน</label>
-                                    <input name="password" type="password" class="form-control" required>
+                                    <input name="password" type="password" class="form-control {{ $errors->register->has('password   ') ? ' ring ring-red-300' : '' }}" required>
+                                    @error('password', 'register')
+                                    <span class="text-red-500">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="review"><span class="text-red-500">*</span>ยืนยันรหัสผ่าน</label>
                                     <input name="password_confirmation" type="password" class="form-control" required>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mt-5">
                                     <button type="submit" class="btn btn-solid w-auto">ยืนยันการสมัคร</button>
                                 </div>
                             </div>

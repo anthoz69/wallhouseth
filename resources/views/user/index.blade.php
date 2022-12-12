@@ -26,7 +26,9 @@
     </section>
     <!-- collection banner end -->
 
+    @if($categorySection1)
     <div>
         @include('components.user.section-category-product', ['category' => $categorySection1])
     </div>
+    @endif
 @endsection

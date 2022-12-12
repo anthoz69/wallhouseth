@@ -8,8 +8,8 @@
     <meta name="description" content="multikart">
     <meta name="keywords" content="multikart">
     <meta name="author" content="multikart">
-    <link rel="icon" href="{{ asset('assets/images/favicon/21.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon/21.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/logo/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/logo/logo.png') }}" type="image/x-icon">
     <title>@yield('title', 'Home') - Shoda 3 Plus</title>
 
     <!--Google font-->

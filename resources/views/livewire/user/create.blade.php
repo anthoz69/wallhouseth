@@ -20,6 +20,16 @@
             {{ trans('cruds.user.fields.email_helper') }}
         </div>
     </div>
+    <div class="form-group {{ $errors->has('user.phone') ? 'invalid' : '' }}">
+        <label class="form-label required" for="phone">{{ trans('cruds.user.fields.phone') }}</label>
+        <input class="form-control" type="text" name="phone" id="phone" required wire:model.defer="user.phone">
+        <div class="validation-message">
+            {{ $errors->first('user.phone') }}
+        </div>
+        <div class="help-block">
+            {{ trans('cruds.user.fields.phone_helper') }}
+        </div>
+    </div>
     <div class="form-group {{ $errors->has('user.password') ? 'invalid' : '' }}">
         <label class="form-label required" for="password">{{ trans('cruds.user.fields.password') }}</label>
         <input class="form-control" type="password" name="password" id="password" required wire:model.defer="password">

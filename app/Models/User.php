@@ -26,6 +26,7 @@ class User extends Authenticatable implements HasLocalePreference
         'id',
         'name',
         'email',
+        'phone',
         'email_verified_at',
         'locale',
     ];
@@ -34,6 +35,7 @@ class User extends Authenticatable implements HasLocalePreference
         'id',
         'name',
         'email',
+        'phone',
         'email_verified_at',
         'roles.title',
         'locale',
@@ -47,6 +49,7 @@ class User extends Authenticatable implements HasLocalePreference
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'locale',
     ];
@@ -65,7 +68,7 @@ class User extends Authenticatable implements HasLocalePreference
 
     public function scopeAdmins()
     {
-        return $this->whereHas('roles', fn ($q) => $q->where('title', 'Admin'));
+        return $this->whereHas('roles', fn($q) => $q->where('title', 'Admin'));
     }
 
     public function preferredLocale()
@@ -75,7 +78,8 @@ class User extends Authenticatable implements HasLocalePreference
 
     public function getEmailVerifiedAtAttribute($value)
     {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('project.datetime_format')) : null;
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s',
+            $value)->format(config('project.datetime_format')) : null;
     }
 
     public function setPasswordAttribute($input)

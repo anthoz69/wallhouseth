@@ -1,4 +1,15 @@
 /*@tailwind base;*/
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border-width: 0 !important;
+}
 .invisible {
     visibility: hidden !important;
 }
@@ -104,17 +115,11 @@
 .mb-0 {
     margin-bottom: 0px !important;
 }
+.mt-5 {
+    margin-top: 1.25rem !important;
+}
 .mt-6 {
     margin-top: 1.5rem !important;
-}
-.mb-2 {
-    margin-bottom: 0.5rem !important;
-}
-.mr-1 {
-    margin-right: 0.25rem !important;
-}
-.mb-1 {
-    margin-bottom: 0.25rem !important;
 }
 .mr-8 {
     margin-right: 2rem !important;
@@ -128,6 +133,15 @@
 .mt-3 {
     margin-top: 0.75rem !important;
 }
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+.mr-1 {
+    margin-right: 0.25rem !important;
+}
+.mb-1 {
+    margin-bottom: 0.25rem !important;
+}
 .ml-3 {
     margin-left: 0.75rem !important;
 }
@@ -136,6 +150,9 @@
 }
 .mt-0 {
     margin-top: 0px !important;
+}
+.mt-1 {
+    margin-top: 0.25rem !important;
 }
 .-ml-px {
     margin-left: -1px !important;
@@ -417,10 +434,6 @@
     --tw-bg-opacity: 1 !important;
     background-color: rgba(241, 245, 249, var(--tw-bg-opacity)) !important;
 }
-.bg-blueGray-800 {
-    --tw-bg-opacity: 1 !important;
-    background-color: rgba(30, 41, 59, var(--tw-bg-opacity)) !important;
-}
 .bg-green-500 {
     --tw-bg-opacity: 1 !important;
     background-color: rgba(16, 185, 129, var(--tw-bg-opacity)) !important;
@@ -429,9 +442,9 @@
     --tw-bg-opacity: 1 !important;
     background-color: rgba(40, 58, 151, var(--tw-bg-opacity)) !important;
 }
-.bg-primary-500 {
+.bg-blueGray-800 {
     --tw-bg-opacity: 1 !important;
-    background-color: rgba(33, 51, 141, var(--tw-bg-opacity)) !important;
+    background-color: rgba(30, 41, 59, var(--tw-bg-opacity)) !important;
 }
 .bg-blueGray-300 {
     --tw-bg-opacity: 1 !important;
@@ -750,7 +763,7 @@
 }
 
 .theme-color-19 {
-    --theme-color: rgb(33,51,141);
+    --theme-color: rgb(33, 51, 141);
 }
 
 small {
@@ -765,6 +778,15 @@ small {
 .theme-card .theme-form input {
     font-size: 14px !important;
     padding: 15px 25px !important;
+}
+
+.login-page .theme-card .theme-form input {
+    margin-bottom: 8px;
+}
+
+.login-page .theme-card .theme-form .form-row,
+.login-page .theme-card .theme-form .form-group {
+    margin-bottom: 16px;
 }
 
 .hover\:text-blueGray-700:hover {

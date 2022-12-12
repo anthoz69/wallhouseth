@@ -82,19 +82,10 @@
                     <div class="payment-card-bottom">
                         <ul>
                             <li>
-                                <a href="#"><img src="../assets/images/icon/visa.png" alt=""></a>
+                                <a href="#"><img src="../assets/images/icon/visa.png" alt="Payment method Visa"></a>
                             </li>
                             <li>
-                                <a href="#"><img src="../assets/images/icon/mastercard.png" alt=""></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="../assets/images/icon/paypal.png" alt=""></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="../assets/images/icon/american-express.png" alt=""></a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="../assets/images/icon/discover.png" alt=""></a>
+                                <a href="#"><img src="../assets/images/icon/mastercard.png" alt="Payment method mastercard"></a>
                             </li>
                         </ul>
                     </div>

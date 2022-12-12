@@ -2,7 +2,7 @@
 @tailwind utilities;
 
 .theme-color-19 {
-    --theme-color: rgb(33,51,141);
+    --theme-color: rgb(33, 51, 141);
 }
 
 small {
@@ -18,4 +18,13 @@ small {
 .theme-card .theme-form input {
     font-size: 14px !important;
     padding: 15px 25px !important;
+}
+
+.login-page .theme-card .theme-form input {
+    margin-bottom: 8px;
+}
+
+.login-page .theme-card .theme-form .form-row,
+.login-page .theme-card .theme-form .form-group {
+    margin-bottom: 16px;
 }

@@ -49,6 +49,9 @@ class Create extends Component
                 'required',
                 'unique:users,email',
             ],
+            'user.phone' => [
+                'nullable',
+            ],
             'password' => [
                 'string',
                 'required',

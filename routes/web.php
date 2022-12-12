@@ -35,7 +35,8 @@ Route::get('products/{product}', [\App\Http\Controllers\User\ProductController::
     ->name('products.show');
 
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
-    Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard']);
+    Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard'])
+        ->name('dashboard');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
