@@ -15,18 +15,20 @@ class HomeController extends Controller
         $slides = Slide::isEnable()->get();
         $banners = Banner::isEnable()->get();
 
-        $categorySection1 = Category::with([
-            'products' => function ($query) {
-                $query->limit(12);
-            },
+        $categorySections = Category::whereIn('id', [
+            1, 2, 3,
         ])
-            ->where('id', 1)
-            ->onlyParent()
-            ->first();
+            ->with([
+                'products' => function ($query) {
+                    $query->limit(12);
+                },
+            ])
+//            ->onlyParent()
+            ->get();
 
         return view('user.index', compact(
             'slides', 'banners',
-            'categorySection1'
+            'categorySections'
         ));
     }
 }

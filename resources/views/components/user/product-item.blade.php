@@ -11,7 +11,7 @@
                 <i class="ti-search" aria-hidden="true"></i>
             </a>
         </div>
-        <div class="add-button" title="Add to cart">
+        <div class="add-button" data-product-id="{{$product->id}}" title="Add to cart">
             add to cart
         </div>
     </div>

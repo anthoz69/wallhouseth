@@ -28,3 +28,8 @@ small {
 .login-page .theme-card .theme-form .form-group {
     margin-bottom: 16px;
 }
+
+.pixelstrap a {
+    letter-spacing: normal;
+    font-size: 16px;
+}

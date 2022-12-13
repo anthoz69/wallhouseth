@@ -33,6 +33,7 @@ class Product extends Model implements HasMedia
         'barcode',
         'name',
         'price',
+        'discount',
         'stock_available',
         'features',
         'width',
@@ -48,6 +49,7 @@ class Product extends Model implements HasMedia
         'barcode',
         'name',
         'price',
+        'discount',
         'stock_available',
         'features',
         'width',
@@ -69,7 +71,7 @@ class Product extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'other_image' => 'json',
+        'other_image'   => 'json',
         'original_data' => 'json',
     ];
 
@@ -79,6 +81,7 @@ class Product extends Model implements HasMedia
         'name',
         'image',
         'price',
+        'discount',
         'stock_available',
         'features',
         'width',
@@ -144,5 +147,20 @@ class Product extends Model implements HasMedia
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function onSale(): bool
+    {
+        return bccomp($this->discount, 0) === 1;
+    }
+
+    public function getSalePriceAttribute()
+    {
+        return $this->onSale() ? $this->discount : $this->price;
+    }
+
+    public function getDiscountInPercentAttribute()
+    {
+        return round(100 * ($this->price - $this->discount) / $this->price);
     }
 }

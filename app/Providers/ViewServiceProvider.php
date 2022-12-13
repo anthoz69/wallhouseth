@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App;
 use App\Models\Popup;
+use App\View\CartComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Cart;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -26,8 +28,9 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (!App::runningInConsole()) {
+        if (! App::runningInConsole()) {
             $popup = Popup::isEnable()->latest()->first();
+            View::composer('layouts.header', CartComposer::class);
             View::composer('user.*', function ($view) use ($popup) {
                 $view->with('popup', $popup);
             });

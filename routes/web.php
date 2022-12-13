@@ -26,6 +26,13 @@ Auth::routes(['register' => true]);
 Route::get('/', [UserHomeController::class, 'index']);
 Route::get('cart', [CartController::class, 'index'])
     ->name('cart');
+Route::post('cart', [CartController::class, 'store'])
+    ->name('cart.store');
+Route::put('cart', [CartController::class, 'update'])
+    ->name('cart.update');
+Route::get('cart/delete/{cart}', [CartController::class, 'destroy'])
+    ->name('cart.destroy');
+
 Route::get('checkout', [CheckoutController::class, 'index'])
     ->name('checkout');
 
@@ -33,6 +40,9 @@ Route::get('products', [\App\Http\Controllers\User\ProductController::class, 'in
     ->name('products.index');
 Route::get('products/{product}', [\App\Http\Controllers\User\ProductController::class, 'show'])
     ->name('products.show');
+
+Route::get('category/{category}', [\App\Http\Controllers\User\CategoryController::class, 'show'])
+    ->name('category.show');
 
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard'])

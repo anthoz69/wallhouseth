@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->decimal('price', 15, 2);
+            $table->decimal('discount', 15, 2)->default(0);
             $table->integer('stock_available')->default(0)->nullable();
             $table->longText('features')->nullable();
             $table->float('width', 15, 2)->default(0)->nullable();

@@ -24,10 +24,12 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read mixed $enable_label
  * @property-read mixed $image
+ * @property-read mixed $is_new_tab
  * @property-read mixed $new_tab_label
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
  * @method static \Illuminate\Database\Eloquent\Builder|Banner advancedFilter($data)
+ * @method static \Illuminate\Database\Eloquent\Builder|Banner isEnable()
  * @method static \Illuminate\Database\Eloquent\Builder|Banner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Banner newQuery()
  * @method static \Illuminate\Database\Query\Builder|Banner onlyTrashed()
@@ -69,6 +71,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Category advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category onlyParent()
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereCategoryIdMap($value)
@@ -232,6 +235,7 @@ namespace App\Models{
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
  * @method static \Illuminate\Database\Eloquent\Builder|Popup advancedFilter($data)
+ * @method static \Illuminate\Database\Eloquent\Builder|Popup isEnable()
  * @method static \Illuminate\Database\Eloquent\Builder|Popup newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Popup newQuery()
  * @method static \Illuminate\Database\Query\Builder|Popup onlyTrashed()
@@ -257,7 +261,9 @@ namespace App\Models{
  * @property string $sku
  * @property string|null $barcode
  * @property string $name
+ * @property string|null $image
  * @property string $price
+ * @property string $discount
  * @property int|null $stock_available
  * @property string|null $features
  * @property float|null $width
@@ -271,8 +277,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Category[] $categories
  * @property-read int|null $categories_count
+ * @property-read mixed $discount_in_percent
  * @property-read mixed $main_image
  * @property-read mixed $other_image
+ * @property-read mixed $sale_price
  * @property-read mixed $status_label
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
@@ -284,9 +292,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereBarcode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereFeatures($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereHeight($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereKg($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereLength($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
@@ -344,6 +354,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read mixed $enable_label
  * @property-read mixed $image
+ * @property-read mixed $is_new_tab
  * @property-read mixed $new_tab_label
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
@@ -374,6 +385,7 @@ namespace App\Models{
  * @property int $id
  * @property string|null $name
  * @property string|null $email
+ * @property string|null $phone
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
@@ -401,6 +413,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLocale($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()

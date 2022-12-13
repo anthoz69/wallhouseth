@@ -151,6 +151,9 @@
 .mt-0 {
     margin-top: 0px !important;
 }
+.ml-0 {
+    margin-left: 0px !important;
+}
 .mt-1 {
     margin-top: 0.25rem !important;
 }
@@ -787,6 +790,11 @@ small {
 .login-page .theme-card .theme-form .form-row,
 .login-page .theme-card .theme-form .form-group {
     margin-bottom: 16px;
+}
+
+.pixelstrap a {
+    letter-spacing: normal;
+    font-size: 16px;
 }
 
 .hover\:text-blueGray-700:hover {
