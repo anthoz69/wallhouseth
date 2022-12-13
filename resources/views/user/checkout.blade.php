@@ -7,13 +7,13 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>Check-out</h2>
+                        <h2>ยืนยันการสั่งซื้อ</h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Check-out</li>
                         </ol>
                     </nav>
@@ -33,53 +33,95 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
-                                    <h3>Billing Details</h3>
+                                    <h3>รายละเอียดใบเสร็จ</h3>
                                 </div>
                                 <div class="row check-out">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">First Name</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                    <div class="form-group col-12">
+                                        <div class="field-label">ชื่อ-นามสกุล</div>
+                                        <input type="text" name="name" value="{{ old('name') }}">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Last Name</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">เบอร์โทรศัพท์</div>
+                                        <input type="text" name="phone" value="{{ old('phone') }}">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Phone</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Email Address</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">อีเมล</div>
+                                        <input type="email" name="email" value="{{ old('email') }}" class="{{ $errors->has('email') ? ' ring ring-red-300' : '' }}">
+                                        @error('email')
+                                            <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Country</div>
-                                        <select>
-                                            <option>India</option>
-                                            <option>South Africa</option>
-                                            <option>United State</option>
-                                            <option>Australia</option>
+                                        <div class="field-label">ประเทศ</div>
+                                        <select name="country">
+                                            <option value="th" {{ old('country') === 'th' ? 'selected': '' }}>ไทย</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Address</div>
-                                        <input type="text" name="field-name" value="" placeholder="Street address">
+                                        <div class="field-label">ที่อยู่</div>
+                                        <input type="text" name="address" value="{{ old('address') }}" class="{{ $errors->has('email') ? ' ring ring-red-300' : '' }}" placeholder="เลขที่, หมู่บ้าน, ถนน, ซอย">
+                                        @error('address')
+                                        <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Town/City</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">อำเภอ</div>
+                                        <input type="text" name="amphoe" class="{{ $errors->has('amphoe') ? ' ring ring-red-300' : '' }}" value="{{ old('amphoe') }}">
+                                        @error('amphoe')
+                                        <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">State / County</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">ตำบล</div>
+                                        <input type="text" name="district" class="{{ $errors->has('district') ? ' ring ring-red-300' : '' }}" value="{{ old('district') }}">
+                                        @error('district')
+                                        <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">Postal Code</div>
-                                        <input type="text" name="field-name" value="" placeholder="">
+                                        <div class="field-label">จังหวัด</div>
+                                        <input type="text" name="province" class="{{ $errors->has('province') ? ' ring ring-red-300' : '' }}" value="{{ old('province') }}">
+                                        @error('province')
+                                        <span class="text-red-500">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                        <div class="field-label">รหัสไปรษณีย์</div>
+                                        <input type="text" name="zipcode" class="{{ $errors->has('zipcode') ? ' ring ring-red-300' : '' }}" value="{{ old('zipcode') }}">
+                                        @error('zipcode')
+                                        <span class="text-red-500">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <input type="checkbox" name="shipping-option" id="account-option"> &ensp;
-                                        <label for="account-option">Create An Account?</label>
+                                        <input type="checkbox" name="shipping-option" id="shipping-option"> &ensp;
+                                        <label for="shipping-option">จัดส่งที่อยู่อื่น</label>
+                                    </div>
+                                </div>
+                                <div class="mt-8">
+                                    <div class="checkout-title">
+                                        <h3>ที่อยู่จัดส่งสินค้า</h3>
+                                    </div>
+                                    <div class="row checkout">
+                                        <div class="form-group col-12">
+                                            <div class="field-label">ชื่อ-นามสกุล</div>
+                                            <input type="text" name="name" value="{{ old('name') }}">
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                            <div class="field-label">เบอร์โทรศัพท์</div>
+                                            <input type="text" name="phone" value="{{ old('phone') }}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
