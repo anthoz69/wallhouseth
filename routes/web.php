@@ -36,6 +36,8 @@ Route::get('cart/delete/{cart}', [CartController::class, 'destroy'])
 Route::get('checkout', [CheckoutController::class, 'index'])
     ->name('checkout');
 
+Route::post('checkout/shipping-list', [CheckoutController::class, 'getShippingList']);
+
 Route::get('products', [\App\Http\Controllers\User\ProductController::class, 'index'])
     ->name('products.index');
 Route::get('products/{product}', [\App\Http\Controllers\User\ProductController::class, 'show'])

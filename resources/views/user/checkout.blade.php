@@ -38,11 +38,11 @@
                                 <div class="row check-out">
                                     <div class="form-group col-12">
                                         <div class="field-label">ชื่อ-นามสกุล</div>
-                                        <input type="text" name="name" value="{{ old('name') }}">
+                                        <input type="text" name="bill_name" id="bill_name" value="{{ old('bill_name') }}">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">เบอร์โทรศัพท์</div>
-                                        <input type="text" name="phone" value="{{ old('phone') }}">
+                                        <input type="text" name="bill_phone" id="bill_phone" value="{{ old('bill_phone') }}">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label">อีเมล</div>
@@ -55,23 +55,34 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">ประเทศ</div>
-                                        <select name="country">
-                                            <option value="th" {{ old('country') === 'th' ? 'selected': '' }}>ไทย</option>
+                                        <select name="bill_country">
+                                            @foreach($countries as $key => $country)
+                                            <option value="{{ $key }}" {{ old('bill_country') === $key ? 'selected': '' }}>{{ $country }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">ที่อยู่</div>
-                                        <input type="text" name="address" value="{{ old('address') }}" class="{{ $errors->has('email') ? ' ring ring-red-300' : '' }}" placeholder="เลขที่, หมู่บ้าน, ถนน, ซอย">
-                                        @error('address')
+                                        <input type="text" name="bill_address" id="bill_address" value="{{ old('bill_address') }}" class="{{ $errors->has('bill_address') ? ' ring ring-red-300' : '' }}" placeholder="เลขที่, หมู่บ้าน, ถนน, ซอย">
+                                        @error('bill_address')
                                         <span class="text-red-500">
                                                 <small>{{ $message }}</small>
                                             </span>
                                         @enderror
                                     </div>
+                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                        <div class="field-label">รหัสไปรษณีย์</div>
+                                        <input type="text" name="bill_zipcode" id="bill_zipcode" class="{{ $errors->has('bill_zipcode') ? ' ring ring-red-300' : '' }}" value="{{ old('bill_zipcode') }}">
+                                        @error('bill_zipcode')
+                                        <span class="text-red-500">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                        @enderror
+                                    </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <div class="field-label">อำเภอ</div>
-                                        <input type="text" name="amphoe" class="{{ $errors->has('amphoe') ? ' ring ring-red-300' : '' }}" value="{{ old('amphoe') }}">
-                                        @error('amphoe')
+                                        <input type="text" name="bill_amphoe" id="bill_amphoe" class="{{ $errors->has('bill_amphoe') ? ' ring ring-red-300' : '' }}" value="{{ old('bill_amphoe') }}">
+                                        @error('bill_amphoe')
                                         <span class="text-red-500">
                                                 <small>{{ $message }}</small>
                                             </span>
@@ -79,8 +90,8 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-6 col-xs-12">
                                         <div class="field-label">ตำบล</div>
-                                        <input type="text" name="district" class="{{ $errors->has('district') ? ' ring ring-red-300' : '' }}" value="{{ old('district') }}">
-                                        @error('district')
+                                        <input type="text" name="bill_district" id="bill_district" class="{{ $errors->has('bill_district') ? ' ring ring-red-300' : '' }}" value="{{ old('bill_district') }}">
+                                        @error('bill_district')
                                         <span class="text-red-500">
                                                 <small>{{ $message }}</small>
                                             </span>
@@ -88,39 +99,83 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-6 col-xs-12">
                                         <div class="field-label">จังหวัด</div>
-                                        <input type="text" name="province" class="{{ $errors->has('province') ? ' ring ring-red-300' : '' }}" value="{{ old('province') }}">
-                                        @error('province')
-                                        <span class="text-red-500">
-                                            <small>{{ $message }}</small>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">รหัสไปรษณีย์</div>
-                                        <input type="text" name="zipcode" class="{{ $errors->has('zipcode') ? ' ring ring-red-300' : '' }}" value="{{ old('zipcode') }}">
-                                        @error('zipcode')
+                                        <input type="text" name="bill_province" id="bill_province" class="{{ $errors->has('bill_province') ? ' ring ring-red-300' : '' }}" value="{{ old('bill_province') }}">
+                                        @error('bill_province')
                                         <span class="text-red-500">
                                             <small>{{ $message }}</small>
                                         </span>
                                         @enderror
                                     </div>
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <input type="checkbox" name="shipping-option" id="shipping-option"> &ensp;
+                                        <input type="checkbox" name="shipping_option" id="shipping-option"> &ensp;
                                         <label for="shipping-option">จัดส่งที่อยู่อื่น</label>
                                     </div>
                                 </div>
-                                <div class="mt-8">
+                                <div id="shipping-detail" class="mt-8" style="display: none;">
                                     <div class="checkout-title">
                                         <h3>ที่อยู่จัดส่งสินค้า</h3>
                                     </div>
                                     <div class="row checkout">
                                         <div class="form-group col-12">
                                             <div class="field-label">ชื่อ-นามสกุล</div>
-                                            <input type="text" name="name" value="{{ old('name') }}">
+                                            <input type="text" name="shipping_name" id="shipping_name" value="{{ old('shipping_name') }}">
                                         </div>
-                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group col-12">
                                             <div class="field-label">เบอร์โทรศัพท์</div>
-                                            <input type="text" name="phone" value="{{ old('phone') }}">
+                                            <input type="text" name="shipping_phone" id="shipping_phone" value="{{ old('shipping_phone') }}">
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="field-label">ประเทศ</div>
+                                            <select name="shipping_country">
+                                                @foreach($countries as $key => $country)
+                                                    <option value="{{ $key }}" {{ old('shipping_country') === $key ? 'selected': '' }}>{{ $country }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="field-label">ที่อยู่</div>
+                                            <input type="text" name="shipping_address" id="shipping_address" value="{{ old('shipping_address') }}" class="{{ $errors->has('email') ? ' ring ring-red-300' : '' }}" placeholder="เลขที่, หมู่บ้าน, ถนน, ซอย">
+                                            @error('address')
+                                            <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                            <div class="field-label">รหัสไปรษณีย์</div>
+                                            <input type="text" name="shipping_zipcode" id="shipping_zipcode" class="{{ $errors->has('shipping_zipcode') ? ' ring ring-red-300' : '' }}" value="{{ old('shipping_zipcode') }}">
+                                            @error('shipping_zipcode')
+                                            <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="field-label">อำเภอ</div>
+                                            <input type="text" name="shipping_amphoe" id="shipping_amphoe" class="{{ $errors->has('shipping_amphoe') ? ' ring ring-red-300' : '' }}" value="{{ old('shipping_amphoe') }}">
+                                            @error('shipping_amphoe')
+                                            <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                            <div class="field-label">ตำบล</div>
+                                            <input type="text" name="shipping_district" id="shipping_district" class="{{ $errors->has('shipping_district') ? ' ring ring-red-300' : '' }}" value="{{ old('shipping_district') }}">
+                                            @error('shipping_district')
+                                            <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                            <div class="field-label">จังหวัด</div>
+                                            <input type="text" name="shipping_province" id="shipping_province" class="{{ $errors->has('shipping_province') ? ' ring ring-red-300' : '' }}" value="{{ old('shipping_province') }}">
+                                            @error('shipping_province')
+                                            <span class="text-red-500">
+                                                <small>{{ $message }}</small>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -129,29 +184,40 @@
                                 <div class="checkout-details">
                                     <div class="order-box">
                                         <div class="title-box">
-                                            <div>Product <span>Total</span></div>
+                                            <div>สินค้า <span>รวม</span></div>
                                         </div>
                                         <ul class="qty">
-                                            <li>Pink Slim Shirt × 1 <span>$25.10</span></li>
-                                            <li>SLim Fit Jeans × 1 <span>$555.00</span></li>
+                                            @foreach($cartContents as $c)
+                                            <li title="{{ $c->name }}">{{ Str::limit($c->name, 30) }} × {{ $c->quantity }} <span>{{ number_format($c->getPriceSum(), 2) }} {{ bahtSymbol() }}</span></li>
+                                            @endforeach
                                         </ul>
                                         <ul class="sub-total">
-                                            <li>Subtotal <span class="count">$380.10</span></li>
-                                            <li>Shipping
-                                                <div class="shipping">
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="free-shipping" id="free-shipping">
-                                                        <label for="free-shipping">Free Shipping</label>
-                                                    </div>
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="local-pickup" id="local-pickup">
-                                                        <label for="local-pickup">Local Pickup</label>
+                                            <li>รวม <span class="count">{{ number_format(Cart::getTotal(), 2) }} {{ bahtSymbol() }}</span></li>
+                                            <li>
+                                                <div class="mb-3">เลือกวิธีส่งสินค้า</div>
+                                                <div class="js-shipping-required-fill text-gray-400 font-normal my-4">กรุณากรอกที่อยู่จัดส่งก่อน</div>
+                                                <div class="payment-box" style="display: none;">
+                                                    <div class="payment-options">
+                                                        <ul>
+                                                            <li>
+                                                                <div class="radio-option">
+                                                                    <input type="radio" name="payment-group" id="payment-1"
+                                                                        checked="checked">
+                                                                    <label for="payment-1">Check Payments</label>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </li>
                                         </ul>
                                         <ul class="total">
-                                            <li>Total <span class="count">$620.00</span></li>
+                                            <li>ยอดสุทธิ
+                                                <span class="count">
+                                                    <div class="d-inline-flex" id="total">1</div>
+                                                    <div class="d-inline-flex">{{ bahtSymbol() }}</div>
+                                                </span>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
@@ -200,3 +266,28 @@
     </section>
     <!-- section end -->
 @endsection
+
+@push('style')
+    <link rel="stylesheet" href="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dist/jquery.Thailand.min.css">
+@endpush
+
+@push('script')
+    <script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+    <script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+
+    <script>
+        $.Thailand({
+            $district: $('input[name="bill_district"]'), // input ของตำบล
+            $amphoe: $('input[name="bill_amphoe"]'), // input ของอำเภอ
+            $province: $('input[name="bill_province"]'), // input ของจังหวัด
+            $zipcode: $('input[name="bill_zipcode"]'), // input ของรหัสไปรษณีย์
+        })
+        $.Thailand({
+            $district: $('input[name="shipping_district"]'), // input ของตำบล
+            $amphoe: $('input[name="shipping_amphoe"]'), // input ของอำเภอ
+            $province: $('input[name="shipping_province"]'), // input ของจังหวัด
+            $zipcode: $('input[name="shipping_zipcode"]'), // input ของรหัสไปรษณีย์
+        })
+    </script>
+@endpush

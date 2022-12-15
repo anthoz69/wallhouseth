@@ -36,6 +36,7 @@
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app-user.css') }}">
+    @stack('style')
 </head>
 
 <body class="theme-color-19" style="margin-top: 80px;">
@@ -149,7 +150,7 @@
             document.getElementById("search-overlay").style.display = "none";
         }
     </script>
-
+    @stack('script')
 </body>
 
 </html>

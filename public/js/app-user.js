@@ -2354,6 +2354,44 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       window.location.reload();
     });
   });
+  $('#shipping-option').change(function (e) {
+    if ($(this).is(':checked')) {
+      $('#shipping-detail').show();
+    } else {
+      $('#shipping-detail').hide();
+    }
+  });
+  $('#bill_address, #bill_zipcode, #bill_province, #bill_phone, #bill_name, #bill_district, #bill_amphoe, #shipping_address, #shipping_zipcode, #shipping_province, #shipping_phone, #shipping_name, #shipping_district, #shipping_amphoe').change(function (e) {
+    getShippingList();
+  });
+  function getShippingList() {
+    var prefix = '#bill';
+    if ($('#shipping-option').is(':checked')) {
+      prefix = '#shipping';
+    }
+    var address = $(prefix + '_address').val();
+    var zipcode = $(prefix + '_zipcode').val();
+    var province = $(prefix + '_province').val();
+    var phone = $(prefix + '_phone').val();
+    var name = $(prefix + '_name').val();
+    var district = $(prefix + '_district').val();
+    var amphoe = $(prefix + '_amphoe').val();
+    if (!address || !zipcode || !province || !phone || !name || !district || !amphoe) {
+      console.log('dd');
+      return;
+    }
+    axios.post('checkout/shipping-list', {
+      address: address,
+      zipcode: zipcode,
+      province: province,
+      phone: phone,
+      name: name,
+      district: district,
+      amphoe: amphoe
+    }).then(function (res) {
+      console.log(res);
+    });
+  }
 })(jQuery);
 })();
 
