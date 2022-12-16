@@ -1,4 +1,5 @@
 window.axios = require('axios');
+const debounce = require('debounce');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -16,7 +17,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     })
 
     $('.product-box .add-button, #addToCartOnShowPage').click(function (e) {
-        console.log('ee')
         const productId = e.target.dataset.productId
         const inputAmount = +$('input[name=quantity]').val() || 1
         axios.post('/cart', {
@@ -85,9 +85,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     })
 
     $('#bill_address, #bill_zipcode, #bill_province, #bill_phone, #bill_name, #bill_district, #bill_amphoe, #shipping_address, #shipping_zipcode, #shipping_province, #shipping_phone, #shipping_name, #shipping_district, #shipping_amphoe')
-        .change(function (e) {
-            getShippingList()
-        })
+        .change(debounce(getShippingList, 500))
 
     function getShippingList() {
         let prefix = '#bill'

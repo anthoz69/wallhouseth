@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
 use App\Services\Shippop;
 use Cart;
 use Illuminate\Http\Request;
@@ -36,6 +37,10 @@ class CheckoutController extends Controller
 
         $cartContent = Cart::getContent();
 
+        $productIDs = $cartContent->pluck('id');
+        $productList = Product::whereIn('id', $productIDs->toArray())
+            ->get();
+
         $priceList = (new Shippop())->getPriceList([
             'name'     => $data['name'],
             'phone'    => $data['phone'],
@@ -45,10 +50,10 @@ class CheckoutController extends Controller
             'province' => $data['province'],
             'zipcode'  => $data['zipcode'],
         ], [
-            'weight' => 1000,
-            'width'  => 10,
-            'length' => 30,
-            'height' => 5,
+            'weight' => $productList->sum('kg'),
+            'width'  => $productList->sum('width'),
+            'length' => $productList->sum('length'),
+            'height' => $productList->sum('height'),
         ]);
 
         return $this->responseJson(200, $priceList);
