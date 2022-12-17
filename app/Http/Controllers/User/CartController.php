@@ -30,7 +30,7 @@ class CartController extends Controller
 
         Cart::add($product->id, $product->name, $product->sale_price, $request->amount, [
             'image' => $product->image,
-        ], [], 'Product');
+        ], [])->associate(Product::class);
 
         $carts = Cart::getContent();
 
