@@ -110,7 +110,7 @@
             </div>
             <div class="row cart-buttons">
                 <div class="col-6"><a href="/" class="btn btn-solid">ดูสินค้าต่อ</a></div>
-                <div class="col-6"><a href="{{ route('checkout') }}" class="btn btn-solid">ยืนยันการสั่งซื้อ</a></div>
+                <div class="col-6"><a href="{{ route('user.checkout') }}" class="btn btn-solid">ยืนยันการสั่งซื้อ</a></div>
             </div>
         </div>
     </section>

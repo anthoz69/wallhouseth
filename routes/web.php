@@ -32,11 +32,8 @@ Route::put('cart', [CartController::class, 'update'])
     ->name('cart.update');
 Route::get('cart/delete/{cart}', [CartController::class, 'destroy'])
     ->name('cart.destroy');
-
-Route::get('checkout', [CheckoutController::class, 'index'])
-    ->name('checkout');
-
-Route::post('checkout/shipping-list', [CheckoutController::class, 'getShippingList']);
+Route::get('cart/clear', [CartController::class, 'clear'])
+    ->name('cart.clear');
 
 Route::get('products', [\App\Http\Controllers\User\ProductController::class, 'index'])
     ->name('products.index');
@@ -49,6 +46,13 @@ Route::get('category/{category}', [\App\Http\Controllers\User\CategoryController
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard'])
         ->name('dashboard');
+
+    Route::get('checkout', [CheckoutController::class, 'index'])
+        ->name('checkout');
+    Route::post('checkout', [CheckoutController::class, 'store'])
+        ->name('checkout.store');
+
+    Route::post('checkout/shipping-list', [CheckoutController::class, 'getShippingList']);
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {

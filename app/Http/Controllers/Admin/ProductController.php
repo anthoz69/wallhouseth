@@ -76,6 +76,6 @@ class ProductController extends Controller
 
     public function download()
     {
-        return Storage::download('import_template.xlsx');
+        return Storage::disk('excel')->download('import_template.xlsx');
     }
 }

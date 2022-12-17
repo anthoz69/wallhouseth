@@ -50,8 +50,14 @@
 .z-0 {
     z-index: 0 !important;
 }
+.float-right {
+    float: right !important;
+}
 .float-left {
     float: left !important;
+}
+.clear-both {
+    clear: both !important;
 }
 .-m-48 {
     margin: -12rem !important;
@@ -61,6 +67,9 @@
 }
 .m-auto {
     margin: auto !important;
+}
+.m-2 {
+    margin: 0.5rem !important;
 }
 .mx-auto {
     margin-left: auto !important;
@@ -244,6 +253,9 @@
 }
 .w-28 {
     width: 7rem !important;
+}
+.w-\[77\%\] {
+    width: 77% !important;
 }
 .min-w-48 {
     min-width: 12rem !important;
@@ -767,6 +779,10 @@
 }
 .ease-in-out {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
 }
 
 .theme-color-19 {

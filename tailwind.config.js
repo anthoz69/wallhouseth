@@ -6,7 +6,7 @@ module.exports = {
     important: true,
   purge: {
     enabled: false,
-    content: ['./resources/views/**/*.blade.php', './safelist.txt'],
+    content: ['./resources/views/**/*.blade.php', './resources/js/*.js', './safelist.txt'],
     options: {
       safelist: []
     }

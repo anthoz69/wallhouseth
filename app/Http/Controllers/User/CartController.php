@@ -74,4 +74,11 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+    public function clear()
+    {
+        Cart::clear();
+
+        return redirect()->to('/');
+    }
 }

@@ -76,7 +76,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
             })
     })
 
-    $('#shipping-option').change(function (e) {
+    $('#shipping_other').change(function (e) {
         if ($(this).is(':checked')) {
             $('#shipping-detail').show()
         } else {
@@ -100,7 +100,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         const district = $(prefix+'_district').val()
         const amphoe = $(prefix+'_amphoe').val()
         if (!address || !zipcode || !province || !phone || !name || !district || !amphoe) {
-            console.log('dd')
+            $('.js-shipping-required-fill').text('กรุณากรอกที่อยู่จัดส่งก่อน')
             return
         }
         axios.post('checkout/shipping-list', {
@@ -113,7 +113,42 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
             amphoe,
         })
             .then((res) => {
-                console.log(res)
+                if (res.status === 200) {
+                    $('#shipping-list-wrap').show()
+                    $('.js-shipping-required-fill').hide()
+                    $('#shipping-list').empty()
+                    for (const [key, value] of Object.entries(res.data[0])) {
+                        $('#shipping-list').append(
+                            `<li>
+                                <div class="radio-option flex-1">
+                                    <input type="radio" name="courier_code" id="${value.courier_code}" data-price="${value.price}" value="${value.courier_code}">
+                                    <label class="w-[77%] font-normal" for="${value.courier_code}">
+                                        <div class="clear-both">
+                                            ${value.courier_name}
+                                            <div class="float-right">${value.price} ฿</div>
+                                        </div>
+                                        <div class="text-gray-400 text-sm">${value.estimate_time}</div>
+                                    </label>
+                                </div>
+                            </li>`
+                        )
+                    }
+                    return
+                }
+                if (res.status === 404) {
+                    $('.js-shipping-required-fill').show()
+                    $('#shipping-list-wrap').hide()
+                    $('.js-shipping-required-fill').text('ไม่สามารถจัดส่งสินค้าได้ กรุณาติดต่อผู้ดูแลเว็บไซต์')
+                }
             })
     }
+
+    $(document).on('change', 'input[name="courier_code"]', function (e) {
+        const shippingPrice = +$(this).data('price')
+        const subTotal = +$('#sub-total').data('sub-total')
+        $('#total').text(numeral(subTotal + shippingPrice).format('0,0.00'))
+        $('#submit-form').attr('disabled', false)
+    })
+
+    getShippingList()
 })(jQuery);

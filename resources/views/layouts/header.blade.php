@@ -227,7 +227,7 @@
                                             <li>
                                                 <div class="buttons">
                                                     <a href="{{ route('cart') }}" class="view-cart">ตะกร้า</a>
-                                                    <a href="{{ route('checkout') }}" class="checkout">สั่งซื้อ</a>
+                                                    <a href="{{ route('user.checkout') }}" class="checkout">สั่งซื้อ</a>
                                                 </div>
                                             </li>
                                         </ul>

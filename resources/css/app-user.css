@@ -1,6 +1,10 @@
 /*@tailwind base;*/
 @tailwind utilities;
 
+body {
+    font-family: 'Sarabun', sans-serif;
+}
+
 .theme-color-19 {
     --theme-color: rgb(33, 51, 141);
 }

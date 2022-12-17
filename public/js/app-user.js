@@ -2372,6 +2372,12 @@ var __webpack_exports__ = {};
 /*!**********************************!*\
   !*** ./resources/js/app-user.js ***!
   \**********************************/
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var debounce = __webpack_require__(/*! debounce */ "./node_modules/debounce/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -2434,7 +2440,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       window.location.reload();
     });
   });
-  $('#shipping-option').change(function (e) {
+  $('#shipping_other').change(function (e) {
     if ($(this).is(':checked')) {
       $('#shipping-detail').show();
     } else {
@@ -2455,7 +2461,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     var district = $(prefix + '_district').val();
     var amphoe = $(prefix + '_amphoe').val();
     if (!address || !zipcode || !province || !phone || !name || !district || !amphoe) {
-      console.log('dd');
+      $('.js-shipping-required-fill').text('กรุณากรอกที่อยู่จัดส่งก่อน');
       return;
     }
     axios.post('checkout/shipping-list', {
@@ -2467,9 +2473,32 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       district: district,
       amphoe: amphoe
     }).then(function (res) {
-      console.log(res);
+      if (res.status === 200) {
+        $('#shipping-list-wrap').show();
+        $('.js-shipping-required-fill').hide();
+        $('#shipping-list').empty();
+        for (var _i = 0, _Object$entries = Object.entries(res.data[0]); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+          $('#shipping-list').append("<li>\n                                <div class=\"radio-option flex-1\">\n                                    <input type=\"radio\" name=\"courier_code\" id=\"".concat(value.courier_code, "\" data-price=\"").concat(value.price, "\" value=\"").concat(value.courier_code, "\">\n                                    <label class=\"w-[77%] font-normal\" for=\"").concat(value.courier_code, "\">\n                                        <div class=\"clear-both\">\n                                            ").concat(value.courier_name, "\n                                            <div class=\"float-right\">").concat(value.price, " \u0E3F</div>\n                                        </div>\n                                        <div class=\"text-gray-400 text-sm\">").concat(value.estimate_time, "</div>\n                                    </label>\n                                </div>\n                            </li>"));
+        }
+        return;
+      }
+      if (res.status === 404) {
+        $('.js-shipping-required-fill').show();
+        $('#shipping-list-wrap').hide();
+        $('.js-shipping-required-fill').text('ไม่สามารถจัดส่งสินค้าได้ กรุณาติดต่อผู้ดูแลเว็บไซต์');
+      }
     });
   }
+  $(document).on('change', 'input[name="courier_code"]', function (e) {
+    var shippingPrice = +$(this).data('price');
+    var subTotal = +$('#sub-total').data('sub-total');
+    $('#total').text(numeral(subTotal + shippingPrice).format('0,0.00'));
+    $('#submit-form').attr('disabled', false);
+  });
+  getShippingList();
 })(jQuery);
 })();
 
