@@ -57,28 +57,32 @@
                             @include('components.table.sort', ['field' => 'name'])
                         </th>
                         <th>
-                            {{ trans('cruds.userAddress.fields.address') }}
-                            @include('components.table.sort', ['field' => 'address'])
+                            {{ trans('cruds.userAddress.fields.bill_name') }}
+                            @include('components.table.sort', ['field' => 'bill_name'])
                         </th>
                         <th>
-                            {{ trans('cruds.userAddress.fields.district') }}
-                            @include('components.table.sort', ['field' => 'district'])
+                            {{ trans('cruds.userAddress.fields.bill_phone') }}
+                            @include('components.table.sort', ['field' => 'bill_phone'])
                         </th>
                         <th>
-                            {{ trans('cruds.userAddress.fields.amphoe') }}
-                            @include('components.table.sort', ['field' => 'amphoe'])
+                            {{ trans('cruds.userAddress.fields.bill_address') }}
+                            @include('components.table.sort', ['field' => 'bill_address'])
                         </th>
                         <th>
-                            {{ trans('cruds.userAddress.fields.province') }}
-                            @include('components.table.sort', ['field' => 'province'])
+                            {{ trans('cruds.userAddress.fields.bill_district') }}
+                            @include('components.table.sort', ['field' => 'bill_district'])
                         </th>
                         <th>
-                            {{ trans('cruds.userAddress.fields.zipcode') }}
-                            @include('components.table.sort', ['field' => 'zipcode'])
+                            {{ trans('cruds.userAddress.fields.bill_amphoe') }}
+                            @include('components.table.sort', ['field' => 'bill_amphoe'])
                         </th>
                         <th>
-                            {{ trans('cruds.userAddress.fields.phone') }}
-                            @include('components.table.sort', ['field' => 'phone'])
+                            {{ trans('cruds.userAddress.fields.bill_province') }}
+                            @include('components.table.sort', ['field' => 'bill_province'])
+                        </th>
+                        <th>
+                            {{ trans('cruds.userAddress.fields.bill_zipcode') }}
+                            @include('components.table.sort', ['field' => 'bill_zipcode'])
                         </th>
                         <th>
                         </th>
@@ -109,24 +113,31 @@
                             </td>
                             <td>
                                 {{ $userAddress->name }}
+
+                                @if ($userAddress->is_main == 1)
+                                    <span class="badge badge-relationship">ที่อยู่หลัก</span>
+                                @endif
                             </td>
                             <td>
-                                {{ $userAddress->address }}
+                                {{ $userAddress->bill_name }}
                             </td>
                             <td>
-                                {{ $userAddress->district }}
+                                {{ $userAddress->bill_phone }}
                             </td>
                             <td>
-                                {{ $userAddress->amphoe }}
+                                {{ $userAddress->bill_address }}
                             </td>
                             <td>
-                                {{ $userAddress->province }}
+                                {{ $userAddress->bill_district }}
                             </td>
                             <td>
-                                {{ $userAddress->zipcode }}
+                                {{ $userAddress->bill_amphoe }}
                             </td>
                             <td>
-                                {{ $userAddress->phone }}
+                                {{ $userAddress->bill_province }}
+                            </td>
+                            <td>
+                                {{ $userAddress->bill_zipcode }}
                             </td>
                             <td>
                                 <div class="flex justify-end">

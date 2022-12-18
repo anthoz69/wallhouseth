@@ -17,6 +17,17 @@
             <div class="pt-3">
                 <table class="table table-view">
                     <tbody class="bg-white">
+
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.owner') }}
+                            </th>
+                            <td>
+                                @if($userAddress->owner)
+                                    <span class="badge badge-relationship">{{ $userAddress->owner->name ?? '' }}</span>
+                                @endif
+                            </td>
+                        </tr>
                         <tr>
                             <th>
                                 {{ trans('cruds.userAddress.fields.id') }}
@@ -35,60 +46,26 @@
                         </tr>
                         <tr>
                             <th>
-                                {{ trans('cruds.userAddress.fields.address') }}
+                                {{ trans('cruds.userAddress.fields.bill_name') }}
                             </th>
                             <td>
-                                {{ $userAddress->address }}
+                                {{ $userAddress->bill_name }}
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                {{ trans('cruds.userAddress.fields.district') }}
+                                {{ trans('cruds.userAddress.fields.bill_phone') }}
                             </th>
                             <td>
-                                {{ $userAddress->district }}
+                                {{ $userAddress->bill_phone }}
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                {{ trans('cruds.userAddress.fields.amphoe') }}
+                                {{ trans('cruds.userAddress.fields.bill_country') }}
                             </th>
                             <td>
-                                {{ $userAddress->amphoe }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.userAddress.fields.province') }}
-                            </th>
-                            <td>
-                                {{ $userAddress->province }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.userAddress.fields.zipcode') }}
-                            </th>
-                            <td>
-                                {{ $userAddress->zipcode }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.userAddress.fields.phone') }}
-                            </th>
-                            <td>
-                                {{ $userAddress->phone }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.userAddress.fields.owner') }}
-                            </th>
-                            <td>
-                                @if($userAddress->owner)
-                                    <span class="badge badge-relationship">{{ $userAddress->owner->name ?? '' }}</span>
-                                @endif
+                                {{ $userAddress->bill_country_label }}
                             </td>
                         </tr>
                         <tr>
@@ -133,18 +110,74 @@
                         </tr>
                         <tr>
                             <th>
-                                {{ trans('cruds.userAddress.fields.bill_phone') }}
-                            </th>
-                            <td>
-                                {{ $userAddress->bill_phone }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
                                 {{ trans('cruds.userAddress.fields.is_bill_same_address') }}
                             </th>
                             <td>
                                 {{ $userAddress->is_bill_same_address_label }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_name') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_phone') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_phone }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_country') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_country_label }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_address') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_address }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_district') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_district }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_amphoe') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_amphoe }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_province') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_province }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.userAddress.fields.shipping_zipcode') }}
+                            </th>
+                            <td>
+                                {{ $userAddress->shipping_zipcode }}
                             </td>
                         </tr>
                     </tbody>

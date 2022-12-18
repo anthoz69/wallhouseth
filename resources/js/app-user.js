@@ -148,6 +148,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         const subTotal = +$('#sub-total').data('sub-total')
         $('#total').text(numeral(subTotal + shippingPrice).format('0,0.00'))
         $('#submit-form').attr('disabled', false)
+        $('input[name="courier_price"]').val(shippingPrice)
     })
 
     getShippingList()

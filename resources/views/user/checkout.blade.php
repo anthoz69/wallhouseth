@@ -31,6 +31,7 @@
                 <div class="checkout-form">
                     <form action="{{ route('user.checkout.store') }}" method="post">
                         @csrf
+                        <input type="hidden" name="courier_price" value="0">
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">

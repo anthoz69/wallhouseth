@@ -35,7 +35,7 @@
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app-user.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ mix('css/app-user.css') }}">
     @stack('style')
 </head>
 
@@ -122,7 +122,7 @@
     <script src="{{ asset('assets/js/fly-cart.js') }}"></script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    <script src="{{ asset('js/app-user.js') }}"></script>
+    <script src="{{ mix('js/app-user.js') }}"></script>
 
     <script>
         @if (!empty($popup) && ($popup->key !== cookie('popup_key')))

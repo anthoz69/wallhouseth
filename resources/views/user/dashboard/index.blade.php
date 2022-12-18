@@ -73,30 +73,28 @@
                                         <div class="col-sm-6">
                                             <div class="box">
                                                 <div class="box-title">
-                                                    <h3>Contact Information</h3><a href="#">Edit</a>
+                                                    <h3>ข้อมูลผู้ใช้</h3><a href="{{ route('user.edit') }}">แก้ไข</a>
                                                 </div>
                                                 <div class="box-content">
-                                                    <h6>Mark Jecno</h6>
-                                                    <h6>mark-jecno@gmail.com</h6>
-                                                    <h6><a href="#">Change Password</a></h6>
+                                                    <h6>{{ auth()->user()->name }}</h6>
+                                                    <h6>{{ auth()->user()->email }}</h6>
+                                                    <h6>{{ auth()->user()->phone }}</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="box mt-3">
                                         <div class="box-title">
-                                            <h3>Address Book</h3><a href="#">Manage Addresses</a>
+                                            <h3>สมุดที่อยู่</h3><a href="{{ route('user.address.edit') }}">จัดการที่อยู่</a>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <h6>Default Billing Address</h6>
-                                                <address>You have not set a default billing address.<br><a href="#">Edit
-                                                        Address</a></address>
+                                                <h6>ที่อยู่หลัก สำหรับออกใบเสร็จ</h6>
+                                                <address class="text-sm text-gray-400 mt-2">คุณยังไม่ได้ตั้งค่า</address>
                                             </div>
                                             <div class="col-sm-6">
-                                                <h6>Default Shipping Address</h6>
-                                                <address>You have not set a default shipping address.<br><a
-                                                        href="#">Edit Address</a></address>
+                                                <h6>ที่อยู่หลัก สำหรับจัดส่งสินค้า</h6>
+                                                <address class="text-sm text-gray-400 mt-2">คุณยังไม่ได้ตั้งค่า</address>
                                             </div>
                                         </div>
                                     </div>

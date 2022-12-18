@@ -11,4 +11,29 @@ class UserController extends Controller
     {
         return view('user.dashboard.index');
     }
+
+    public function order()
+    {
+        return view('user.dashboard.index');
+    }
+
+    public function edit()
+    {
+
+    }
+
+    public function update(Request $request)
+    {
+
+    }
+
+    public function editAddress()
+    {
+
+    }
+
+    public function updateAddress(Request $request)
+    {
+
+    }
 }

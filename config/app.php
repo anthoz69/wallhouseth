@@ -6,6 +6,10 @@ return [
 
     'shippop_key' => env('SHIPPOP_KEY', null),
 
+    'ksher_gateway_domain' => env('KSHER_GATEWAY_DOMAIN', null),
+    'ksher_gateway_token'  => env('KSHER_GATEWAY_TOKEN', null),
+    'ksher_webhook_key'    => env('KSHER_WEBHOOK_KEY', null),
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

@@ -41,6 +41,10 @@ class OrderDetail extends Model
         'price',
     ];
 
+    protected $appends = [
+        'subTotal',
+    ];
+
     public function order()
     {
         return $this->belongsTo(Order::class);
@@ -49,6 +53,11 @@ class OrderDetail extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getSubTotalAttribute()
+    {
+        return $this->price * $this->amount;
     }
 
     protected function serializeDate(DateTimeInterface $date)

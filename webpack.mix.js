@@ -19,3 +19,4 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app-user.css', 'public/css', [
         require('tailwindcss')
     ])
+    .version()

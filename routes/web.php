@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserAddressController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\UserProfileController;
+use App\Http\Controllers\KsherWebhookController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\HomeController as UserHomeController;
@@ -43,14 +44,29 @@ Route::get('products/{product}', [\App\Http\Controllers\User\ProductController::
 Route::get('category/{category}', [\App\Http\Controllers\User\CategoryController::class, 'show'])
     ->name('category.show');
 
+Route::get('webhook/ksher', [KsherWebhookController::class, 'index'])
+    ->name('webhook.ksher');
+
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard'])
         ->name('dashboard');
+    Route::get('/user/order', [\App\Http\Controllers\User\UserController::class, 'order'])
+        ->name('order');
+    Route::get('/user/edit', [\App\Http\Controllers\User\UserController::class, 'edit'])
+        ->name('edit');
+    Route::put('/user/edit', [\App\Http\Controllers\User\UserController::class, 'update'])
+        ->name('update');
+    Route::get('/user/address', [\App\Http\Controllers\User\UserController::class, 'editAddress'])
+        ->name('address.edit');
+    Route::put('/user/address', [\App\Http\Controllers\User\UserController::class, 'updateAddress'])
+        ->name('address.update');
 
     Route::get('checkout', [CheckoutController::class, 'index'])
         ->name('checkout');
     Route::post('checkout', [CheckoutController::class, 'store'])
         ->name('checkout.store');
+    Route::get('checkout/complete', [CheckoutController::class, 'complete'])
+        ->name('checkout.complete');
 
     Route::post('checkout/shipping-list', [CheckoutController::class, 'getShippingList']);
 });

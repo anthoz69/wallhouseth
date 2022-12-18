@@ -65,6 +65,7 @@ class Order extends Model
         'shippop_ref',
         'shippop_detail',
         'courier_code',
+        'courier_price',
         'bill_name',
         'bill_phone',
         'bill_country',
@@ -84,9 +85,32 @@ class Order extends Model
         'tracking',
     ];
 
+    protected $with = [
+        'items',
+    ];
+
+    protected $casts = [
+        'shippop_detail' => 'json',
+    ];
+
     public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->items->sum('subTotal');
+    }
+
+    public function getGrandTotalAttribute()
+    {
+        return $this->total + $this->courier_price;
     }
 
     public function getStatusLabelAttribute($value)

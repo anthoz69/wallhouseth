@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\UserAddress;
 
+use App\Models\Order;
 use App\Models\User;
 use App\Models\UserAddress;
 use Livewire\Component;
@@ -14,8 +15,9 @@ class Create extends Component
 
     public function mount(UserAddress $userAddress)
     {
-        $this->userAddress                       = $userAddress;
+        $this->userAddress = $userAddress;
         $this->userAddress->is_bill_same_address = '1';
+        $this->userAddress->is_main = '2';
         $this->initListsForFields();
     }
 
@@ -28,6 +30,24 @@ class Create extends Component
     {
         $this->validate();
 
+        if ($this->userAddress->is_bill_same_address == '1') {
+            $this->userAddress->shipping_name = $this->userAddress->bill_name;
+            $this->userAddress->shipping_phone = $this->userAddress->bill_phone;
+            $this->userAddress->shipping_country = $this->userAddress->bill_country;
+            $this->userAddress->shipping_address = $this->userAddress->bill_address;
+            $this->userAddress->shipping_district = $this->userAddress->bill_district;
+            $this->userAddress->shipping_amphoe = $this->userAddress->bill_amphoe;
+            $this->userAddress->shipping_province = $this->userAddress->bill_province;
+            $this->userAddress->shipping_zipcode = $this->userAddress->bill_zipcode;
+        }
+
+        if ($this->userAddress->is_main == '1') {
+            UserAddress::where('owner_id', $this->userAddress->owner_id)
+                ->update([
+                    'is_main' => 2,
+                ]);
+        }
+
         $this->userAddress->save();
 
         return redirect()->route('admin.user-addresses.index');
@@ -36,60 +56,80 @@ class Create extends Component
     protected function rules(): array
     {
         return [
-            'userAddress.name' => [
+            'userAddress.name'                 => [
                 'string',
                 'required',
             ],
-            'userAddress.address' => [
+            'userAddress.is_main'              => [
+                'integer',
+                'required',
+            ],
+            'userAddress.bill_name'            => [
                 'string',
                 'required',
             ],
-            'userAddress.district' => [
+            'userAddress.bill_phone'           => [
                 'string',
                 'required',
             ],
-            'userAddress.amphoe' => [
+            'userAddress.bill_country'         => [
                 'string',
                 'required',
             ],
-            'userAddress.province' => [
+            'userAddress.bill_address'         => [
                 'string',
                 'required',
             ],
-            'userAddress.zipcode' => [
+            'userAddress.bill_district'        => [
                 'string',
                 'required',
             ],
-            'userAddress.phone' => [
+            'userAddress.bill_amphoe'          => [
                 'string',
                 'required',
             ],
-            'userAddress.owner_id' => [
+            'userAddress.bill_province'        => [
+                'string',
+                'required',
+            ],
+            'userAddress.bill_zipcode'         => [
+                'string',
+                'required',
+            ],
+            'userAddress.owner_id'             => [
                 'integer',
                 'exists:users,id',
                 'required',
             ],
-            'userAddress.bill_address' => [
+            'userAddress.shipping_name'        => [
                 'string',
                 'nullable',
             ],
-            'userAddress.bill_district' => [
+            'userAddress.shipping_phone'       => [
                 'string',
                 'nullable',
             ],
-            'userAddress.bill_amphoe' => [
+            'userAddress.shipping_country'     => [
                 'string',
                 'nullable',
             ],
-            'userAddress.bill_province' => [
+            'userAddress.shipping_address'     => [
                 'string',
                 'nullable',
             ],
-            'userAddress.bill_zipcode' => [
+            'userAddress.shipping_district'    => [
                 'string',
                 'nullable',
             ],
-            'userAddress.bill_phone' => [
+            'userAddress.shipping_amphoe'      => [
+                'string',
+                'nullable',
+            ],
+            'userAddress.shipping_province'    => [
+                'string',
+                'nullable',
+            ],
+            'userAddress.shipping_zipcode'     => [
                 'string',
                 'nullable',
             ],
@@ -102,7 +142,9 @@ class Create extends Component
 
     protected function initListsForFields(): void
     {
-        $this->listsForFields['owner']                = User::pluck('name', 'id')->toArray();
+        $this->listsForFields['owner'] = User::pluck('name', 'id')->toArray();
         $this->listsForFields['is_bill_same_address'] = $this->userAddress::IS_BILL_SAME_ADDRESS_RADIO;
+        $this->listsForFields['is_main'] = $this->userAddress::IS_MAIN_RADIO;
+        $this->listsForFields['country'] = Order::COUNTRY_SELECT;
     }
 }
