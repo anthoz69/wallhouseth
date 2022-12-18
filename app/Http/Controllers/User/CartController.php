@@ -36,6 +36,7 @@ class CartController extends Controller
 
         return $this->responseJson(200, [
             'count'    => $carts->count(),
+            'total'    => number_format(Cart::getTotal(), 2),
             'contents' => $carts->slice(0, 2),
         ]);
     }

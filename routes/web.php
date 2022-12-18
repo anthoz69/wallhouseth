@@ -50,16 +50,19 @@ Route::get('webhook/ksher', [KsherWebhookController::class, 'index'])
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard'])
         ->name('dashboard');
-    Route::get('/user/order', [\App\Http\Controllers\User\UserController::class, 'order'])
+    Route::get('/user/order/{order}', [\App\Http\Controllers\User\UserController::class, 'order'])
         ->name('order');
     Route::get('/user/edit', [\App\Http\Controllers\User\UserController::class, 'edit'])
         ->name('edit');
     Route::put('/user/edit', [\App\Http\Controllers\User\UserController::class, 'update'])
         ->name('update');
-    Route::get('/user/address', [\App\Http\Controllers\User\UserController::class, 'editAddress'])
-        ->name('address.edit');
-    Route::put('/user/address', [\App\Http\Controllers\User\UserController::class, 'updateAddress'])
+
+    Route::post('/user/address', [\App\Http\Controllers\User\UserController::class, 'storeAddress'])
+        ->name('address.store');
+    Route::get('/user/address/{address}/update', [\App\Http\Controllers\User\UserController::class, 'updateAddress'])
         ->name('address.update');
+    Route::get('/user/address/{address}/delete', [\App\Http\Controllers\User\UserController::class, 'destroyAddress'])
+        ->name('address.delete');
 
     Route::get('checkout', [CheckoutController::class, 'index'])
         ->name('checkout');

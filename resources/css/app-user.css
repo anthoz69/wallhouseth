@@ -19,6 +19,12 @@ small {
     transition: all 0.5s ease;
 }
 
+header.marketplace.header-tools {
+    position: fixed;
+    background-color: white;
+    box-shadow: 0 0 5px rgb(0 0 0 / 12%);
+}
+
 .theme-card .theme-form input {
     font-size: 14px !important;
     padding: 15px 25px !important;
@@ -36,4 +42,8 @@ small {
 .pixelstrap a {
     letter-spacing: normal;
     font-size: 16px;
+}
+
+.checkout-page .checkout-form input {
+    background-color: white !important;
 }

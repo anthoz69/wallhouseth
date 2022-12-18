@@ -26,6 +26,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
             .then((res) => {
                 $('.cart_qty_cls').text(res.data.count)
                 $('.cart_qty_view').text(res.data.count)
+                $('.cart_total_view').text(res.data.total + '฿')
                 $.notify({
                     icon: 'fa fa-check',
                     title: 'สำเร็จ!',
@@ -44,7 +45,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
                     offset: 20,
                     spacing: 10,
                     z_index: 1031,
-                    delay: 1500,
+                    delay: 1100,
                     animate: {
                         enter: 'animated fadeInDown',
                         exit: 'animated fadeOutUp'

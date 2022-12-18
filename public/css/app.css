@@ -2367,6 +2367,14 @@ select {
 	--tw-bg-opacity: 1 !important;
 	background-color: rgba(253, 185, 19, var(--tw-bg-opacity)) !important;
 }
+.bg-primary-300 {
+	--tw-bg-opacity: 1 !important;
+	background-color: rgba(47, 75, 192, var(--tw-bg-opacity)) !important;
+}
+.bg-red-400 {
+	--tw-bg-opacity: 1 !important;
+	background-color: rgba(248, 113, 113, var(--tw-bg-opacity)) !important;
+}
 .p-4 {
 	padding: 1rem !important;
 }

@@ -94,6 +94,23 @@ class User extends Authenticatable implements HasLocalePreference
         return $this->belongsToMany(Role::class);
     }
 
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class, 'owner_id', 'id');
+    }
+
+    public function mainAddress()
+    {
+        return $this->hasOne(UserAddress::class, 'owner_id', 'id')
+            ->where('is_main', 1)
+            ->latest();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'owner_id', 'id');
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

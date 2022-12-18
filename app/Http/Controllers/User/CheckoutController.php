@@ -68,7 +68,9 @@ class CheckoutController extends Controller
         ]);
 
         if (! $priceList['status']) {
-            return $this->responseJson(400, [], __('ไม่สามารถจัดส่งได้'));
+            return $this->responseJson(400, [
+                'error' => $priceList['message'],
+            ], __('ไม่สามารถจัดส่งได้'));
         }
 
         return $this->responseJson(200, $priceList['data']);
@@ -140,14 +142,14 @@ class CheckoutController extends Controller
                     'bill_district'     => $data['bill_district'],
                     'bill_province'     => $data['bill_province'],
                     'bill_zipcode'      => $data['bill_zipcode'],
-                    'shipping_name'     => $data['shipping_name'] ?? '',
-                    'shipping_phone'    => $data['shipping_phone'] ?? '',
-                    'shipping_country'  => $data['shipping_country'] ?? '',
-                    'shipping_address'  => $data['shipping_address'] ?? '',
-                    'shipping_amphoe'   => $data['shipping_amphoe'] ?? '',
-                    'shipping_district' => $data['shipping_district'] ?? '',
-                    'shipping_province' => $data['shipping_province'] ?? '',
-                    'shipping_zipcode'  => $data['shipping_zipcode'] ?? '',
+                    'shipping_name'     => $data['shipping_name'] ?? $data['bill_name'],
+                    'shipping_phone'    => $data['shipping_phone'] ?? $data['bill_phone'],
+                    'shipping_country'  => $data['shipping_country'] ?? $data['bill_country'],
+                    'shipping_address'  => $data['shipping_address'] ?? $data['bill_address'],
+                    'shipping_amphoe'   => $data['shipping_amphoe'] ?? $data['bill_amphoe'],
+                    'shipping_district' => $data['shipping_district'] ?? $data['bill_district'],
+                    'shipping_province' => $data['shipping_province'] ?? $data['bill_province'],
+                    'shipping_zipcode'  => $data['shipping_zipcode'] ?? $data['bill_zipcode'],
                 ]);
 
                 $cartContents = Cart::getContent();

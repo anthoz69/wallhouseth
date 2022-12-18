@@ -1,5 +1,6 @@
 <!-- header start -->
-<header class="header-tools marketplace sticky">
+<header class="header-tools marketplace">
+    <div class="mobile-fix-option"></div>
     <div class="container-fluid custom-container">
         <div class="row">
             <div class="col-sm-12">
@@ -140,9 +141,9 @@
                                                     <a href="{{ route('login') }}">เข้าสู่ระบบ</a>
                                                 @endguest
                                                 @auth
-                                                    <a href="{{ route('user.dashboard') }}">ข้อมูลผู้ใช้</a>
-                                                    <a href="{{ route('user.dashboard') }}">รายการสั่งซื้อ</a>
-                                                    <a href="{{ route('user.dashboard') }}">จัดการที่อยู่</a>
+                                                    <a href="{{ route('user.dashboard', ['tab' => 'info']) }}">ข้อมูลผู้ใช้</a>
+                                                    <a href="{{ route('user.dashboard', ['tab' => 'orders']) }}">รายการสั่งซื้อ</a>
+                                                    <a href="{{ route('user.dashboard', ['tab' => 'address']) }}">จัดการที่อยู่</a>
                                                     <hr>
                                                     <form id="logout-form" action="{{ route('logout') }}" method="post">
                                                         @csrf
@@ -187,12 +188,14 @@
                                     </li>
                                     <li class="onhover-div mobile-cart">
                                         <div>
-                                            <img src="../assets/images/icon/cart.png"
-                                                class="img-fluid blur-up lazyload" alt="">
-                                            <i class="ti-shopping-cart"></i>
+                                            <a href="{{ route('cart') }}">
+                                                <img src="../assets/images/icon/cart.png"
+                                                    class="img-fluid blur-up lazyload" alt="">
+                                                <i class="ti-shopping-cart"></i>
+                                            </a>
                                         </div>
-                                        <span class="cart_qty_cls">{{ $cartHeaderCount }}</span>
-                                        <ul class="show-div shopping-cart">
+                                        <span class="cart_qty_cls d-none d-sm-block">{{ $cartHeaderCount }}</span>
+                                        <ul class="show-div shopping-cart d-none d-sm-block">
                                             @foreach($cartHeader as $c)
                                             <li>
                                                 <div class="media">
@@ -221,7 +224,7 @@
                                             </li>
                                             <li>
                                                 <div class="total">
-                                                    <h5>รวม : <span>{{ number_format($cartHeaderTotal, 2) }} ฿</span></h5>
+                                                    <h5>รวม : <span class="cart_total_view">{{ number_format($cartHeaderTotal, 2) }} ฿</span></h5>
                                                 </div>
                                             </li>
                                             <li>
@@ -231,6 +234,11 @@
                                                 </div>
                                             </li>
                                         </ul>
+                                    </li>
+                                    <li class="mobile-setting">
+                                        <a href="/">
+                                            <i class="ti-home"></i>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

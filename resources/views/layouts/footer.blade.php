@@ -5,7 +5,7 @@
             <div class="row footer-theme partition-f">
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-title footer-mobile-title">
-                        <h4>about</h4>
+                        <h4>เกี่ยวกับเรา</h4>
                     </div>
                     <div class="footer-contant">
                         <div class="footer-logo"><img src="{{ asset('assets/logo/logo-landv2.png') }}" alt=""></div>
@@ -24,15 +24,14 @@
                 <div class="col offset-xl-1">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>my account</h4>
+                            <h4>บัญชีของฉัน</h4>
                         </div>
                         <div class="footer-contant">
                             <ul>
-                                <li><a href="#">mens</a></li>
-                                <li><a href="#">womens</a></li>
-                                <li><a href="#">clothing</a></li>
-                                <li><a href="#">accessories</a></li>
-                                <li><a href="#">featured</a></li>
+                                <li><a href="{{ route('user.dashboard', ['tab' => 'info']) }}">ข้อมูลของฉัน</a></li>
+                                <li><a href="{{ route('user.dashboard', ['tab' => 'address']) }}">สมุดที่อยู่</a></li>
+                                <li><a href="{{ route('user.dashboard', ['tab' => 'orders']) }}">ออเดอร์</a></li>
+                                <li><a href="{{ route('user.dashboard', ['tab' => 'profile']) }}">แก้ไขข้อมูลของฉัน</a></li>
                             </ul>
                         </div>
                     </div>
@@ -40,15 +39,14 @@
                 <div class="col">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>why we choose</h4>
+                            <h4>หมวดหมู่แนะนำ</h4>
                         </div>
                         <div class="footer-contant">
                             <ul>
-                                <li><a href="#">shipping & return</a></li>
-                                <li><a href="#">secure shopping</a></li>
-                                <li><a href="#">gallary</a></li>
-                                <li><a href="#">affiliates</a></li>
-                                <li><a href="#">contacts</a></li>
+                                <li><a href="#">หมวดหมู่ 1</a></li>
+                                <li><a href="#">หมวดหมู่ 2</a></li>
+                                <li><a href="#">หมวดหมู่ 3</a></li>
+                                <li><a href="#">หมวดหมู่ 4</a></li>
                             </ul>
                         </div>
                     </div>
@@ -56,7 +54,7 @@
                 <div class="col">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>store information</h4>
+                            <h4>ติดต่อเรา</h4>
                         </div>
                         <div class="footer-contant">
                             <ul class="contact-list">
