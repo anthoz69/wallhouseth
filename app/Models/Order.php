@@ -65,6 +65,7 @@ class Order extends Model
         'shippop_ref',
         'shippop_detail',
         'courier_code',
+        'courier_name',
         'courier_price',
         'bill_name',
         'bill_phone',

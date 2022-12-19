@@ -89,7 +89,8 @@ class ksherPaymentService
             'amount'            => bcmul($order->grand_total, 100),
             'timestamp'         => (string) Carbon::now('UTC')->timestamp,
             'redirect_url'      => route('user.checkout.complete', ['ref' => $order->ref]),
-            'redirect_url_fail' => route('user.order', ['order' => $order->id, 'ks' => 'fail', 'ref' => $order->ref]),
+            'redirect_url_fail' => route('user.dashboard',
+                ['tab' => 'orders', 'order' => $order->id, 'ks' => 'fail', 'ref' => $order->ref]),
             'lang'              => 'th',
             'product_name'      => $order->ref,
         ];

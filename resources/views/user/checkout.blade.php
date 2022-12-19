@@ -32,6 +32,7 @@
                     <form action="{{ route('user.checkout.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="courier_price" value="0">
+                        <input type="hidden" name="courier_name" value="0">
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
@@ -49,7 +50,7 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                         <div class="field-label"><span class="text-red-500">*</span>ประเทศ</div>
-                                        <select name="bill_country">
+                                        <select name="bill_country" id="bill_country">
                                             @foreach($countries as $key => $country)
                                             <option value="{{ $key }}" {{ old('bill_country') === $key ? 'selected': '' }}>{{ $country }}</option>
                                             @endforeach
@@ -120,7 +121,7 @@
                                         </div>
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <div class="field-label"><span class="text-red-500">*</span>ประเทศ</div>
-                                            <select name="shipping_country">
+                                            <select name="shipping_country" id="shipping_country">
                                                 @foreach($countries as $key => $country)
                                                     <option value="{{ $key }}" {{ old('shipping_country') === $key ? 'selected': '' }}>{{ $country }}</option>
                                                 @endforeach

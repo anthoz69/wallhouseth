@@ -85,8 +85,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         }
     })
 
-    $('#bill_address, #bill_zipcode, #bill_province, #bill_phone, #bill_name, #bill_district, #bill_amphoe, #shipping_address, #shipping_zipcode, #shipping_province, #shipping_phone, #shipping_name, #shipping_district, #shipping_amphoe')
-        .change(debounce(getShippingList, 500))
+    $('#bill_address, #bill_phone, #bill_name, #shipping_address, #shipping_phone, #shipping_name')
+        .keyup(debounce(getShippingList, 700))
+
+    $('#bill_country, #bill_zipcode, #bill_province, #bill_district, #bill_amphoe, #shipping_zipcode, #shipping_province, #shipping_district, #shipping_amphoe, #shipping_country')
+        .change(debounce(getShippingList, 700))
 
     function getShippingList() {
         let prefix = '#bill'
@@ -104,6 +107,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
             $('.js-shipping-required-fill').text('กรุณากรอกที่อยู่จัดส่งก่อน')
             return
         }
+        $('#shipping-list').empty()
+        $('.js-shipping-required-fill').text('...กำลังค้นหา')
         axios.post('checkout/shipping-list', {
             address,
             zipcode,
@@ -117,12 +122,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
                 if (res.status === 200) {
                     $('#shipping-list-wrap').show()
                     $('.js-shipping-required-fill').hide()
-                    $('#shipping-list').empty()
                     for (const [key, value] of Object.entries(res.data[0])) {
                         $('#shipping-list').append(
                             `<li>
                                 <div class="radio-option flex-1">
-                                    <input type="radio" name="courier_code" id="${value.courier_code}" data-price="${value.price}" value="${value.courier_code}">
+                                    <input type="radio" name="courier_code" id="${value.courier_code}"
+                                        data-price="${value.price}"
+                                        data-name="${value.courier_name}"
+                                        value="${value.courier_code}"
+                                        required
+                                    >
                                     <label class="w-[77%] font-normal" for="${value.courier_code}">
                                         <div class="clear-both">
                                             ${value.courier_name}
@@ -136,7 +145,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
                     }
                     return
                 }
-                if (res.status === 404) {
+                if ([404, 400].includes(res.status)) {
                     $('.js-shipping-required-fill').show()
                     $('#shipping-list-wrap').hide()
                     $('.js-shipping-required-fill').text('ไม่สามารถจัดส่งสินค้าได้ กรุณาติดต่อผู้ดูแลเว็บไซต์')
@@ -146,11 +155,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     $(document).on('change', 'input[name="courier_code"]', function (e) {
         const shippingPrice = +$(this).data('price')
+        const shippingName = $(this).data('name')
         const subTotal = +$('#sub-total').data('sub-total')
         $('#total').text(numeral(subTotal + shippingPrice).format('0,0.00'))
         $('#submit-form').attr('disabled', false)
         $('input[name="courier_price"]').val(shippingPrice)
+        $('input[name="courier_name"]').val(shippingName)
     })
 
     getShippingList()
-})(jQuery);
+
+    $("form").submit(function () {
+        // prevent duplicate form submissions
+        $(this).find(":submit").attr('disabled', 'disabled')
+    })
+})(jQuery)

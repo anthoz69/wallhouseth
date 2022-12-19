@@ -2448,7 +2448,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       $('#shipping-detail').hide();
     }
   });
-  $('#bill_address, #bill_zipcode, #bill_province, #bill_phone, #bill_name, #bill_district, #bill_amphoe, #shipping_address, #shipping_zipcode, #shipping_province, #shipping_phone, #shipping_name, #shipping_district, #shipping_amphoe').change(debounce(getShippingList, 500));
+  $('#bill_address, #bill_phone, #bill_name, #shipping_address, #shipping_phone, #shipping_name').keyup(debounce(getShippingList, 700));
+  $('#bill_country, #bill_zipcode, #bill_province, #bill_district, #bill_amphoe, #shipping_zipcode, #shipping_province, #shipping_district, #shipping_amphoe, #shipping_country').change(debounce(getShippingList, 700));
   function getShippingList() {
     var prefix = '#bill';
     if ($('#shipping-option').is(':checked')) {
@@ -2465,6 +2466,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       $('.js-shipping-required-fill').text('กรุณากรอกที่อยู่จัดส่งก่อน');
       return;
     }
+    $('#shipping-list').empty();
+    $('.js-shipping-required-fill').text('...กำลังค้นหา');
     axios.post('checkout/shipping-list', {
       address: address,
       zipcode: zipcode,
@@ -2477,16 +2480,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       if (res.status === 200) {
         $('#shipping-list-wrap').show();
         $('.js-shipping-required-fill').hide();
-        $('#shipping-list').empty();
         for (var _i = 0, _Object$entries = Object.entries(res.data[0]); _i < _Object$entries.length; _i++) {
           var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
             key = _Object$entries$_i[0],
             value = _Object$entries$_i[1];
-          $('#shipping-list').append("<li>\n                                <div class=\"radio-option flex-1\">\n                                    <input type=\"radio\" name=\"courier_code\" id=\"".concat(value.courier_code, "\" data-price=\"").concat(value.price, "\" value=\"").concat(value.courier_code, "\">\n                                    <label class=\"w-[77%] font-normal\" for=\"").concat(value.courier_code, "\">\n                                        <div class=\"clear-both\">\n                                            ").concat(value.courier_name, "\n                                            <div class=\"float-right\">").concat(value.price, " \u0E3F</div>\n                                        </div>\n                                        <div class=\"text-gray-400 text-sm\">").concat(value.estimate_time, "</div>\n                                    </label>\n                                </div>\n                            </li>"));
+          $('#shipping-list').append("<li>\n                                <div class=\"radio-option flex-1\">\n                                    <input type=\"radio\" name=\"courier_code\" id=\"".concat(value.courier_code, "\"\n                                        data-price=\"").concat(value.price, "\"\n                                        data-name=\"").concat(value.courier_name, "\"\n                                        value=\"").concat(value.courier_code, "\"\n                                        required\n                                    >\n                                    <label class=\"w-[77%] font-normal\" for=\"").concat(value.courier_code, "\">\n                                        <div class=\"clear-both\">\n                                            ").concat(value.courier_name, "\n                                            <div class=\"float-right\">").concat(value.price, " \u0E3F</div>\n                                        </div>\n                                        <div class=\"text-gray-400 text-sm\">").concat(value.estimate_time, "</div>\n                                    </label>\n                                </div>\n                            </li>"));
         }
         return;
       }
-      if (res.status === 404) {
+      if ([404, 400].includes(res.status)) {
         $('.js-shipping-required-fill').show();
         $('#shipping-list-wrap').hide();
         $('.js-shipping-required-fill').text('ไม่สามารถจัดส่งสินค้าได้ กรุณาติดต่อผู้ดูแลเว็บไซต์');
@@ -2495,12 +2497,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   }
   $(document).on('change', 'input[name="courier_code"]', function (e) {
     var shippingPrice = +$(this).data('price');
+    var shippingName = $(this).data('name');
     var subTotal = +$('#sub-total').data('sub-total');
     $('#total').text(numeral(subTotal + shippingPrice).format('0,0.00'));
     $('#submit-form').attr('disabled', false);
     $('input[name="courier_price"]').val(shippingPrice);
+    $('input[name="courier_name"]').val(shippingName);
   });
   getShippingList();
+  $("form").submit(function () {
+    // prevent duplicate form submissions
+    $(this).find(":submit").attr('disabled', 'disabled');
+  });
 })(jQuery);
 })();
 
