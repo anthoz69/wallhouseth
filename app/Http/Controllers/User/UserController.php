@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -17,19 +18,43 @@ class UserController extends Controller
         return view('user.dashboard.index', compact('orders'));
     }
 
-    public function order()
+    public function showOrder()
     {
         return view('user.dashboard.index');
     }
 
-    public function edit()
-    {
-
-    }
-
     public function update(Request $request)
     {
+        $data = $request->validate([
+            'name'  => ['required', 'max:255'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore(auth()->id())],
+        ]);
 
+        User::where('id', auth()->id())
+            ->update([
+                'name'  => $data['name'],
+                'email' => $data['email'],
+            ]);
+
+        return $this->backSuccess(__('สำเร็จ'));
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $data = $request->validate([
+            'old_password' => ['required'],
+            'new_password' => ['required', 'min:8', 'confirmed'],
+        ]);
+
+        $user = User::where('id', auth()->id())->first();
+        if (! Hash::check($data['new_password'], $user->password)) {
+            return $this->backFail(__('รหัสผ่านเดิมไม่ถูกต้อง'));
+        }
+
+        $user->password = Hash::make($data['new_password']);
+        $user->save();
+
+        return $this->backSuccess(__('บันทึกสำเร็จ'));
     }
 
     public function storeAddress(Request $request)

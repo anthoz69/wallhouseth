@@ -19,4 +19,14 @@ class Controller extends BaseController
 
         return response()->json($data, $status);
     }
+
+    public function backSuccess($message = '')
+    {
+        return redirect()->back()->with('success', $message);
+    }
+
+    public function backFail($message = '')
+    {
+        return redirect()->back()->withErrors($message);
+    }
 }

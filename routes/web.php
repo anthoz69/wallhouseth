@@ -50,12 +50,13 @@ Route::get('webhook/ksher', [KsherWebhookController::class, 'index'])
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard'])
         ->name('dashboard');
-    Route::get('/user/order/{order}', [\App\Http\Controllers\User\UserController::class, 'order'])
+    Route::get('/user/order/{order}', [\App\Http\Controllers\User\UserController::class, 'showOrder'])
         ->name('order');
-    Route::get('/user/edit', [\App\Http\Controllers\User\UserController::class, 'edit'])
-        ->name('edit');
+
     Route::put('/user/edit', [\App\Http\Controllers\User\UserController::class, 'update'])
         ->name('update');
+    Route::put('/user/edit/password', [\App\Http\Controllers\User\UserController::class, 'updatePassword'])
+        ->name('update.password');
 
     Route::post('/user/address', [\App\Http\Controllers\User\UserController::class, 'storeAddress'])
         ->name('address.store');

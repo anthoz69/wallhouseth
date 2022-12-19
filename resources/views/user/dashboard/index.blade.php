@@ -50,9 +50,6 @@
                                 <li class="nav-item">
                                     <a data-bs-toggle="tab" data-bs-target="#profile" class="nav-link {{ request()->query('tab') === 'profile' ? 'active' : '' }}">ข้อมูลส่วนตัว</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a data-bs-toggle="tab" data-bs-target="#security" class="nav-link {{ request()->query('tab') === 'security' ? 'active' : '' }}">รหัสผ่าน</a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -67,13 +64,13 @@
                                 </div>
                                 <div class="box-account box-info">
                                     <div class="box-head">
-                                        <h4>Account Information</h4>
+                                        <h4>ข้อมูลบัญชีของฉัน</h4>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="box">
                                                 <div class="box-title">
-                                                    <h3>ข้อมูลผู้ใช้</h3><a href="{{ route('user.edit') }}">แก้ไข</a>
+                                                    <h3>ข้อมูลผู้ใช้</h3><a href="{{ route('user.dashboard', ['tab' => 'profile']) }}">แก้ไข</a>
                                                 </div>
                                                 <div class="box-content">
                                                     <h6>ชื่อ: {{ auth()->user()->name }}</h6>
@@ -419,280 +416,76 @@
                                     <div class="card mt-0">
                                         <div class="card-body">
                                             <div class="dashboard-box">
+                                                @include('components.user.alert-validate')
                                                 <div class="dashboard-title">
-                                                    <h4>profile</h4>
-                                                    <a class="edit-link" href="#">edit</a>
+                                                    <h4>จัดการข้อมูลส่วนตัว</h4>
                                                 </div>
-                                                <div class="dashboard-detail">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>company name</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>Fashion Store</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>email address</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>mark.jecno@gmail.com</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>Country / Region</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>Downers Grove, IL</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>Year Established</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>2018</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>Total Employees</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>101 - 200 People</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>category</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>clothing</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>street address</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>549 Sulphur Springs Road</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>city/state</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>Downers Grove, IL</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>zip</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>60515</h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="dashboard-title mt-lg-5 mt-3">
-                                                    <h4>login details</h4>
-                                                    <a class="edit-link" href="#">edit</a>
-                                                </div>
-                                                <div class="dashboard-detail">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>Email Address</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>mark.jecno@gmail.com <a class="edit-link"
-                                                                            href="#">edit</a></h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>Phone No.</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>+01 4485 5454<a class="edit-link"
-                                                                            href="#">Edit</a></h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="details">
-                                                                <div class="left">
-                                                                    <h6>Password</h6>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <h6>******* <a class="edit-link" href="#">Edit</a>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade {{ request()->query('tab') === 'security' ? 'active show' : '' }}" id="security">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card mt-0">
-                                        <div class="card-body">
-                                            <div class="dashboard-box">
-                                                <div class="dashboard-title">
-                                                    <h4>settings</h4>
-                                                </div>
-                                                <div class="dashboard-detail">
-                                                    <div class="account-setting">
-                                                        <h5>Notifications</h5>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios"
-                                                                        id="exampleRadios1" value="option1" checked>
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios1">
-                                                                        Allow Desktop Notifications
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios"
-                                                                        id="exampleRadios2" value="option2">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios2">
-                                                                        Enable Notifications
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios"
-                                                                        id="exampleRadios3" value="option3">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios3">
-                                                                        Get notification for my own activity
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios"
-                                                                        id="exampleRadios4" value="option4">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios4">
-                                                                        DND
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                <form class="dashboard-detail" method="post" action="{{ route('user.update') }}">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label for="name">ชื่อ-สกุล</label>
+                                                        <input type="text" class="form-control {{ $errors->has('name') ? ' ring ring-red-300' : '' }}" id="name" name="name" value="{{ old('name', auth()->user()->name) }}" required>
+                                                        @error('name')
+                                                            <span class="text-red-500">
+                                                                <small>{{ $message }}</small>
+                                                            </span>
+                                                        @enderror
                                                     </div>
-                                                    <div class="account-setting">
-                                                        <h5>deactivate account</h5>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios1"
-                                                                        id="exampleRadios4" value="option4" checked>
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios4">
-                                                                        I have a privacy concern
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios1"
-                                                                        id="exampleRadios5" value="option5">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios5">
-                                                                        This is temporary
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios1"
-                                                                        id="exampleRadios6" value="option6">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios6">
-                                                                        other
-                                                                    </label>
-                                                                </div>
-                                                                <button type="button"
-                                                                    class="btn btn-solid btn-xs">Deactivate
-                                                                    Account
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group">
+                                                        <label for="email">อีเมล</label>
+                                                        <input type="email" class="form-control {{ $errors->has('email') ? ' ring ring-red-300' : '' }}" id="email" name="email" value="{{ old('email', auth()->user()->email) }}" required>
+                                                        @error('email')
+                                                            <span class="text-red-500">
+                                                                <small>{{ $message }}</small>
+                                                            </span>
+                                                        @enderror
                                                     </div>
-                                                    <div class="account-setting">
-                                                        <h5>Delete account</h5>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios3"
-                                                                        id="exampleRadios7" value="option7" checked>
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios7">
-                                                                        No longer usable
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios3"
-                                                                        id="exampleRadios8" value="option8">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios8">
-                                                                        Want to switch on other account
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="radio_animated form-check-input"
-                                                                        type="radio" name="exampleRadios3"
-                                                                        id="exampleRadios9" value="option9">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios9">
-                                                                        other
-                                                                    </label>
-                                                                </div>
-                                                                <button type="button"
-                                                                    class="btn btn-solid btn-xs">Delete Account
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-solid">
+                                                            บันทึก
+                                                        </button>
                                                     </div>
+                                                </form>
+                                                <div class="dashboard-title mt-lg-5 mt-8">
+                                                    <h4>จัดการรหัสผ่าน</h4>
                                                 </div>
+                                                <form class="dashboard-detail" method="post" action="{{ route('user.update.password') }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="form-group">
+                                                        <label for="old-password">รหัสผ่านเดิม</label>
+                                                        <input type="password" class="form-control {{ $errors->has('old_password') ? ' ring ring-red-300' : '' }}" id="old-password" name="old_password" required>
+                                                        @error('old_password')
+                                                            <span class="text-red-500">
+                                                                <small>{{ $message }}</small>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="new-password">รหัสผ่านใหม่</label>
+                                                        <input type="password" class="form-control {{ $errors->has('new_password') ? ' ring ring-red-300' : '' }}" id="new-password" name="new_password" required>
+                                                        @error('new_password')
+                                                            <span class="text-red-500">
+                                                                <small>{{ $message }}</small>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="new-password-confirmation">ยืนยันรหัสผ่านใหม่</label>
+                                                        <input type="password" class="form-control {{ $errors->has('new_password_confirmation') ? ' ring ring-red-300' : '' }}" id="new-password-confirmation" name="new_password_confirmation" required>
+                                                        @error('new_password_confirmation')
+                                                            <span class="text-red-500">
+                                                                <small>{{ $message }}</small>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-solid">
+                                                            เปลี่ยนรหัสผ่าน
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

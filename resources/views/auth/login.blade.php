@@ -93,19 +93,10 @@
                                     </div>
                             </div>
                             <div class="form-row row">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <label for="email_reg"><span class="text-red-500">*</span>อีเมล</label>
                                     <input name="email_reg" type="email" class="form-control {{ $errors->register->has('email_reg') ? ' ring ring-red-300' : '' }}" id="email" value="{{ old('email_reg') }}" required>
                                     @error('email', 'register')
-                                        <span class="text-red-500">
-                                            <small>{{ $message }}</small>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="phone"><span class="text-red-500">*</span>เบอร์โทรศัพท์</label>
-                                    <input name="phone" type="text" class="form-control {{ $errors->register->has('phone') ? ' ring ring-red-300' : '' }}" id="phone" value="{{ old('phone') }}" required>
-                                    @error('phone', 'register')
                                         <span class="text-red-500">
                                             <small>{{ $message }}</small>
                                         </span>

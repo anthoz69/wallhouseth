@@ -135,5 +135,8 @@ return [
         'shipping_amphoe'   => 'อำเภอ ในที่อยู่จัดส่ง',
         'shipping_district' => 'ตำบล ในที่อยู่จัดส่ง',
         'shipping_province' => 'จังหวัด ในที่อยู่จัดส่ง',
+
+        'email'        => 'อีเมล',
+        'new_password' => 'รหัสผ่านใหม่',
     ],
 ];
