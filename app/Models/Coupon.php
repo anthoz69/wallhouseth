@@ -45,6 +45,11 @@ class Coupon extends Model
         'deleted_at',
     ];
 
+    public function isAvailable()
+    {
+        return $this->amount >= 1;
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

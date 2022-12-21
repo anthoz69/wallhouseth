@@ -80,6 +80,7 @@ class CheckoutController extends Controller
     {
         $data = $request->validate([
             'courier_code'  => ['required'],
+            'courier_name'  => ['required'],
             'courier_price' => ['required', 'numeric'],
 
             'bill_name'     => ['required', 'max:255'],
@@ -133,6 +134,7 @@ class CheckoutController extends Controller
                     'status'            => 1,
                     'payment_status'    => 1,
                     'courier_code'      => $data['courier_code'],
+                    'courier_name'      => $data['courier_name'],
                     'courier_price'     => $data['courier_price'],
                     'bill_name'         => $data['bill_name'],
                     'bill_phone'        => $data['bill_phone'],

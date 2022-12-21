@@ -121,12 +121,12 @@ class Order extends Model
 
     public function getBillCountryLabelAttribute($value)
     {
-        return static::COUNTRY_SELECT[$this->bill_country] ?? null;
+        return 'ประเทศ'. static::COUNTRY_SELECT[$this->bill_country] ?? null;
     }
 
     public function getShippingCountryLabelAttribute($value)
     {
-        return static::COUNTRY_SELECT[$this->shipping_country] ?? null;
+        return 'ประเทศ'. static::COUNTRY_SELECT[$this->shipping_country] ?? null;
     }
 
     public function getPaymentStatusLabelAttribute($value)

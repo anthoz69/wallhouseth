@@ -7,14 +7,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>profile</h2>
+                        <h2>รายละเอียดออเดอร์</h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">profile</li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Order</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,13 +27,63 @@
     <!-- tracking page start -->
     <section class="tracking-page section-b-space">
         <div class="container">
-            <div class="row">
+            <a href="{{ route('user.dashboard', ['tab' => 'orders']) }}" class="btn btn-secondary btn-sm">< กลับไปหน้าออเดอร์</a>
+            <div class="row mt-4">
                 <div class="col-sm-12">
-                    <h3>status for order no: 54151548</h3>
+                    <h3>รายละเอียดออเดอร์ เลขที่: #{{ $order->ref }}</h3>
                     <div class="row border-part">
-                        <div class="col-xl-2 col-md-3 col-sm-4">
-                            <div class="product-detail">
-                                <img src="../assets/images/fashion/pro/1.jpg" class="img-fluid blur-up lazyload" alt="">
+                        <div class="col-xl-4 col-lg-5 col-sm-8">
+                            <div class="tracking-detail items-baseline">
+                                <ul>
+                                    <li>
+                                        <div class="left">
+                                            <span>เลขที่ใบเสร็จ</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>#{{ $order->ref }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>ชื่อ</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>{{ $order->owner->name }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>เบอร์โทร</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>{{ $order->owner->phone ?? '-' }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>วันที่ทำรายการ</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>{{ $order->created_at->format('d/m/Y') }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>ขนส่ง</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>{{ $order->courier_name ?? '-' }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>เลขพัสดุ</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>{{ $order->tracking ?? '-' }}</span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-sm-8">
@@ -41,77 +91,71 @@
                                 <ul>
                                     <li>
                                         <div class="left">
-                                            <span>Order name</span>
+                                            <span>สถานะออเดอร์</span>
+                                        </div>
+                                        <div class="right">{{ $order->status_label }}</div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>สถานะการชำระเงิน</span>
+                                        </div>
+                                        <div class="right">{{ $order->payment_status_label }}</div>
+                                    </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>ที่อยู่ออกใบเสร็จ</span>
                                         </div>
                                         <div class="right">
-                                            <span>Slim Fit Dress</span>
+                                            <span>{{ $order->bill_name }} ({{ $order->bill_phone }}) <br>
+                                                {{ $order->bill_district }}, {{ $order->bill_amphoe }}<br>
+                                                {{ $order->bill_province }} {{ $order->bill_zipcode }}, {{ $order->bill_country_label }}
+                                            </span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="left">
-                                            <span>customer number</span>
+                                            <span>ที่อยู่จัดส่ง</span>
                                         </div>
                                         <div class="right">
-                                            <span>54151548</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="left">
-                                            <span>order date</span>
-                                        </div>
-                                        <div class="right">
-                                            <span>20 Nov 2020</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="left">
-                                            <span>Ship Date</span>
-                                        </div>
-                                        <div class="right">
-                                            <span>20 Nov 2020</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="left">
-                                            <span>shipping address</span>
-                                        </div>
-                                        <div class="right">
-                                            <span>2253 Short Street <br>Austin, TX<br>Texas, 78701</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="left">
-                                            <span>carrier</span>
-                                        </div>
-                                        <div class="right">
-                                            <span>FedEx</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="left">
-                                            <span>carrier tracking number</span>
-                                        </div>
-                                        <div class="right">
-                                            <span>656974541515484</span>
+                                            <span>{{ $order->shipping_name }} ({{ $order->shipping_phone }}) <br>
+                                                {{ $order->shipping_district }}, {{ $order->shipping_amphoe }}<br>
+                                                {{ $order->shipping_province }} {{ $order->shipping_zipcode }}, {{ $order->shipping_country_label }}
+                                            </span>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-lg-4">
-                            <div class="order-map">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55107.59629446948!2d-97.77629221286301!3d30.316123884942762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644ca7d7a2a6d0d%3A0x209a4c2782a39461!2sCentral%20Market!5e0!3m2!1sen!2sin!4v1607754725548!5m2!1sen!2sin"
-                                    frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                            </div>
-                        </div>
                     </div>
                     <div class="wrapper">
                         <div class="arrow-steps clearfix">
-                            <div class="step done"> <span> order placed</span> </div>
-                            <div class="step current"> <span>preparing to ship</span> </div>
-                            <div class="step"><span> shipped</span> </div>
-                            <div class="step"><span>delivered</span> </div>
+                            <div
+                                @class([
+		                            'step',
+		                            'done' => in_array($order->status, [2, 3]),
+                                    'current' => $order->status == 1
+                                ])
+                            >
+                                <span> รอตรวจสอบ</span>
+                            </div>
+                            <div
+                                @class([
+                                        'step',
+                                        'done' => in_array($order->status, [3]),
+                                        'current' => $order->status == 2
+                                    ])
+                            >
+                                <span>เตรียมจัดส่ง</span>
+                            </div>
+                            <div
+                                @class([
+		                            'step',
+		                            'done' => $order->status === 3,
+                                    'current' => $order->status == 3
+                                ])
+                            >
+                                <span> จัดส่งแล้ว</span>
+                            </div>
                         </div>
                     </div>
                     <div class="order-table table-responsive-sm">
@@ -150,6 +194,70 @@
                                     <td>california</td>
                                 </tr>
                             </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="mt-10 mb-4 font-bold">รายการสินค้า</h3>
+                    <div class="border-part border-b-0"></div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>รูปสินค้า</th>
+                                    <th>ชื่อสินค้า</th>
+                                    <th class="text-center">ราคา</th>
+                                    <th class="text-center">จำนวน</th>
+                                    <th class="text-right">รวม</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($order->items as $item)
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="{{ $item->product->image }}" class="max-h-[50px]">
+                                        </td>
+                                        <td class="align-middle">
+                                            {{ $item->product->name }}
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            {{ number_format($item->price, 2) }}
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            {{ number_format($item->amount) }}
+                                        </td>
+                                        <td class="align-middle text-right">
+                                            {{ number_format($item->sub_total, 2) }} {{ bahtSymbol() }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">ไม่มีสินค้า</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="text-right border-b-0">รวม</td>
+                                    <td class="text-right">{{ number_format($order->total, 2) }} {{ bahtSymbol() }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="text-right border-b-0">ค่าส่ง</td>
+                                    <td class="text-right">{{ number_format($order->courier_price, 2) }} {{ bahtSymbol() }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="text-right border-b-0">ยอดสุทธิ</td>
+                                    <td class="text-right">{{ number_format($order->grand_total, 2) }} {{ bahtSymbol() }}</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

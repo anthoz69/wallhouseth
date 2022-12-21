@@ -372,6 +372,7 @@
                                                             <th scope="col">เลขที่</th>
                                                             <th scope="col">เลขพัสดุ</th>
                                                             <th scope="col">สถานะ</th>
+                                                            <th scope="col">การชำระเงิน</th>
                                                             <th scope="col">ราคา</th>
                                                             <th scope="col">จัดการ</th>
                                                         </tr>
@@ -389,10 +390,13 @@
                                                                 {{ $order->status_label }}
                                                             </td>
                                                             <td>
+                                                                {{ $order->payment_status_label }}
+                                                            </td>
+                                                            <td>
                                                                 <span class="theme-color fs-6">{{ $order->grand_total }} {{ bahtSymbol() }}</span>
                                                             </td>
                                                             <td>
-                                                                <a href="{{ route('user.order') }}">
+                                                                <a href="{{ route('user.order', ['order' => $order]) }}">
                                                                     <i class="fa fa-eye text-theme"></i>
                                                                 </a>
                                                             </td>

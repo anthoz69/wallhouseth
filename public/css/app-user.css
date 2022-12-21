@@ -170,6 +170,9 @@
 .-ml-px {
     margin-left: -1px !important;
 }
+.mt-10 {
+    margin-top: 2.5rem !important;
+}
 .box-content {
     box-sizing: content-box !important;
 }
@@ -217,6 +220,9 @@
 }
 .h-16 {
     height: 4rem !important;
+}
+.max-h-\[50px\] {
+    max-height: 50px !important;
 }
 .min-h-screen {
     min-height: 100vh !important;
@@ -305,6 +311,9 @@
 .items-center {
     align-items: center !important;
 }
+.items-baseline {
+    align-items: baseline !important;
+}
 .items-stretch {
     align-items: stretch !important;
 }
@@ -373,6 +382,9 @@
 }
 .border-t {
     border-top-width: 1px !important;
+}
+.border-b-0 {
+    border-bottom-width: 0px !important;
 }
 .border-solid {
     border-style: solid !important;
@@ -576,6 +588,9 @@
 }
 .text-center {
     text-align: center !important;
+}
+.text-right {
+    text-align: right !important;
 }
 .align-baseline {
     vertical-align: baseline !important;
@@ -830,6 +845,10 @@ header.marketplace.header-tools {
 
 .checkout-page .checkout-form input {
     background-color: white !important;
+}
+
+.btn-solid.btn-sm {
+    padding: 5px 16px;
 }
 
 .hover\:text-blueGray-700:hover {

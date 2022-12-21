@@ -59,6 +59,9 @@ class Create extends Component
         $this->product->save();
         $this->product->categories()->sync([$this->categories]);
         $this->syncMedia();
+        $this->product->image = str_replace(config('app.url'), '', $this->product->getFirstMediaUrl('product_main_image'));
+        $this->product->save();
+
 
         return redirect()->route('admin.products.index');
     }

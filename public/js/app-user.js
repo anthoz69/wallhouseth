@@ -2381,6 +2381,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var debounce = __webpack_require__(/*! debounce */ "./node_modules/debounce/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.getCookie = function (name) {
+  var value = "; ".concat(document.cookie);
+  var parts = value.split("; ".concat(name, "="));
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
+window.setCookie = function (cName, cValue, expDays) {
+  var date = new Date();
+  date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + date.toUTCString();
+  document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
+};
 (function ($) {
   var inputQty = $('input[name=quantity]');
   $('.quantity-right-plus').click(function () {

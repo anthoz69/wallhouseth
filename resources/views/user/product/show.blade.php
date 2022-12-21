@@ -118,10 +118,10 @@
                                 <h6 class="product-title">ชำระเงินปลอดภัย 100%</h6>
                                 <ul class="mt-1">
                                     <li class="mr-2">
-                                        <a><img src="../assets/images/icon/visa.png" alt="Payment method Visa"></a>
+                                        <a><img src="{{ asset('assets/images/icon/visa.png') }}" alt="Payment method Visa"></a>
                                     </li>
                                     <li>
-                                        <a><img src="../assets/images/icon/mastercard.png" alt="Payment method mastercard"></a>
+                                        <a><img src="{{ asset('assets/images/icon/mastercard.png') }}" alt="Payment method mastercard"></a>
                                     </li>
                                 </ul>
                             </div>

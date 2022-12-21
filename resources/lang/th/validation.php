@@ -139,5 +139,6 @@ return [
         'email'        => 'อีเมล',
         'new_password' => 'รหัสผ่านใหม่',
         'courier_code' => 'วิธีการจัดส่ง',
+        'courier_name' => 'ชื่อขนส่ง'
     ],
 ];

@@ -160,7 +160,7 @@
                             <div class="icon-nav">
                                 <ul>
                                     <li class="onhover-div mobile-search">
-                                        <div><img src="../assets/images/icon/search.png" onclick="openSearch()"
+                                        <div><img src="{{ asset('assets/images/icon/search.png') }}" onclick="openSearch()"
                                                 class="img-fluid blur-up lazyload" alt=""> <i class="ti-search"
                                                 onclick="openSearch()"></i></div>
                                         <div id="search-overlay" class="search-overlay">
@@ -189,7 +189,7 @@
                                     <li class="onhover-div mobile-cart">
                                         <div>
                                             <a href="{{ route('cart') }}">
-                                                <img src="../assets/images/icon/cart.png"
+                                                <img src="{{ asset('assets/images/icon/cart.png') }}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <i class="ti-shopping-cart"></i>
                                             </a>

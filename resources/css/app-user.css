@@ -47,3 +47,7 @@ header.marketplace.header-tools {
 .checkout-page .checkout-form input {
     background-color: white !important;
 }
+
+.btn-solid.btn-sm {
+    padding: 5px 16px;
+}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\User;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
@@ -18,9 +19,14 @@ class UserController extends Controller
         return view('user.dashboard.index', compact('orders'));
     }
 
-    public function showOrder()
+    public function showOrder($id)
     {
-        return view('user.dashboard.index');
+        $order = Order::where('owner_id', auth()->id())
+                ->where('id', $id)
+                ->firstOrFail();
+
+
+        return view('user.order.show', compact('order'));
     }
 
     public function update(Request $request)

@@ -80,10 +80,10 @@
                     <div class="payment-card-bottom">
                         <ul>
                             <li>
-                                <a href="#"><img src="../assets/images/icon/visa.png" alt="Payment method Visa"></a>
+                                <a href="#"><img src="{{ asset('assets/images/icon/visa.png') }}" alt="Payment method Visa"></a>
                             </li>
                             <li>
-                                <a href="#"><img src="../assets/images/icon/mastercard.png" alt="Payment method mastercard"></a>
+                                <a href="#"><img src="{{ asset('assets/images/icon/mastercard.png') }}" alt="Payment method mastercard"></a>
                             </li>
                         </ul>
                     </div>
