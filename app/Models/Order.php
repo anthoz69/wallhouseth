@@ -92,6 +92,7 @@ class Order extends Model
 
     protected $casts = [
         'shippop_detail' => 'json',
+        'payment_detail' => 'json'
     ];
 
     public function owner()

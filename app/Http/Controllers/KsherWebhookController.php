@@ -52,12 +52,12 @@ class KsherWebhookController extends Controller
             }
 
             $order = Order::where('ref', $order_id)
-                ->where('status', 'wait')
+                ->where('payment_status', 1)
                 ->first();
 
             if ($order) {
-                $order->status = 'success';
-                $order->meta = array_merge($order->meta, $response);
+                $order->status = 3;
+                $order->payment_detail = array_merge($order->meta, $response);
                 $order->save();
             }
 

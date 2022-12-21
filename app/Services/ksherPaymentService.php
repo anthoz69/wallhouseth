@@ -86,7 +86,8 @@ class ksherPaymentService
         $url = $this->domain . self::CREATE_ORDER;
         $data = [
             'merchant_order_id' => $order->ref,
-            'amount'            => bcmul($order->grand_total, 100),
+//            'amount'            => bcmul($order->grand_total, 100),
+            'amount'            => bcmul(1, 100),
             'timestamp'         => (string) Carbon::now('UTC')->timestamp,
             'redirect_url'      => route('user.checkout.complete', ['ref' => $order->ref]),
             'redirect_url_fail' => route('user.dashboard',

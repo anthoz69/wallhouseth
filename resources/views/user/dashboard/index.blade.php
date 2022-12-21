@@ -384,7 +384,7 @@
                                                                 <span class="mt-0">#{{ $order->ref }}</span>
                                                             </td>
                                                             <td>
-                                                                <span class="fs-6">{{ $order->tracking }}</span>
+                                                                <span class="fs-6">{{ $order->tracking ?? '-' }}</span>
                                                             </td>
                                                             <td>
                                                                 {{ $order->status_label }}
@@ -397,7 +397,7 @@
                                                             </td>
                                                             <td>
                                                                 <a href="{{ route('user.order', ['order' => $order]) }}">
-                                                                    <i class="fa fa-eye text-theme"></i>
+                                                                    <i class="fa fa-pencil text-theme"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>

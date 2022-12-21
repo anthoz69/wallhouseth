@@ -85,10 +85,56 @@
                         </tr>
                         <tr>
                             <th>
+                                {{ trans('cruds.order.fields.courier_code') }}
+                            </th>
+                            <td>
+                                {{ $order->courier_code }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.order.fields.courier_name') }}
+                            </th>
+                            <td>
+                                {{ $order->courier_name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.order.fields.courier_price') }}
+                            </th>
+                            <td>
+                                {{ $order->courier_price }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
                                 {{ trans('cruds.order.fields.tracking') }}
                             </th>
                             <td>
                                 {{ $order->tracking }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.order.fields.bill_address') }}
+                            </th>
+                            <td>
+                                {{ $order->bill_name }} ({{ $order->bill_phone }})<br>
+                                {{ $order->bill_address }}<br>
+                                {{ $order->bill_district }} {{ $order->bill_amphoe }} <br>
+                                {{ $order->bill_provice }} {{ $order->bill_zipcode }} {{ $order->bill_country_label }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.order.fields.shipping_address') }}
+                            </th>
+                            <td>
+                                {{ $order->shipping_name }} ({{ $order->shipping_phone }})<br>
+                                {{ $order->shipping_address }}<br>
+                                {{ $order->shipping_district }} {{ $order->shipping_amphoe }} <br>
+                                {{ $order->shipping_provice }} {{ $order->shipping_zipcode }} {{ $order->shipping_country_label }}
                             </td>
                         </tr>
                     </tbody>
