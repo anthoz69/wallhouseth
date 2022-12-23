@@ -174,6 +174,8 @@ class CheckoutController extends Controller
 
             return redirect()->to($ksherResponse['reference']);
         } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+
             return redirect()->back()->withErrors('ทำรายการชำระเงินไม่สำเร็จ');
         }
     }

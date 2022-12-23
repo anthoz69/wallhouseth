@@ -26,6 +26,7 @@
 
     <!--section start-->
     <section class="cart-section section-b-space">
+        @include('components.user.alert-validate')
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 table-responsive-xs">

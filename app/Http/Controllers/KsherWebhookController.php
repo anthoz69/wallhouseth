@@ -31,7 +31,12 @@ class KsherWebhookController extends Controller
             }
 
             // verify sign key
-            $endpoint = route('webhook.ksher', ['key' => config('app.ksher_webhook_key')]);
+            // $endpoint ให่้ใช้ลิงก์ valet share หรือ ngrok มาสร้าง endpoint แทนตอน dev
+            if (app()->environment(['production'])) {
+                $endpoint = route('webhook.ksher', ['key' => config('app.ksher_webhook_key')]);
+            } else {
+                $endpoint = 'https://2cca-14-207-80-28.ap.ngrok.io' . '/webhook/ksher?key=' . config('app.ksher_webhook_key');
+            }
             $ksher = new ksherPaymentService();
             if (! $ksher->verify_sign($endpoint, $request->only([
                 'type', 'instance', 'code', 'message', 'signature',
@@ -44,23 +49,24 @@ class KsherWebhookController extends Controller
 
             // relative data
             $response = $ksher->infoOrder($order_id);
-            if ($response['status'] !== "Paid") {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'order not paid',
-                ], 400);
+            if (app()->environment(['production'])) {
+                if ($response['status'] !== "Paid") {
+                    return response()->json([
+                        'status'  => false,
+                        'message' => 'order not paid',
+                    ], 400);
+                }
             }
 
             $order = Order::where('ref', $order_id)
-                ->where('payment_status', 1)
+                ->whereIn('payment_status', [1, 2])
                 ->first();
 
             if ($order) {
-                $order->status = 3;
-                $order->payment_detail = array_merge($order->meta, $response);
+                $order->payment_status = 3;
+                $order->payment_detail = $response;
                 $order->save();
             }
-
 
             return response()->json([
                 'status'  => true,

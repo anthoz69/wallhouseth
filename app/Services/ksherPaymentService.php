@@ -20,7 +20,7 @@ class ksherPaymentService
         $this->token = config('app.ksher_gateway_token');
     }
 
-    private function parseData($data)
+    public function parseData($data)
     {
         ksort($data);
         $message = '';
@@ -84,10 +84,15 @@ class ksherPaymentService
     public function createOrder($order)
     {
         $url = $this->domain . self::CREATE_ORDER;
+        if (app()->environment(['production'])) {
+            $amount = bcmul($order->grand_total, 100);
+        } else {
+            // 1 บาท
+            $amount = bcmul(1, 100);
+        }
         $data = [
             'merchant_order_id' => $order->ref,
-//            'amount'            => bcmul($order->grand_total, 100),
-            'amount'            => bcmul(1, 100),
+            'amount'            => $amount,
             'timestamp'         => (string) Carbon::now('UTC')->timestamp,
             'redirect_url'      => route('user.checkout.complete', ['ref' => $order->ref]),
             'redirect_url_fail' => route('user.dashboard',
