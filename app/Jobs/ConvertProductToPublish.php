@@ -43,22 +43,26 @@ class ConvertProductToPublish implements ShouldQueue
 
         $originalData = $product->original_data;
 
-        $translate = app(GoogleTranslate::class);
+        if (! app()->environment(['local', 'staging'])) {
 
-        $features = explode(",", $originalData[4]);
-        $data = array_merge([
-            $originalData[3], // product name
-        ], $features);
-        $translateResponse = $translate->translate($data);
-        $translateResponse = collect($translateResponse);
+            $translate = app(GoogleTranslate::class);
 
-        $features = array_map(function ($value) use ($translateResponse) {
-            return $translateResponse
-                ->firstWhere(
-                    'source_text',
-                    $value
-                )['translated_text'] ?? $value;
-        }, $features);
+            $features = explode(",", $originalData[4]);
+            $data = array_merge([
+                $originalData[3], // product name
+            ], $features);
+            $translateResponse = $translate->translate($data);
+            $translateResponse = collect($translateResponse);
+
+            $features = array_map(function ($value) use ($translateResponse) {
+                return $translateResponse
+                    ->firstWhere(
+                        'source_text',
+                        $value
+                    )['translated_text'] ?? $value;
+            }, $features);
+
+        }
 
         $mainImage = $originalData[6] ?? '';
         $otherImages = explode("|", $originalData[7]) ?? [];
@@ -75,8 +79,10 @@ class ConvertProductToPublish implements ShouldQueue
                 ->toMediaCollection('product_other_image');
         }
 
-        $product->name = $translateResponse->firstWhere('source_text',
-            $originalData[3])['translated_text'] ?? $originalData[3];
+        if (! app()->environment(['local', 'staging'])) {
+            $product->name = $translateResponse->firstWhere('source_text',
+                $originalData[3])['translated_text'] ?? $originalData[3];
+        }
         $product->features = implode(", ", $features);
         $product->image = str_replace(config('app.url'), '', $product->getFirstMediaUrl('product_main_image'));
         $product->status = 2;
