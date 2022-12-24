@@ -91,6 +91,14 @@
                                             <span>{{ $order->tracking ?? '-' }}</span>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div class="left">
+                                            <span>คูปอง</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>{{ $order->coupon_code ?? '-' }}</span>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -252,6 +260,13 @@
                                     <td class="border-b-0"></td>
                                     <td class="text-right border-b-0">รวม</td>
                                     <td class="text-right">{{ number_format($order->total, 2) }} {{ bahtSymbol() }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="border-b-0"></td>
+                                    <td class="text-right border-b-0">คูปองส่วนลด</td>
+                                    <td class="text-right">-{{ number_format($order->coupon_price ?? 0, 2) }} {{ bahtSymbol() }}</td>
                                 </tr>
                                 <tr>
                                     <td class="border-b-0"></td>

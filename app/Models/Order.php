@@ -114,7 +114,7 @@ class Order extends Model
 
     public function getGrandTotalAttribute()
     {
-        $total = bcadd($this->total, $this->courier_price);
+        $total = bcadd($this->total, $this->courier_price, 2);
         $total = bcsub($total, $this->coupon_price, 2);
         if (bccomp($total, 0) === 1) {
             return $total;
