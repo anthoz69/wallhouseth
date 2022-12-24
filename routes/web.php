@@ -50,6 +50,7 @@ Route::get('webhook/ksher', [KsherWebhookController::class, 'index'])
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::get('/user/dashboard', [\App\Http\Controllers\User\UserController::class, 'dashboard'])
         ->name('dashboard');
+    Route::post('/user/shipping-state/{order}', [\App\Http\Controllers\User\UserController::class, 'checkOrderStatus']);
     Route::get('/user/order/{order}', [\App\Http\Controllers\User\UserController::class, 'showOrder'])
         ->name('order');
 

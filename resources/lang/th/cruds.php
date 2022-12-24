@@ -298,6 +298,7 @@ return [
             'bill_address'          => 'ที่อยู่ออกใบเสร็จ',
             'shipping_address'      => 'ที่อยู่จัดส่ง',
             'grand_total'           => 'ยอดสุทธิ',
+            'menu'                  => 'เมนู',
         ],
     ],
     'orderDetail'    => [

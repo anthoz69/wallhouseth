@@ -6,12 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\UserAddress;
+use App\Services\Shippop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    private Shippop $shippop;
+
+    public function __construct(Shippop $shippop)
+    {
+        $this->shippop = $shippop;
+    }
+
     public function dashboard()
     {
         $orders = auth()->user()->orders()->latest()->get();
@@ -22,8 +30,8 @@ class UserController extends Controller
     public function showOrder($id)
     {
         $order = Order::where('owner_id', auth()->id())
-                ->where('id', $id)
-                ->firstOrFail();
+            ->where('id', $id)
+            ->firstOrFail();
 
 
         return view('user.order.show', compact('order'));
@@ -163,5 +171,23 @@ class UserController extends Controller
             ->delete();
 
         return redirect()->route('user.dashboard', ['tab' => 'address']);
+    }
+
+    public function checkOrderStatus($id)
+    {
+        $order = Order::where('owner_id', auth()->id())
+            ->where('id', $id)
+            ->first();
+        if (! $order) {
+            return $this->responseJson(404);
+        }
+
+        if (empty($order->shippop_ref)) {
+            return $this->responseJson(404);
+        }
+
+        $orderStatus = $this->shippop->checkStatus($order->shippop_ref);
+
+        return $this->responseJson(200, $orderStatus);
     }
 }

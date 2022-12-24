@@ -19,6 +19,18 @@
                     <tbody class="bg-white">
                         <tr>
                             <th>
+                                {{ trans('cruds.order.fields.menu') }}
+                            </th>
+                            <td>
+                                @if ($label)
+                                <button class="btn btn-warning" type="button" onclick="printJS({printable: '{{ $label['pdf'] }}', type: 'pdf', base64: true})">
+                                    ใบปะหน้า
+                                </button>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
                                 {{ trans('cruds.order.fields.id') }}
                             </th>
                             <td>
@@ -64,7 +76,9 @@
                                 {{ trans('cruds.order.fields.payment_detail') }}
                             </th>
                             <td>
+                                @if ($order->payment_detail)
                                 <pre class="whitespace-pre-wrap text-gray-300 bg-gray-700">{!! json_encode($order->payment_detail, JSON_PRETTY_PRINT) !!}</pre>
+                                @endif
                             </td>
                         </tr>
                         <tr>
@@ -80,7 +94,9 @@
                                 {{ trans('cruds.order.fields.shippop_detail') }}
                             </th>
                             <td>
-                                {{ $order->shippop_detail }}
+                                @if ($order->shippop_detail)
+                                    <pre class="whitespace-pre-wrap text-gray-300 bg-gray-700">{!! json_encode($order->shippop_detail, JSON_PRETTY_PRINT) !!}</pre>
+                                @endif
                             </td>
                         </tr>
                         <tr>
@@ -162,3 +178,10 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.min.css" integrity="sha512-zrPsLVYkdDha4rbMGgk9892aIBPeXti7W77FwOuOBV85bhRYi9Gh+gK+GWJzrUnaCiIEm7YfXOxW8rzYyTuI1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endpush
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.min.js" integrity="sha512-16cHhHqb1CbkfAWbdF/jgyb/FDZ3SdQacXG8vaOauQrHhpklfptATwMFAc35Cd62CQVN40KDTYo9TIsQhDtMFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@endpush

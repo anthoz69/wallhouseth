@@ -177,40 +177,15 @@
                         </div>
                     </div>
                     <div class="order-table table-responsive-sm">
-                        <table class="table mb-0 table-striped table-borderless">
+                        <table id="shipping-state" class="table mb-0 table-striped table-borderless">
                             <thead class="">
                                 <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Location</th>
+                                    <th scope="col">วันที่</th>
+                                    <th scope="col">สถานที่</th>
+                                    <th scope="col">รายเอียด</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>20 Nov 2020</td>
-                                    <td>12.00 AM</td>
-                                    <td>shipped</td>
-                                    <td>california</td>
-                                </tr>
-                                <tr>
-                                    <td>20 Nov 2020</td>
-                                    <td>12.00 AM</td>
-                                    <td>shipping info received</td>
-                                    <td>california</td>
-                                </tr>
-                                <tr>
-                                    <td>20 Nov 2020</td>
-                                    <td>12.00 AM</td>
-                                    <td>origin scan</td>
-                                    <td>california</td>
-                                </tr>
-                                <tr>
-                                    <td>20 Nov 2020</td>
-                                    <td>12.00 AM</td>
-                                    <td>shipping info received</td>
-                                    <td>california</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -291,3 +266,28 @@
     </section>
     <!-- tracking page end -->
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function () {
+            axios.post('/user/shipping-state/' + '{{ $order->id }}')
+                .then((res) => {
+                    if (res.data.order_status === 'booking') {
+                        const content = "<tr><td colspan='3' class='text-center'>รอพัสดุเข้าระบบ</td></tr>"
+                        $('#shipping-state tbody').empty()
+                        $('#shipping-state tbody').append(content)
+                    }
+                    if (res.data.order_status === 'shipping') {
+                        for (const state of res.data.states) {
+                            $('#shipping-state tbody').append(`<tr><td>${state.datetime}</td><td>${state.location}</td><td>${state.description}</td></tr>`)
+                        }
+                    }
+                })
+                .catch(() => {
+                    const content = "<tr><td colspan='3' class='text-center'>ไม่มีข้อมูล</td></tr>"
+                    $('#shipping-state tbody').empty()
+                    $('#shipping-state tbody').append(content)
+                })
+        })
+    </script>
+@endpush
