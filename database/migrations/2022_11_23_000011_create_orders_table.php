@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->longText('payment_detail')->nullable();
             $table->string('shippop_ref')->nullable();
             $table->longText('shippop_detail')->nullable();
+            $table->string('coupon_price')->nullable();
+            $table->string('coupon_code')->nullable();
             $table->string('courier_code')->nullable();
             $table->string('courier_name')->nullable();
             $table->unsignedDecimal('courier_price')->default(0);

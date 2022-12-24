@@ -33,6 +33,7 @@
                         @csrf
                         <input type="hidden" name="courier_price" value="0">
                         <input type="hidden" name="courier_name" value="0">
+                        <input type="hidden" name="courier_name" value="0">
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
@@ -187,7 +188,22 @@
                                             @endforeach
                                         </ul>
                                         <ul class="sub-total">
-                                            <li>รวม <span id="sub-total" data-sub-total="{{ Cart::getTotal() }}" class="count">{{ number_format(Cart::getTotal(), 2) }} {{ bahtSymbol() }}</span></li>
+                                            <li>
+                                                รวม
+                                                <span id="sub-total" data-sub-total="{{ Cart::getTotal() }}" class="count">{{ number_format(Cart::getTotal(), 2) }} {{ bahtSymbol() }}</span>
+                                            </li>
+                                            <li>
+                                                คูปอง
+                                                <span class="float-right w-[35%] text-primary-500 text-[18px] font-normal" style="display: none;" id="coupon-price">0 {{ bahtSymbol() }}</span>
+
+                                                <div id="coupon-input-wrap" class="input-group input-group-sm mt-3">
+                                                    <input type="text" name="coupon_code" data-price="0" class="form-control w-[1%]" value="{{ old('coupon_code') }}">
+                                                    <div class="input-group-append ml-0">
+                                                        <button id="apply-coupon" type="button" class="btn bg-primary-300 text-white hover:bg-primary-300/90">ใช้คูปอง</button>
+                                                    </div>
+                                                </div>
+                                                <div id="coupon-edit" class="text-sm text-primary-300/70 mt-2 cursor-pointer" style="display: none;">แก้ไขคูปอง</div>
+                                            </li>
                                             <li>
                                                 <div class="mb-3">เลือกวิธีส่งสินค้า</div>
                                                 <div class="js-shipping-required-fill text-gray-400 font-normal my-4">กรุณากรอกที่อยู่จัดส่งก่อน</div>

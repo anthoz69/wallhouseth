@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Exceptions\CouponException;
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -82,6 +84,7 @@ class CheckoutController extends Controller
             'courier_code'  => ['required'],
             'courier_name'  => ['required'],
             'courier_price' => ['required', 'numeric'],
+            'coupon_code'   => ['nullable'],
 
             'bill_name'     => ['required', 'max:255'],
             'bill_phone'    => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10'],
@@ -128,11 +131,22 @@ class CheckoutController extends Controller
 
         try {
             $order = DB::transaction(function () use ($data) {
+                $coupon = Coupon::findCoupon($data['coupon_code']);
+                if (! $coupon) {
+                    throw new CouponException("ไม่มีคูปองนี้");
+                }
+                if ($coupon->amount <= 0) {
+                    throw new CouponException("คูปองหมดอายุ หรือ ถูกใช้งานแล้ว");
+                }
+                $coupon->decrement('amount');
+
                 $order = Order::create([
                     'owner_id'          => auth()->id(),
                     'ref'               => \Str::random(10),
                     'status'            => 1,
                     'payment_status'    => 1,
+                    'coupon_code'       => $coupon->code,
+                    'coupon_price'      => $coupon->price,
                     'courier_code'      => $data['courier_code'],
                     'courier_name'      => $data['courier_name'],
                     'courier_price'     => $data['courier_price'],
@@ -173,6 +187,8 @@ class CheckoutController extends Controller
             $ksherResponse = $this->ksherPayment->createOrder($order);
 
             return redirect()->to($ksherResponse['reference']);
+        } catch (CouponException $e) {
+            return redirect()->back()->withErrors($e->getMessage());
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
 
@@ -183,9 +199,56 @@ class CheckoutController extends Controller
     public function complete(Request $request)
     {
         $order = Order::where('id', $request->order)
+            ->where('owner_id', auth()->id())
             ->where('ref', $request->ref)
             ->firstOrFail();
 
+        $order->payment_status = 2;
+        $order->save();
+
         return view('user.order.thank-you', compact('order'));
+    }
+
+    public function retryPayment($id)
+    {
+        $order = Order::where('owner_id', auth()->id())
+            ->where('ref', $id)
+            ->where('payment_status', 1)
+            ->first();
+
+        if (! $order) {
+            return $this->backFail(__('ออเดอร์อยู่ในสถานะรอยืนยันยอดเงิน หากท่านทำการชำระเงินแล้วกรุณารอ 5 - 10 นาที หากออเดอร์จ่ายเงินไม่สำเร็จกรุณาติดต่อผู้ดูแลเว็บไซต์'));
+        }
+
+        try {
+            $response = $this->ksherPayment->infoOrder($order->ref);
+
+            if ($response['status'] === 'Available' && $response['error_code'] === 'PENDING') {
+                return redirect()->to($response['reference']);
+            }
+
+            return $this->backFail('ไม่สามารถสร้างรายการชำระเงินได้ เนื่องจากรายการชำระเงินอาจรอการยืนยัน หรือ ถูกยกเลิก กรุณาติดต่อผู้ดูแลเว็บไซต์');
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+
+            return $this->backFail('ไม่สามารถสร้างรายการชำระเงินได้ กรุณาติดต่อผู้ดูแลเว็บไซต์');
+        }
+    }
+
+    public function findCoupon(Request $request)
+    {
+        $request->validate([
+            'code' => ['required'],
+        ]);
+
+        $coupon = Coupon::findCoupon($request->code);
+
+        if (! $coupon) {
+            return $this->responseJson(404);
+        }
+
+        return $this->responseJson(200, [
+            'coupon' => $coupon->only(['price', 'code']),
+        ]);
     }
 }

@@ -71,6 +71,10 @@ Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
         ->name('checkout.store');
     Route::get('checkout/complete', [CheckoutController::class, 'complete'])
         ->name('checkout.complete');
+    Route::get('checkout/retry-payment/{id}', [CheckoutController::class, 'retryPayment'])
+        ->name('checkout.retry-payment');
+    Route::post('checkout/find-coupon', [CheckoutController::class, 'findCoupon'])
+        ->name('checkout.find-coupon');
 
     Route::post('checkout/shipping-list', [CheckoutController::class, 'getShippingList']);
 });

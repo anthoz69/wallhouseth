@@ -64,6 +64,8 @@ class Order extends Model
         'payment_detail',
         'shippop_ref',
         'shippop_detail',
+        'coupon_price',
+        'coupon_code',
         'courier_code',
         'courier_name',
         'courier_price',
@@ -92,7 +94,7 @@ class Order extends Model
 
     protected $casts = [
         'shippop_detail' => 'json',
-        'payment_detail' => 'json'
+        'payment_detail' => 'json',
     ];
 
     public function owner()
@@ -112,7 +114,13 @@ class Order extends Model
 
     public function getGrandTotalAttribute()
     {
-        return $this->total + $this->courier_price;
+        $total = bcadd($this->total, $this->courier_price);
+        $total = bcsub($total, $this->coupon_price, 2);
+        if (bccomp($total, 0) === 1) {
+            return $total;
+        }
+
+        return 0;
     }
 
     public function getStatusLabelAttribute($value)
@@ -122,12 +130,12 @@ class Order extends Model
 
     public function getBillCountryLabelAttribute($value)
     {
-        return 'ประเทศ'. static::COUNTRY_SELECT[$this->bill_country] ?? null;
+        return 'ประเทศ' . static::COUNTRY_SELECT[$this->bill_country] ?? null;
     }
 
     public function getShippingCountryLabelAttribute($value)
     {
-        return 'ประเทศ'. static::COUNTRY_SELECT[$this->shipping_country] ?? null;
+        return 'ประเทศ' . static::COUNTRY_SELECT[$this->shipping_country] ?? null;
     }
 
     public function getPaymentStatusLabelAttribute($value)

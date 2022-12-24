@@ -7,6 +7,7 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use phpDocumentor\Reflection\Types\Self_;
 
 class Coupon extends Model
 {
@@ -53,5 +54,12 @@ class Coupon extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public static function findCoupon(string $code)
+    {
+        return self::where('code', $code)
+            ->where('amount', '>', 0)
+            ->first();
     }
 }

@@ -30,7 +30,15 @@
             <a href="{{ route('user.dashboard', ['tab' => 'orders']) }}" class="btn btn-secondary btn-sm">< กลับไปหน้าออเดอร์</a>
             <div class="row mt-4">
                 <div class="col-sm-12">
-                    <h3>รายละเอียดออเดอร์ เลขที่: #{{ $order->ref }}</h3>
+                    <h3 class="clear-both">
+                        รายละเอียดออเดอร์ เลขที่: #{{ $order->ref }}
+
+                        <div class="float-right">
+                            @if($order->status == 1)
+                                <a class="bth btn-solid btn-sm" href="{{ route('user.checkout.retry-payment', ['id' => $order->ref]) }}">ชำระเงิน</a>
+                            @endif
+                        </div>
+                    </h3>
                     <div class="row border-part">
                         <div class="col-xl-4 col-lg-5 col-sm-8">
                             <div class="tracking-detail items-baseline">
@@ -99,7 +107,9 @@
                                         <div class="left">
                                             <span>สถานะการชำระเงิน</span>
                                         </div>
-                                        <div class="right">{{ $order->payment_status_label }}</div>
+                                        <div class="right">
+                                            {{ $order->payment_status_label }}
+                                        </div>
                                     </li>
                                     <li>
                                         <div class="left">

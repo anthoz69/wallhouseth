@@ -64,7 +64,7 @@
                                 {{ trans('cruds.order.fields.payment_detail') }}
                             </th>
                             <td>
-                                {{ $order->payment_detail }}
+                                <pre class="whitespace-pre-wrap text-gray-300 bg-gray-700">{!! json_encode($order->payment_detail, JSON_PRETTY_PRINT) !!}</pre>
                             </td>
                         </tr>
                         <tr>
@@ -104,7 +104,15 @@
                                 {{ trans('cruds.order.fields.courier_price') }}
                             </th>
                             <td>
-                                {{ $order->courier_price }}
+                                {{ number_format($order->courier_price, 2) }} {{ bahtSymbol() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.order.fields.grand_total') }}
+                            </th>
+                            <td>
+                                {{ number_format($order->grand_total, 2) }} {{ bahtSymbol() }}
                             </td>
                         </tr>
                         <tr>

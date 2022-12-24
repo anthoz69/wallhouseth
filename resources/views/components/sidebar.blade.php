@@ -34,6 +34,16 @@
             <!-- Heading -->
 
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+
+                <li class="items-center">
+                    <a class="sidebar-nav" href="/">
+                        <i class="fa-fw c-sidebar-nav-icon fas fa-home">
+                        </i>
+                        {{ trans('cruds.home') }}
+                    </a>
+                </li>
+
+
                 <li class="items-center">
                     <a href="{{ route("admin.home") }}" class="{{ request()->is("admin") ? "sidebar-nav-active" : "sidebar-nav" }}">
                         <i class="fas fa-tv"></i>

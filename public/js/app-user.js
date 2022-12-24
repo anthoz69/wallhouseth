@@ -2380,6 +2380,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var debounce = __webpack_require__(/*! debounce */ "./node_modules/debounce/index.js");
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.getCookie = function (name) {
   var value = "; ".concat(document.cookie);
@@ -2429,7 +2430,7 @@ window.setCookie = function (cName, cValue, expDays) {
           from: "top",
           align: "right"
         },
-        offset: 20,
+        offset: 90,
         spacing: 10,
         z_index: 1031,
         delay: 1100,
@@ -2509,17 +2510,57 @@ window.setCookie = function (cName, cValue, expDays) {
   $(document).on('change', 'input[name="courier_code"]', function (e) {
     var shippingPrice = +$(this).data('price');
     var shippingName = $(this).data('name');
-    var subTotal = +$('#sub-total').data('sub-total');
-    $('#total').text(numeral(subTotal + shippingPrice).format('0,0.00'));
     $('#submit-form').attr('disabled', false);
     $('input[name="courier_price"]').val(shippingPrice);
     $('input[name="courier_name"]').val(shippingName);
+    getTotal();
   });
   getShippingList();
   $("form").submit(function () {
     // prevent duplicate form submissions
     $(this).find(":submit").attr('disabled', 'disabled');
   });
+  $('#apply-coupon').click(function () {
+    var _this = this;
+    var couponCode = $('input[name="coupon_code"]').val();
+    if (couponCode.trim() === '') {
+      return;
+    }
+    $(this).attr('disabled', true);
+    axios.post('checkout/find-coupon', {
+      code: couponCode
+    }).then(function (res) {
+      if (res.status === 200) {
+        $('#coupon-price').text('-' + numeral(res.data.coupon.price).format('0,0.[00]') + ' ฿').show();
+        $('input[name=coupon_code]').data('price', res.data.coupon.price);
+        $('#coupon-input-wrap').hide();
+        $('#coupon-edit').show();
+      }
+      $(_this).attr('disabled', false);
+      getTotal();
+    })["catch"](function () {
+      alert('ไม่สามารถใช้งานคูปองนี้ได้');
+      $(_this).attr('disabled', false);
+    });
+  });
+  $('#coupon-edit').click(function () {
+    $('#coupon-edit').hide();
+    $('#coupon-price').hide();
+    $('#coupon-input-wrap').show();
+    $('input[name="coupon_code"]').val('').data('price', 0);
+    getTotal();
+  });
+  function getTotal() {
+    var subTotal = +$('#sub-total').data('sub-total');
+    var shippingPrice = +$('input[name="courier_price"]').val();
+    var couponPrice = +$('input[name="coupon_code"]').data('price');
+    var total = subTotal + shippingPrice;
+    total = total - couponPrice;
+    if (total <= 0) {
+      total = 0;
+    }
+    $('#total').text(numeral(total).format('0,0.00'));
+  }
 })(jQuery);
 })();
 

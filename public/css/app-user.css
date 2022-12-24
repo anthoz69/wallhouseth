@@ -161,6 +161,9 @@
 .mt-0 {
     margin-top: 0px !important;
 }
+.mt-10 {
+    margin-top: 2.5rem !important;
+}
 .ml-0 {
     margin-left: 0px !important;
 }
@@ -169,9 +172,6 @@
 }
 .-ml-px {
     margin-left: -1px !important;
-}
-.mt-10 {
-    margin-top: 2.5rem !important;
 }
 .box-content {
     box-sizing: content-box !important;
@@ -260,6 +260,15 @@
 .w-\[77\%\] {
     width: 77% !important;
 }
+.w-\[1px\] {
+    width: 1px !important;
+}
+.w-\[1\%\] {
+    width: 1% !important;
+}
+.w-\[35\%\] {
+    width: 35% !important;
+}
 .min-w-48 {
     min-width: 12rem !important;
 }
@@ -344,6 +353,9 @@
 .whitespace-nowrap {
     white-space: nowrap !important;
 }
+.whitespace-pre-wrap {
+    white-space: pre-wrap !important;
+}
 .break-words {
     overflow-wrap: break-word !important;
 }
@@ -415,6 +427,10 @@
     --tw-border-opacity: 1 !important;
     border-color: rgba(209, 213, 219, var(--tw-border-opacity)) !important;
 }
+.border-primary-400 {
+    --tw-border-opacity: 1 !important;
+    border-color: rgba(40, 58, 151, var(--tw-border-opacity)) !important;
+}
 .bg-white {
     --tw-bg-opacity: 1 !important;
     background-color: rgba(255, 255, 255, var(--tw-bg-opacity)) !important;
@@ -470,6 +486,10 @@
     --tw-bg-opacity: 1 !important;
     background-color: rgba(40, 58, 151, var(--tw-bg-opacity)) !important;
 }
+.bg-gray-700 {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgba(55, 65, 81, var(--tw-bg-opacity)) !important;
+}
 .bg-blueGray-800 {
     --tw-bg-opacity: 1 !important;
     background-color: rgba(30, 41, 59, var(--tw-bg-opacity)) !important;
@@ -489,6 +509,15 @@
 .bg-primary-300 {
     --tw-bg-opacity: 1 !important;
     background-color: rgba(47, 75, 192, var(--tw-bg-opacity)) !important;
+}
+.bg-primary-400\/25 {
+    background-color: rgba(40, 58, 151, 0.25) !important;
+}
+.bg-primary-400\/70 {
+    background-color: rgba(40, 58, 151, 0.7) !important;
+}
+.bg-primary-500\/70 {
+    background-color: rgba(33, 51, 141, 0.7) !important;
 }
 .p-4 {
     padding: 1rem !important;
@@ -622,6 +651,9 @@
     font-size: 1.5rem !important;
     line-height: 2rem !important;
 }
+.text-\[18px\] {
+    font-size: 18px !important;
+}
 .font-bold {
     font-weight: 700 !important;
 }
@@ -728,6 +760,21 @@
 .text-blue-500 {
     --tw-text-opacity: 1 !important;
     color: rgba(59, 130, 246, var(--tw-text-opacity)) !important;
+}
+.text-primary-400 {
+    --tw-text-opacity: 1 !important;
+    color: rgba(40, 58, 151, var(--tw-text-opacity)) !important;
+}
+.text-primary-300\/70 {
+    color: rgba(47, 75, 192, 0.7) !important;
+}
+.text-primary-300 {
+    --tw-text-opacity: 1 !important;
+    color: rgba(47, 75, 192, var(--tw-text-opacity)) !important;
+}
+.text-primary-500 {
+    --tw-text-opacity: 1 !important;
+    color: rgba(33, 51, 141, var(--tw-text-opacity)) !important;
 }
 .underline {
     text-decoration: underline !important;
@@ -849,6 +896,22 @@ header.marketplace.header-tools {
 
 .btn-solid.btn-sm {
     padding: 5px 16px;
+}
+
+.hover\:border-t:hover {
+    border-top-width: 1px !important;
+}
+
+.hover\:border-b:hover {
+    border-bottom-width: 1px !important;
+}
+
+.hover\:bg-primary-300\/80:hover {
+    background-color: rgba(47, 75, 192, .8) !important;
+}
+
+.hover\:bg-primary-300\/90:hover {
+    background-color: rgba(47, 75, 192, 0.9) !important;
 }
 
 .hover\:text-blueGray-700:hover {
