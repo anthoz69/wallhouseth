@@ -59,7 +59,7 @@ window.setCookie = (cName, cValue, expDays) => {
                     offset: 90,
                     spacing: 10,
                     z_index: 1031,
-                    delay: 1100,
+                    delay: 500,
                     animate: {
                         enter: 'animated fadeInDown',
                         exit: 'animated fadeOutUp'
@@ -122,7 +122,7 @@ window.setCookie = (cName, cValue, expDays) => {
             return
         }
         $('#shipping-list').empty()
-        $('.js-shipping-required-fill').text('...กำลังค้นหา')
+        $('.js-shipping-required-fill').text('...กำลังค้นหา').show()
         axios.post('checkout/shipping-list', {
             address,
             zipcode,
@@ -227,4 +227,43 @@ window.setCookie = (cName, cValue, expDays) => {
         }
         $('#total').text(numeral(total).format('0,0.00'))
     }
+
+    $('.js-address').click(function (e) {
+        const address = $(this).data('address')
+        if (address.is_bill_same_address == 2) {
+            $('#shipping_other').prop('checked', true)
+            $('#shipping-detail').show()
+
+            $('input[name=bill_name]').val(address.bill_name)
+            $('input[name=bill_phone]').val(address.bill_phone)
+            $('input[name=bill_address]').val(address.bill_address)
+            $('input[name=bill_district]').val(address.bill_district)
+            $('input[name=bill_amphoe]').val(address.bill_amphoe)
+            $('input[name=bill_province]').val(address.bill_province)
+            $('input[name=bill_zipcode]').val(address.bill_zipcode)
+            $('input[name=bill_country]').val(address.bill_country)
+
+            $('input[name=shipping_name]').val(address.bill_name)
+            $('input[name=shipping_phone]').val(address.bill_phone)
+            $('input[name=shipping_address]').val(address.bill_address)
+            $('input[name=shipping_district]').val(address.bill_district)
+            $('input[name=shipping_amphoe]').val(address.bill_amphoe)
+            $('input[name=shipping_province]').val(address.bill_province)
+            $('input[name=shipping_zipcode]').val(address.bill_zipcode)
+            $('input[name=shipping_country]').val(address.bill_country)
+        } else {
+            $('#shipping_other').prop('checked', false)
+            $('#shipping-detail').hide()
+
+            $('input[name=bill_name]').val(address.bill_name)
+            $('input[name=bill_phone]').val(address.bill_phone)
+            $('input[name=bill_address]').val(address.bill_address)
+            $('input[name=bill_district]').val(address.bill_district)
+            $('input[name=bill_amphoe]').val(address.bill_amphoe)
+            $('input[name=bill_province]').val(address.bill_province)
+            $('input[name=bill_zipcode]').val(address.bill_zipcode)
+            $('input[name=bill_country]').val(address.bill_country)
+        }
+        getShippingList()
+    })
 })(jQuery)

@@ -36,8 +36,6 @@ Route::get('cart/delete/{cart}', [CartController::class, 'destroy'])
 Route::get('cart/clear', [CartController::class, 'clear'])
     ->name('cart.clear');
 
-Route::get('products', [\App\Http\Controllers\User\ProductController::class, 'index'])
-    ->name('products.index');
 Route::get('products/{product}', [\App\Http\Controllers\User\ProductController::class, 'show'])
     ->name('products.show');
 

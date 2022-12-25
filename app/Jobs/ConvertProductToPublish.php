@@ -67,16 +67,19 @@ class ConvertProductToPublish implements ShouldQueue
         $mainImage = $originalData[6] ?? '';
         $otherImages = explode("|", $originalData[7]) ?? [];
 
+        $newMainImage = null;
         if (! empty($mainImage)) {
             $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $mainImage);
-            $product->addMediaFromUrl($url)
+            $newMainImage = $product->addMediaFromUrl($url)
                 ->toMediaCollection('product_main_image');
         }
 
-        foreach ($otherImages as $image) {
-            $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
-            $product->addMediaFromUrl($url)
-                ->toMediaCollection('product_other_image');
+        if (! empty($otherImages)) {
+            foreach ($otherImages as $image) {
+                $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
+                $product->addMediaFromUrl($url)
+                    ->toMediaCollection('product_other_image');
+            }
         }
 
         if (! app()->environment(['local', 'staging'])) {
@@ -85,7 +88,9 @@ class ConvertProductToPublish implements ShouldQueue
 
             $product->features = implode(", ", $features);
         }
-        $product->image = str_replace(config('app.url'), '', $product->getFirstMediaUrl('product_main_image'));
+        if (! empty($newMainImage)) {
+            $product->image = str_replace(config('app.url'), '', $newMainImage->getFullUrl());
+        }
         $product->status = 2;
         $product->save();
     }

@@ -11,12 +11,12 @@
                 <i class="ti-search" aria-hidden="true"></i>
             </a>
         </div>
-        <div class="add-button" data-product-id="{{$product->id}}" title="Add to cart">
-            add to cart
+        <div class="add-button text-sm" data-product-id="{{$product->id}}" title="Add to cart">
+            เพิ่มในตะกร้า
         </div>
     </div>
     <div class="product-detail">
-        <a href="product-page(no-sidebar).html">
+        <a href="{{ route('products.show', ['product' => $product]) }}">
             <h6>{{ $product->name }}</h6>
         </a>
         <h4>{{ number_format($product->price, 2) }} ฿</h4>

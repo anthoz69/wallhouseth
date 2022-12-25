@@ -71,7 +71,7 @@
                                     @if(!empty($product->categories[0]->parents))
                                         @include('user.product.badge-category-recursive', ['category' => $product->categories[0]->parents])
                                     @endif
-                                    <a href="{{ route('category.show', ['category' => $product->categories[0]]) }}" class="badge badge-grey-color">{{ $product->categories[0]->name }}</a>
+                                    <a href="{{ route('category.show', ['category' => $product->categories[0]]) }}" class="py-1.5 px-2 mr-1 rounded-xl border border-solid border-gray-700 text-blueGray-800 hover:bg-gray-100 transition-all cursor-pointer">{{ $product->categories[0]->name }}</a>
                                 @endif
                             </div>
                             <h3 class="price-detail">
@@ -82,7 +82,7 @@
                                 @endif
                             </h3>
                             <div id="selectSize" class="addeffect-section product-description border-product">
-                                <h6 class="product-title">quantity</h6>
+                                <h6 class="product-title">จำนวน</h6>
                                 <div class="qty-box">
                                     <div class="input-group">
                                         <span class="input-group-prepend">
@@ -118,6 +118,9 @@
                                 <h6 class="product-title">ชำระเงินปลอดภัย 100%</h6>
                                 <ul class="mt-1">
                                     <li class="mr-2">
+                                        <a><img src="{{ asset('assets/images/icon/prompt-pay-logo-h26.png') }}" alt="Payment method Prompt-pay"></a>
+                                    </li>
+                                    <li class="mr-2">
                                         <a><img src="{{ asset('assets/images/icon/visa.png') }}" alt="Payment method Visa"></a>
                                     </li>
                                     <li>
@@ -132,54 +135,6 @@
         </div>
     </section>
     <!-- Section ends -->
-
-
-    <!-- product-tab starts -->
-{{--    <section class="tab-product m-0">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-sm-12 col-lg-12">--}}
-{{--                    <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">--}}
-{{--                        <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab"--}}
-{{--                                href="#top-home" role="tab" aria-selected="true"><i--}}
-{{--                                    class="icofont icofont-ui-home"></i>Details</a>--}}
-{{--                            <div class="material-border"></div>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                    <div class="tab-content nav-material" id="top-tabContent">--}}
-{{--                        <div class="tab-pane fade show active" id="top-home" role="tabpanel"--}}
-{{--                            aria-labelledby="top-home-tab">--}}
-{{--                            <div class="product-tab-discription">--}}
-{{--                                <div class="part">--}}
-{{--                                    <p>The Model is wearing a white blouse from our stylist's collection, see the image--}}
-{{--                                        for a mock-up of what the actual blouse would look like.it has text written on--}}
-{{--                                        it in a black cursive language which looks great on a white color.</p>--}}
-{{--                                </div>--}}
-{{--                                <div class="part">--}}
-{{--                                    <h5 class="inner-title">fabric:</h5>--}}
-{{--                                    <p>Art silk is manufactured by synthetic fibres like rayon. It's light in weight and--}}
-{{--                                        is soft on the skin for comfort in summers.Art silk is manufactured by synthetic--}}
-{{--                                        fibres like rayon. It's light in weight and is soft on the skin for comfort in--}}
-{{--                                        summers.</p>--}}
-{{--                                </div>--}}
-{{--                                <div class="part">--}}
-{{--                                    <h5 class="inner-title">size & fit:</h5>--}}
-{{--                                    <p>The model (height 5'8") is wearing a size S</p>--}}
-{{--                                </div>--}}
-{{--                                <div class="part">--}}
-{{--                                    <h5 class="inner-title">Material & Care:</h5>--}}
-{{--                                    <p>Top fabric: pure cotton</p>--}}
-{{--                                    <p>Bottom fabric: pure cotton</p>--}}
-{{--                                    <p>Hand-wash</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
-    <!-- product-tab ends -->
 
 
     <!-- product section start -->

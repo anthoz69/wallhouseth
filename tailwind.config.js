@@ -39,7 +39,8 @@ module.exports = {
         'screen-75': '75vh'
       },
       fontSize: {
-        '55': '55rem'
+        '55': '55rem',
+        'xxl': '1.50rem'
       },
       opacity: {
         '80': '.8'

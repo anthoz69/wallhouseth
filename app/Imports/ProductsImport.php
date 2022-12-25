@@ -22,37 +22,51 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
     {
         $row = $row->toArray();
         $categories = explode(",", $row[5]);
-        $categoryIds = explode(",", $row[8]);
-//        $row[8] cate id
+
+        // ไม่ใช้เพราะ id ใน excel export มาเป็น number เช่น 245256514 แต่จริงๆแล้วต้องเป็น string ที่แยกเลขแบบนี้ 245,256,514 กรณีนี้ทำให้ใช้ id ในการ map ไม่ได้
+//        $categoryIds = explode(",", $row[8]);
 
         try {
-            $cat1 = Category::firstOrCreate([
-                'original_data' => trim($categoryIds[0]),
-            ], [
-                'name' => trim($categories[0]),
-                'original_data' => $categoryIds[0] ?? 0,
-                'category_id_map' => null,
-            ]);
-            $cateId = $cat1->id ?? null;
-            if (isset($categories[1])) {
-                $cat2 = Category::firstOrCreate([
-                    'original_data' => trim($categoryIds[1]),
+
+            if (! empty($categories)) {
+                $cat1 = Category::firstOrCreate([
+                    'original_data' => trim($categories[0]),
                 ], [
-                    'name' => trim($categories[1]),
-                    'original_data' => $categoryIds[1] ?? 0,
-                    'category_id_map' => $cat1->id,
+                    'name'            => trim($categories[0]),
+                    'original_data'   => trim($categories[0]),
+                    'category_id_map' => null,
                 ]);
-                $cateId = $cat2->id ?? null;
-            }
-            if (isset($categories[2])) {
-                $cat3 = Category::firstOrCreate([
-                    'original_data' => trim($categoryIds[2]),
+                $cateId = $cat1->id ?? null;
+                if (isset($categories[1])) {
+
+                    $cat2 = Category::firstOrCreate([
+                        'original_data' => trim($categories[1]),
+                    ], [
+                        'name'            => trim($categories[1]),
+                        'original_data'   => trim($categories[1]),
+                        'category_id_map' => $cat1->id,
+                    ]);
+                    $cateId = $cat2->id ?? null;
+                }
+                if (isset($categories[2])) {
+                    $cat3 = Category::firstOrCreate([
+                        'original_data' => trim($categories[2]),
+                    ], [
+                        'name'            => trim($categories[2]),
+                        'original_data'   => trim($categories[2]),
+                        'category_id_map' => $cat2->id,
+                    ]);
+                    $cateId = $cat3->id ?? null;
+                }
+            } else {
+                $cat1 = Category::firstOrCreate([
+                    'name' => 'อื่นๆ',
                 ], [
-                    'name' => trim($categories[2]),
-                    'original_data' => $categoryIds[2] ?? 0,
-                    'category_id_map' => $cat2->id,
+                    'name'            => 'อื่นๆ',
+                    'original_data'   => null,
+                    'category_id_map' => null,
                 ]);
-                $cateId = $cat3->id ?? null;
+                $cateId = $cat1->id ?? null;
             }
         } catch (\Exception $e) {
             $cateId = null;
@@ -60,18 +74,18 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
         }
 
         $product = Product::create([
-            'sku' => $row[0],
-            'barcode' => $row[1],
-            'price' => $this->getPrice($row[2]),
+            'sku'             => $row[0],
+            'barcode'         => $row[1],
+            'price'           => $this->getPrice($row[2]),
             'stock_available' => $this->onEmpty($row[13], 0),
-            'name' => $this->onEmpty(trim($row[3])),
-            'features' => $this->onEmpty(trim($row[4])),
-            'width' => $this->onEmpty($row[9], 0),
-            'length' => $this->onEmpty($row[10], 0),
-            'height' => $this->onEmpty($row[11], 0),
-            'kg' => $this->onEmpty($row[12], 0),
-            'original_data' => $row,
-            'status' => 0,
+            'name'            => $this->onEmpty(trim($row[3])),
+            'features'        => $this->onEmpty(trim($row[4])),
+            'width'           => $this->onEmpty($row[9], 0),
+            'length'          => $this->onEmpty($row[10], 0),
+            'height'          => $this->onEmpty($row[11], 0),
+            'kg'              => $this->onEmpty($row[12], 0),
+            'original_data'   => $row,
+            'status'          => 0,
         ]);
 
         $product->categories()->attach($cateId);
@@ -84,34 +98,34 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
     public function rules(): array
     {
         return [
-            '0' => [
+            '0'  => [
                 'required', 'alpha_num', 'unique:products,sku',
             ],
-            '1' => [
+            '1'  => [
                 'required', 'alpha_num', 'max:255',
             ],
-            '2' => [
+            '2'  => [
                 'required', 'numeric',
             ],
-            '3' => [
+            '3'  => [
                 'required', 'string',
             ],
-            '4' => [
+            '4'  => [
+                'nullable',
+            ],
+            '5'  => [
                 'required', 'string',
             ],
-            '5' => [
+            '6'  => [
                 'required', 'string',
             ],
-            '6' => [
-                'required', 'string',
+            '7'  => [
+                'nullable',
             ],
-            '7' => [
-                'required', 'string',
+            '8'  => [
+                'required',
             ],
-            '8' => [
-                'required', 'string',
-            ],
-            '9' => [
+            '9'  => [
                 'nullable', 'numeric',
             ],
             '10' => [

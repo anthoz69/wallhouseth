@@ -1,6 +1,6 @@
 <!-- Paragraph-->
-<div class="title1 section-t-space">
-    <h2 class="title-inner1">{{ $category->name }}</h2>
+<div class="title1 pt-10">
+    <h2 class="title-inner1 text-xxl">{{ $category->name }}</h2>
 </div>
 
 <!-- Product section -->

@@ -80,6 +80,9 @@
                     <div class="payment-card-bottom">
                         <ul>
                             <li>
+                                <a href="#"><img src="{{ asset('assets/images/icon/prompt-pay-logo-h26.png') }}" alt="Payment method prompt pay"></a>
+                            </li>
+                            <li>
                                 <a href="#"><img src="{{ asset('assets/images/icon/visa.png') }}" alt="Payment method Visa"></a>
                             </li>
                             <li>

@@ -141,7 +141,7 @@
                                                     <a href="{{ route('login') }}">เข้าสู่ระบบ</a>
                                                 @endguest
                                                 @auth
-                                                    <a href="{{ route('user.dashboard', ['tab' => 'info']) }}">ข้อมูลผู้ใช้</a>
+                                                    <a href="{{ route('user.dashboard') }}">ข้อมูลผู้ใช้</a>
                                                     <a href="{{ route('user.dashboard', ['tab' => 'orders']) }}">รายการสั่งซื้อ</a>
                                                     <a href="{{ route('user.dashboard', ['tab' => 'address']) }}">จัดการที่อยู่</a>
                                                     <hr>

@@ -59,6 +59,10 @@
         }
         element.parentNode.parentNode.removeChild(element.parentNode)
     }
+    $("form").submit(function () {
+        // prevent duplicate form submissions
+        $(this).find(":submit").attr('disabled', 'disabled')
+    })
 </script>
 </body>
 

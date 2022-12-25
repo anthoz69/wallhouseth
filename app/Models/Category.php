@@ -101,4 +101,9 @@ class Category extends Model
 
         return false;
     }
+
+    public function scopeCanShow($query)
+    {
+        return $query->where('status', 1);
+    }
 }

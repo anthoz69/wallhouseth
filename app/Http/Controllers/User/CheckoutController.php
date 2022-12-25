@@ -33,7 +33,9 @@ class CheckoutController extends Controller
             return redirect()->route('cart');
         }
 
-        return view('user.checkout', compact('countries', 'cartContents'));
+        $address = auth()->user()->addresses()->orderBy('is_main')->latest()->get();
+
+        return view('user.checkout', compact('countries', 'cartContents', 'address'));
     }
 
     public function getShippingList(Request $request)
@@ -131,22 +133,24 @@ class CheckoutController extends Controller
 
         try {
             $order = DB::transaction(function () use ($data) {
-                $coupon = Coupon::findCoupon($data['coupon_code']);
-                if (! $coupon) {
-                    throw new CouponException("ไม่มีคูปองนี้");
+                if (! empty($data['coupon_code'])) {
+                    $coupon = Coupon::findCoupon($data['coupon_code']);
+                    if (! $coupon) {
+                        throw new CouponException("ไม่มีคูปองนี้");
+                    }
+                    if ($coupon->amount <= 0) {
+                        throw new CouponException("คูปองหมดอายุ หรือ ถูกใช้งานแล้ว");
+                    }
+                    $coupon->decrement('amount');
                 }
-                if ($coupon->amount <= 0) {
-                    throw new CouponException("คูปองหมดอายุ หรือ ถูกใช้งานแล้ว");
-                }
-                $coupon->decrement('amount');
 
                 $order = Order::create([
                     'owner_id'          => auth()->id(),
                     'ref'               => \Str::random(10),
                     'status'            => 1,
                     'payment_status'    => 1,
-                    'coupon_code'       => $coupon->code,
-                    'coupon_price'      => $coupon->price,
+                    'coupon_code'       => $coupon->code ?? '',
+                    'coupon_price'      => $coupon->price ?? 0,
                     'courier_code'      => $data['courier_code'],
                     'courier_name'      => $data['courier_name'],
                     'courier_price'     => $data['courier_price'],

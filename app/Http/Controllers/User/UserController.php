@@ -84,6 +84,8 @@ class UserController extends Controller
             'bill_district' => ['required', 'max:255'],
             'bill_province' => ['required', 'max:255'],
 
+            'shipping_other' => ['nullable'],
+
             'shipping_name'     => [
                 Rule::requiredIf($request->shipping_other == 2),
                 'max:255',

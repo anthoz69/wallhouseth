@@ -51,3 +51,12 @@ header.marketplace.header-tools {
 .btn-solid.btn-sm {
     padding: 5px 16px;
 }
+
+.breadcrumb-section {
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+}
+
+.checkout-page .checkout-form select {
+    background-color: white;
+}

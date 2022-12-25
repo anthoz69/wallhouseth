@@ -37,6 +37,25 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
+                                    <h3>เลือกที่อยู่</h3>
+                                </div>
+                                <div class="flex items-center flex-wrap">
+                                    @forelse($address as $ad)
+                                    <div
+                                        class="js-address border border-solid border-gray-500 text-gray-600 hover:bg-gray-100 rounded-xl m-2 p-4 cursor-pointer"
+                                        data-address='@json($ad)'
+                                    >
+                                        <p class="mb-0">{{ $ad->name }}</p>
+                                        <p class="mb-0">{{ $ad->bill_address }}</p>
+                                        <p class="mb-0">{{ $ad->bill_province }} {{ $ad->bill_zipcode }}</p>
+                                        <p class="mb-0">เบอร์โทร:
+                                            <span>{{ $ad->bill_phone }}</span></p>
+                                    </div>
+                                    @empty
+                                        <div>คุณยังไม่ได้เพิ่มที่อยู่ สามารเพิ่มโดย <a href="{{ route('user.dashboard', ['tab' => 'address']) }}">คลิกที่นี่</a> หรือ กรอกที่อยู่ด้านล่างเพื่อสั่งซื้อได้ทันที</div>
+                                    @endforelse
+                                </div>
+                                <div class="checkout-title mt-6">
                                     <h3>รายละเอียดใบเสร็จ</h3>
                                 </div>
                                 @include('components.user.alert-validate')
