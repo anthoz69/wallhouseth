@@ -159,7 +159,9 @@ window.setCookie = (cName, cValue, expDays) => {
                     }
                     return
                 }
-                if ([404, 400].includes(res.status)) {
+            })
+            .catch((err) => {
+                if ([404, 400].includes(err.response.status)) {
                     $('.js-shipping-required-fill').show()
                     $('#shipping-list-wrap').hide()
                     $('.js-shipping-required-fill').text('ไม่สามารถจัดส่งสินค้าได้ กรุณาติดต่อผู้ดูแลเว็บไซต์')
