@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="multikart">
-    <meta name="keywords" content="multikart">
-    <meta name="author" content="multikart">
+    <meta name="description" content="Shoda 3 plus">
+    <meta name="keywords" content="Shoda 3 plus">
+    <meta name="author" content="Itthipat">
     <link rel="icon" href="{{ asset('assets/logo/logo.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/logo/logo.png') }}" type="image/x-icon">
     <title>@yield('title', 'Home') - Shoda 3 Plus</title>

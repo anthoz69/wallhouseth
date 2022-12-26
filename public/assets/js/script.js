@@ -1,13 +1,4 @@
-/*-----------------------------------------------------------------------------------
-
- Template Name:Multikart
- Template URI: themes.pixelstrap.com/multikart
- Description: This is E-commerce website
- Author: Pixelstrap
- Author URI: https://themeforest.net/user/pixelstrap
-
- ----------------------------------------------------------------------------------- */
-// 01.Pre loader
+// 01.Pre-loader
 // 02.Tap on Top
 // 03.Age verify modal
 // 04.Mega menu js
@@ -57,7 +48,7 @@
     });
 
 
-    /*=====================  
+    /*=====================
      02.Tap on Top
      ==========================*/
     $(window).on('scroll', function () {
@@ -214,7 +205,7 @@
         console.log("click");
         $('.top-panel-adv').addClass("hide");
     });
-    
+
 
     /*=========================
      09. left category slider height
@@ -1572,7 +1563,7 @@
     $('.left-arrow').click(function () {
         $('.custom-arrow-3').slick('slickPrev');
       })
-      
+
       $('.right-arrow').click(function () {
         $('.custom-arrow-3').slick('slickNext');
       })
