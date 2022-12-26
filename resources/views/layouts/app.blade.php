@@ -47,7 +47,7 @@
     @include('layouts.footer')
 
     <!--modal popup start-->
-    @if($popup)
+    @if(isset($popup) && $popup)
         <div class="modal fade bd-example-modal-lg" id="popupModal" tabindex="-1" role="dialog"
             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

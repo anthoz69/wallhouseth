@@ -31,7 +31,9 @@ class ViewServiceProvider extends ServiceProvider
         if (! App::runningInConsole()) {
             $popup = Popup::isEnable()->latest()->first();
             View::composer('layouts.header', CartComposer::class);
-            View::composer('user.*', function ($view) use ($popup) {
+            View::composer([
+                'user.*',
+            ], function ($view) use ($popup) {
                 $view->with('popup', $popup);
             });
         }
