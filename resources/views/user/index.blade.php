@@ -13,7 +13,7 @@
 
 
     <!-- collection banner -->
-    <section class="banner-padding banner-furniture ratio2_1">
+    <section class="banner-padding banner-furniture ratio2_1 mb-5">
         <div class="container">
             <div class="row partition4">
                 @foreach($banners as $banner)

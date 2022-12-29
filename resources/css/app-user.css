@@ -60,3 +60,11 @@ header.marketplace.header-tools {
 .checkout-page .checkout-form select {
     background-color: white;
 }
+
+.slide-1 a > img {
+    display: none;
+}
+
+.slide-1.slick-initialized a > img {
+    display: block;
+}
