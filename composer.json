@@ -12,10 +12,10 @@
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.5",
         "joggapp/laravel-google-translate": "^8.1",
-        "laravel/framework": "^9.45.1",
-        "laravel/sanctum": "^2.15",
+        "laravel/framework": "^9.0",
+        "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
-        "livewire/livewire": "^2.10.8",
+        "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "^1.0",
         "spatie/laravel-medialibrary": "^10.0.7"
