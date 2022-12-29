@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Livewire\LivewireServiceProvider;
 
 return [
 
@@ -163,6 +164,7 @@ return [
          * Package Service Providers...
          */
         Darryldecode\Cart\CartServiceProvider::class,
+        LivewireServiceProvider::class,
 
         /*
          * Application Service Providers...
