@@ -29,26 +29,6 @@
     "use strict";
 
     /*=====================
-     01.Pre loader
-     ==========================*/
-    $(window).on('load', function () {
-        setTimeout(function () {
-            $('.loader_skeleton').fadeOut('slow');
-            $('body').css({
-                'overflow': 'auto'
-            });
-        }, 500);
-        $('.loader_skeleton').remove('slow');
-        $('body').css({
-            'overflow': 'hidden'
-        });
-    });
-    $('#preloader').fadeOut('slow', function () {
-        $(this).remove();
-    });
-
-
-    /*=====================
      02.Tap on Top
      ==========================*/
     $(window).on('scroll', function () {
@@ -64,16 +44,6 @@
         }, 600);
         return false;
     });
-
-
-    /*=====================
-     03. Age verify modal
-     ==========================*/
-    $(window).on('load', function () {
-        $('#ageModal').modal('show');
-    });
-
-
 
     /*=====================
      04. Mega menu js
