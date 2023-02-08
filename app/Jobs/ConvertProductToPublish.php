@@ -42,27 +42,7 @@ class ConvertProductToPublish implements ShouldQueue
         }
 
         $originalData = $product->original_data;
-
-        if (! app()->environment(['local', 'staging'])) {
-
-            $translate = app(GoogleTranslate::class);
-
-            $features = explode(",", $originalData[4]);
-            $data = array_merge([
-                $originalData[3], // product name
-            ], $features);
-            $translateResponse = $translate->translate($data);
-            $translateResponse = collect($translateResponse);
-
-            $features = array_map(function ($value) use ($translateResponse) {
-                return $translateResponse
-                    ->firstWhere(
-                        'source_text',
-                        $value
-                    )['translated_text'] ?? $value;
-            }, $features);
-
-        }
+        $translate = app(GoogleTranslate::class);
 
         $mainImage = $originalData[6] ?? '';
         $otherImages = explode("|", $originalData[7]) ?? [];
@@ -83,8 +63,21 @@ class ConvertProductToPublish implements ShouldQueue
         }
 
         if (! app()->environment(['local', 'staging'])) {
-            $product->name = $translateResponse->firstWhere('source_text',
-                $originalData[3])['translated_text'] ?? $originalData[3];
+            $productName = $translate->unlessLanguageIs('zh', $originalData[3]);
+            $product->name = is_array($productName)
+                ? $productName['translated_text']
+                : $productName;
+
+            $newStr = str_replace([",", "、"], ",", $originalData[4]);
+            $features = explode(",", $newStr);
+
+            $features = array_map(function ($value) use ($translate) {
+                $feature = $translate->unlessLanguageIs('zh', $value);
+
+                return is_array($feature)
+                    ? $feature['translated_text']
+                    : $feature;
+            }, $features);
 
             $product->features = implode(", ", $features);
         }
