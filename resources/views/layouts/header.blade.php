@@ -15,120 +15,44 @@
                         <div>
                             <nav id="main-nav">
                                 <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
-                                <ul id="main-menu" class="sm pixelstrap sm-horizontal">
+                                <ul id="main-menu" class="sm pixelstrap sm-horizontal hover-unset">
                                     <li>
                                         <div class="mobile-back text-end">Back<i class="fa fa-angle-right ps-2"
                                                 aria-hidden="true"></i></div>
                                     </li>
                                     <li><a href="/">หน้าแรก</a></li>
-                                    <li class="mega" id="hover-cls">
+                                    <li>
                                         <a href="#">หมวดหมู่</a>
-                                        <ul class="mega-menu full-mega-menu">
+                                        <ul class="sm-nowrap">
                                             <li>
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col mega-box">
-                                                            <div class="link-section">
-                                                                <div class="menu-title">
-                                                                    <h5>หมวด 1</h5>
-                                                                </div>
-                                                                <div class="menu-content">
-                                                                    <ul>
-                                                                        @for($i = 1; $i < 7; $i++)
-                                                                            <li>
-                                                                                <a href="/">หมวด {{$i}}</a>
-                                                                            </li>
-                                                                        @endfor
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col mega-box">
-                                                            <div class="link-section">
-                                                                <div class="menu-title">
-                                                                    <h5>หมวด</h5>
-                                                                </div>
-                                                                <div class="menu-content">
-                                                                    <ul>
-                                                                        @for($i = 1; $i < 7; $i++)
-                                                                            <li>
-                                                                                <a href="/">หมวด {{$i}}</a>
-                                                                            </li>
-                                                                        @endfor
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col mega-box">
-                                                            <div class="link-section">
-                                                                <div class="menu-title">
-                                                                    <h5>หมวด 3</h5>
-                                                                </div>
-                                                                <div class="menu-content">
-                                                                    <ul>
-                                                                        @for($i = 1; $i < 7; $i++)
-                                                                            <li>
-                                                                                <a href="/">หมวด {{$i}}</a>
-                                                                            </li>
-                                                                        @endfor
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col mega-box">
-                                                            <div class="link-section">
-                                                                <div class="menu-title">
-                                                                    <h5>หมวด 4</h5>
-                                                                </div>
-                                                                <div class="menu-content">
-                                                                    <ul>
-                                                                        @for($i = 1; $i < 7; $i++)
-                                                                            <li>
-                                                                                <a href="/">หมวด {{$i}}</a>
-                                                                            </li>
-                                                                        @endfor
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col mega-box">
-                                                            <div class="link-section">
-                                                                <div class="menu-title">
-                                                                    <h5>หมวด 5</h5>
-                                                                </div>
-                                                                <div class="menu-content">
-                                                                    <ul>
-                                                                        @for($i = 1; $i < 7; $i++)
-                                                                            <li>
-                                                                                <a href="/">หมวด {{$i}}</a>
-                                                                            </li>
-                                                                        @endfor
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col mega-box">
-                                                            <div class="link-section">
-                                                                <div class="menu-title">
-                                                                    <h5>หมวด 6</h5>
-                                                                </div>
-                                                                <div class="menu-content">
-                                                                    <ul>
-                                                                        @for($i = 1; $i < 7; $i++)
-                                                                            <li>
-                                                                                <a href="/">หมวด {{$i}}</a>
-                                                                            </li>
-                                                                        @endfor
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <a href="/">เทศกาล</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">เบ็ดเตล็ด</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">ของใช้ในบ้าน</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">อุปกรณ์สำนักงาน</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">เครื่องครัว</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">ความงาม</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">รัดผม</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">ของเล่นเด็ก</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">อิเล็กทรอนิกส์</a>
+                                            </li>
+                                            <li>
+                                                <a href="/">พรีออเดอร์</a>
                                             </li>
                                         </ul>
                                     </li>

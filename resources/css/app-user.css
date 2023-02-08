@@ -44,6 +44,10 @@ header.marketplace.header-tools {
     font-size: 16px;
 }
 
+.pixelstrap a, .pixelstrap a:hover, .pixelstrap a:active {
+    letter-spacing: normal;
+}
+
 .checkout-page .checkout-form input {
     background-color: white !important;
 }
