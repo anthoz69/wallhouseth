@@ -16,7 +16,7 @@ class HomeController extends Controller
         $banners = Banner::isEnable()->get();
 
         $categorySections = Category::whereIn('id', [
-            168, 164, 4, 15, 16, 25,
+            1, 2, 3, 4, 5, 6, 7, 8, 9,
         ])
             ->with([
                 'products' => function ($query) {

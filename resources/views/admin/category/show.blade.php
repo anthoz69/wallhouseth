@@ -38,10 +38,14 @@
                                 {{ trans('cruds.category.fields.category_id_map') }}
                             </th>
                             <td>
+                                @if ($category->parent)
                                 {{ $category->parent->name }}
                                 <a href="{{ route('admin.categories.edit', $category->category_id_map) }}" class="btn btn-indigo mr-2">
                                     {{ trans('global.edit') }}
                                 </a>
+                                @else
+                                    -
+                                @endif
                             </td>
                         </tr>
                     </tbody>
