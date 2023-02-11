@@ -81,6 +81,16 @@
                                     {{ $product->price }} ฿
                                 @endif
                             </h3>
+                            <div class="border-product">
+                                <div>
+                                    คุณสมบัติ/วัสดุ: <br>
+                                    {{$product->features}}
+                                </div>
+                                <br>
+                                <div>
+                                    SKU: <b>{{ $product->sku }}</b>
+                                </div>
+                            </div>
                             <div id="selectSize" class="addeffect-section product-description border-product">
                                 <h6 class="product-title">จำนวน</h6>
                                 <div class="qty-box">

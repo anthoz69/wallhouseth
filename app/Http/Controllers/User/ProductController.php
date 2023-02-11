@@ -23,13 +23,13 @@ class ProductController extends Controller
         $relateProducts = Product::query();
         if ($category) {
             $relateProducts->whereHas('categories', function ($query) use ($category) {
-                $query->where('id', $category->id)->limit(6);
+                $query->where('id', $category->id);
             });
         } else {
-            $relateProducts->inRandomOrder()->limit(6);
+            $relateProducts->inRandomOrder();
         }
 
-        $relateProducts = $relateProducts->get();
+        $relateProducts = $relateProducts->limit(6)->get();
 
         return view('user.product.show', compact('product', 'relateProducts'));
     }
