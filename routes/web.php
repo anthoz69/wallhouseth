@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => true]);
 
 
-Route::get('/', [UserHomeController::class, 'index']);
+Route::get('/', [UserHomeController::class, 'index'])->name('index');
 Route::get('cart', [CartController::class, 'index'])
     ->name('cart');
 Route::post('cart', [CartController::class, 'store'])
@@ -70,8 +70,8 @@ Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
         ->name('checkout.store');
     Route::get('checkout/complete', [CheckoutController::class, 'complete'])
         ->name('checkout.complete');
-    Route::get('checkout/retry-payment/{id}', [CheckoutController::class, 'retryPayment'])
-        ->name('checkout.retry-payment');
+//    Route::get('checkout/retry-payment/{id}', [CheckoutController::class, 'retryPayment'])
+//        ->name('checkout.retry-payment');
     Route::post('checkout/find-coupon', [CheckoutController::class, 'findCoupon'])
         ->name('checkout.find-coupon');
 

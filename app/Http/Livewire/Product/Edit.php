@@ -42,10 +42,11 @@ class Edit extends Component
     public function mount(Product $product)
     {
         $this->product = $product;
+        dd($this->product);
         $this->categories = $this->product->categories()->first()->id;
         $this->initListsForFields();
         $this->mediaCollections = [
-            'product_main_image' => $product->main_image,
+            'product_main_image'  => $product->main_image,
             'product_other_image' => $product->other_image,
         ];
     }
@@ -63,7 +64,8 @@ class Edit extends Component
         $this->product->categories()->sync($this->categories);
         $this->syncMedia();
 
-        $this->product->image = str_replace(config('app.url'), '', $this->product->getFirstMediaUrl('product_main_image'));
+        $this->product->image = str_replace(config('app.url'), '',
+            $this->product->getFirstMediaUrl('product_main_image'));
         $this->product->save();
 
         return redirect()->route('admin.products.index');
@@ -81,42 +83,42 @@ class Edit extends Component
     protected function rules(): array
     {
         return [
-            'product.sku' => [
+            'product.sku'                               => [
                 'string',
                 'required',
                 'unique:products,sku,' . $this->product->id,
             ],
-            'product.barcode' => [
+            'product.barcode'                           => [
                 'string',
                 'nullable',
             ],
-            'product.name' => [
+            'product.name'                              => [
                 'string',
                 'required',
             ],
-            'product.price' => [
+            'product.price'                             => [
                 'numeric',
                 'required',
             ],
-            'product.stock_available' => [
+            'product.stock_available'                   => [
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',
                 'nullable',
             ],
-            'product.features' => [
+            'product.features'                          => [
                 'string',
                 'nullable',
             ],
-            'mediaCollections.product_main_image' => [
+            'mediaCollections.product_main_image'       => [
                 'array',
                 'required',
             ],
-            'mediaCollections.product_main_image.*.id' => [
+            'mediaCollections.product_main_image.*.id'  => [
                 'integer',
                 'exists:media,id',
             ],
-            'mediaCollections.product_other_image' => [
+            'mediaCollections.product_other_image'      => [
                 'array',
                 'nullable',
             ],
@@ -124,23 +126,23 @@ class Edit extends Component
                 'integer',
                 'exists:media,id',
             ],
-            'product.width' => [
+            'product.width'                             => [
                 'numeric',
                 'nullable',
             ],
-            'product.length' => [
+            'product.length'                            => [
                 'numeric',
                 'nullable',
             ],
-            'product.height' => [
+            'product.height'                            => [
                 'numeric',
                 'nullable',
             ],
-            'product.kg' => [
+            'product.kg'                                => [
                 'numeric',
                 'nullable',
             ],
-            'categories' => [
+            'categories'                                => [
                 'required',
                 'integer',
             ],
@@ -148,7 +150,7 @@ class Edit extends Component
 //                'integer',
 //                'exists:categories,id',
 //            ],
-            'product.status' => [
+            'product.status'                            => [
                 'required',
                 'in:' . implode(',', array_keys($this->listsForFields['status'])),
             ],

@@ -18,13 +18,14 @@ class HomeController extends Controller
         $categorySections = Category::whereIn('id', [
             1, 2, 3, 4, 5, 6, 7, 8, 9,
         ])
-            ->with([
+            ->get();
+        $categorySections = $categorySections->each(function ($cate) {
+            $cate->load([
                 'products' => function ($query) {
                     $query->limit(12);
                 },
-            ])
-//            ->onlyParent()
-            ->get();
+            ]);
+        });
 
         return view('user.index', compact(
             'slides', 'banners',

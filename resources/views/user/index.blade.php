@@ -25,7 +25,6 @@
         </div>
     </section>
     <!-- collection banner end -->
-
     @foreach($categorySections as $categorySection)
     <div>
         @include('components.user.section-category-product', ['category' => $categorySection])

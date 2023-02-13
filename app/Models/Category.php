@@ -80,7 +80,7 @@ class Category extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->orderBy('created_at', 'desc');
     }
 
     public function scopeOnlyParent($query)

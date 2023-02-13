@@ -9,7 +9,7 @@
         <div class="row game-product grid-products">
             @foreach($category->products as $product)
             <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-                @include('components.user.product-item', ['products' => $product])
+                @include('components.user.product-item', ['product' => $product])
             </div>
             @endforeach
         </div>

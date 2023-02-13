@@ -190,7 +190,7 @@ class CheckoutController extends Controller
 
             $ksherResponse = $this->ksherPayment->createOrder($order);
 
-            return redirect()->to($ksherResponse['reference']);
+            return redirect()->to($ksherResponse['data']['pay_content']);
         } catch (CouponException $e) {
             return redirect()->back()->withErrors($e->getMessage());
         } catch (\Exception $e) {
@@ -227,7 +227,7 @@ class CheckoutController extends Controller
         try {
             $response = $this->ksherPayment->infoOrder($order->ref);
 
-            if ($response['status'] === 'Available' && $response['error_code'] === 'PENDING') {
+            if ($response['data']['result'] === 'USERPAYING') {
                 return redirect()->to($response['reference']);
             }
 

@@ -9,6 +9,7 @@ return [
     'ksher_gateway_domain' => env('KSHER_GATEWAY_DOMAIN', null),
     'ksher_gateway_token'  => env('KSHER_GATEWAY_TOKEN', null),
     'ksher_webhook_key'    => env('KSHER_WEBHOOK_KEY', null),
+    'ksher_app_id'         => env('KSHER_APP_ID', null),
 
     'name' => env('APP_NAME', 'Laravel'),
 
