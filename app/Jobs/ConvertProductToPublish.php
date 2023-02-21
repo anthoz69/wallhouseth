@@ -72,7 +72,7 @@ class ConvertProductToPublish implements ShouldQueue
             $features = explode(",", $newStr);
 
             $features = array_map(function ($value) use ($translate) {
-                $feature = $translate->unlessLanguageIs('zh', $value);
+                $feature = $translate->translate('zh', $value);
 
                 return is_array($feature)
                     ? $feature['translated_text']
