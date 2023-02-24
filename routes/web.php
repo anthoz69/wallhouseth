@@ -23,8 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => true]);
 
-Route::post('/re-convert', [ProductController::class, 'reConvert']);
-
 Route::get('/', [UserHomeController::class, 'index'])->name('index');
 Route::get('cart', [CartController::class, 'index'])
     ->name('cart');
@@ -80,6 +78,7 @@ Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    Route::get('/re-convert', [ProductController::class, 'reConvert']);
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/excel-download', [ProductController::class, 'download'])->name('excel-download');
 
