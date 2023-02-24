@@ -75,10 +75,7 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
             $cateId = null;
             throw $e;
         }
-
-        $product = Product::updateOrCreate([
-            'sku'             => $row[0],
-        ], [
+        $data = [
             'sku'             => $row[0],
             'barcode'         => $row[1],
             'price'           => $this->getPrice($row[2]),
@@ -90,8 +87,13 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
             'height'          => $this->onEmpty($row[11], 0),
             'kg'              => $this->onEmpty($row[12], 0),
             'original_data'   => $row,
-            'status'          => 0,
-        ]);
+        ];
+        if (!$hasProduct) {
+            $data['status'] = 0;
+        }
+        $product = Product::updateOrCreate([
+            'sku'             => $row[0],
+        ], $data);
 
         $product->categories()->sync($cateId);
 

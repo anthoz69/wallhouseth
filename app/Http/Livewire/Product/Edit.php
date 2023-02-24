@@ -42,7 +42,6 @@ class Edit extends Component
     public function mount(Product $product)
     {
         $this->product = $product;
-        dd($this->product);
         $this->categories = $this->product->categories()->first()->id;
         $this->initListsForFields();
         $this->mediaCollections = [
