@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => true]);
 
+Route::post('/re-convert', [ProductController::class, 'reConvert']);
 
 Route::get('/', [UserHomeController::class, 'index'])->name('index');
 Route::get('cart', [CartController::class, 'index'])

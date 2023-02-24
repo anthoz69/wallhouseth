@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ConvertProductToPublish;
 use App\Models\Product;
 use Gate;
 use Illuminate\Http\Request;
@@ -77,5 +78,13 @@ class ProductController extends Controller
     public function download()
     {
         return Storage::disk('excel')->download('import_template.xlsx');
+    }
+
+    public function reConvert()
+    {
+        $products = Product::where('status', 0)->get();
+        foreach ($products as $product) {
+            ConvertProductToPublish::dispatch($product->sku);
+        }
     }
 }
