@@ -6,3 +6,7 @@ if (! function_exists('bahtSymbol')) {
         return '฿';
     }
 }
+
+function replaceNum($word) {
+    return trim(preg_replace('/[0-9]+/', '', $word));
+}

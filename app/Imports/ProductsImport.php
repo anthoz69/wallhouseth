@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Jobs\ConvertProductToPublish;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -21,7 +22,10 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
     public function onRow(Row $row)
     {
         $row = $row->toArray();
+
         $categories = explode(",", $row[5]);
+
+        $hasProduct = Product::where('sku', $row[0])->exists();
 
         // ไม่ใช้เพราะ id ใน excel export มาเป็น number เช่น 245256514 แต่จริงๆแล้วต้องเป็น string ที่แยกเลขแบบนี้ 245,256,514 กรณีนี้ทำให้ใช้ id ในการ map ไม่ได้
 //        $categoryIds = explode(",", $row[8]);
@@ -30,30 +34,29 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
 
             if (! empty($categories)) {
                 $cat1 = Category::firstOrCreate([
-                    'original_data' => trim($categories[0]),
+                    'original_data' => replaceNum($categories[0]),
                 ], [
-                    'name'            => trim($categories[0]),
-                    'original_data'   => trim($categories[0]),
+                    'name'            => replaceNum($categories[0]),
+                    'original_data'   => replaceNum($categories[0]),
                     'category_id_map' => null,
                 ]);
                 $cateId = $cat1->id ?? null;
                 if (isset($categories[1])) {
-
                     $cat2 = Category::firstOrCreate([
-                        'original_data' => trim($categories[1]),
+                        'original_data' => replaceNum($categories[1]),
                     ], [
-                        'name'            => trim($categories[1]),
-                        'original_data'   => trim($categories[1]),
+                        'name'            => replaceNum($categories[1]),
+                        'original_data'   => replaceNum($categories[1]),
                         'category_id_map' => $cat1->id,
                     ]);
                     $cateId = $cat2->id ?? null;
                 }
                 if (isset($categories[2])) {
                     $cat3 = Category::firstOrCreate([
-                        'original_data' => trim($categories[2]),
+                        'original_data' => replaceNum($categories[2]),
                     ], [
-                        'name'            => trim($categories[2]),
-                        'original_data'   => trim($categories[2]),
+                        'name'            => replaceNum($categories[2]),
+                        'original_data'   => replaceNum($categories[2]),
                         'category_id_map' => $cat2->id,
                     ]);
                     $cateId = $cat3->id ?? null;
@@ -73,7 +76,9 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
             throw $e;
         }
 
-        $product = Product::create([
+        $product = Product::updateOrCreate([
+            'sku'             => $row[0],
+        ], [
             'sku'             => $row[0],
             'barcode'         => $row[1],
             'price'           => $this->getPrice($row[2]),
@@ -88,9 +93,11 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
             'status'          => 0,
         ]);
 
-        $product->categories()->attach($cateId);
+        $product->categories()->sync($cateId);
 
-        $this->datas[] = $product;
+        if (!$hasProduct) {
+            $this->datas[] = $product;
+        }
 
         return $product;
     }
@@ -99,22 +106,22 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
     {
         return [
             '0'  => [
-                'required', 'alpha_num', 'unique:products,sku',
+                'required', 'alpha_num',
             ],
             '1'  => [
                 'required', 'alpha_num', 'max:255',
             ],
             '2'  => [
-                'required', 'numeric',
+                'required',
             ],
             '3'  => [
-                'required', 'string',
+                'required',
             ],
             '4'  => [
                 'nullable',
             ],
             '5'  => [
-                'required', 'string',
+                'required',
             ],
             '6'  => [
                 'required', 'string',
@@ -168,7 +175,13 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
      */
     public function getPrice($price): float
     {
-        $profit = bcmul($price, 0.3, 2);
+        if ($price == '#N/A') {
+            return 0;
+        }
+
+        // ลบตัวคูนกำไร
+//        $profit = bcmul($price, 0.3, 2);
+        $profit = 0;
 
         return round(bcadd($price, $profit, 2), 2);
     }
