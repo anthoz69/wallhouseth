@@ -65,16 +65,11 @@ class ConvertProductToPublish implements ShouldQueue
         }
 
         if (! app()->environment(['local', 'staging'])) {
-//            $productName = $translate->unlessLanguageIs('zh', $originalData[3]);
-//            $product->name = is_array($productName)
-//                ? $productName['translated_text']
-//                : $productName;
-
             $newStr = str_replace([",", "、"], ",", $originalData[4]);
             $features = explode(",", $newStr);
             $translateFeatures = [];
             foreach ($features as $f) {
-                $feature = $translate->translate($f);
+                $feature = $translate->justTranslate($f);
                 $translateFeatures[] = is_array($feature)
                     ? $feature['translated_text']
                     : $feature;
