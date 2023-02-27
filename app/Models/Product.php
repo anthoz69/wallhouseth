@@ -62,6 +62,7 @@ class Product extends Model implements HasMedia
     protected $appends = [
         'main_image',
 //        'other_image',
+        'sale_price',
     ];
 
     protected $dates = [

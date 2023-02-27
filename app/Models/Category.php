@@ -80,7 +80,13 @@ class Category extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class)->orderBy('created_at', 'desc');
+        return $this->belongsToMany(Product::class)
+            ->orderByRaw('CASE WHEN discount = 0 THEN price ELSE discount END ASC');
+    }
+
+    public function productsForCategoryPage()
+    {
+        return $this->belongsToMany(Product::class);
     }
 
     public function scopeOnlyParent($query)

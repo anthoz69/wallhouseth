@@ -55,7 +55,6 @@
                                                     <option value="default" {{ request()->query('sort') === '' ? 'selected' : '' }}>การจัดเรียง</option>
                                                     <option value="pasc" {{ request()->query('sort') === 'pasc' ? 'selected' : '' }}>ราคา ต่ำ-สูง</option>
                                                     <option value="pdesc" {{ request()->query('sort') === 'pdesc' ? 'selected' : '' }}>ราคา สูง-ต่ำ</option>
-                                                    <option value="ddesc" {{ request()->query('sort') === 'ddesc' ? 'selected' : '' }}>ส่วนลด สูง-ต่ำ</option>
                                                 </select>
                                             </div>
                                         </form>
