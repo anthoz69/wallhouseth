@@ -68,8 +68,7 @@ class ConvertProductToPublish implements ShouldQueue
             $translateFeatures = [];
             foreach ($features as $f) {
                 try {
-                    $translate = new \GoogleTranslate();
-                    $feature = $translate->justTranslate($f);
+                    $feature = \GoogleTranslate::justTranslate($f);
                     $translateFeatures[] = is_array($feature)
                         ? $feature['translated_text']
                         : $feature;
