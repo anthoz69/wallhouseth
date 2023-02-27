@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
-use JoggApp\GoogleTranslate\GoogleTranslate;
+use JoggApp\GoogleTranslate\GoogleTranslateFacade;
 
 class ConvertProductToPublish implements ShouldQueue
 {
@@ -42,7 +42,6 @@ class ConvertProductToPublish implements ShouldQueue
         }
 
         $originalData = $product->original_data;
-        $translate = app(GoogleTranslate::class);
 
         $mainImage = $originalData[6] ?? '';
         $otherImages = explode("|", $originalData[7]) ?? [];
@@ -69,7 +68,7 @@ class ConvertProductToPublish implements ShouldQueue
             $features = explode(",", $newStr);
             $translateFeatures = [];
             foreach ($features as $f) {
-                $feature = $translate->justTranslate($f);
+                $feature = \GoogleTranslate::translate($f);
                 $translateFeatures[] = is_array($feature)
                     ? $feature['translated_text']
                     : $feature;
