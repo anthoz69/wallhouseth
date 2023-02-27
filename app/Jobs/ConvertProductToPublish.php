@@ -72,16 +72,15 @@ class ConvertProductToPublish implements ShouldQueue
 
             $newStr = str_replace([",", "、"], ",", $originalData[4]);
             $features = explode(",", $newStr);
-
-            $features = array_map(function ($value) use ($translate) {
-                $feature = $translate->translate($value);
-
-                return is_array($feature)
+            $translateFeatures = [];
+            foreach ($features as $f) {
+                $feature = $translate->translate($f);
+                $translateFeatures[] = is_array($feature)
                     ? $feature['translated_text']
                     : $feature;
-            }, $features);
+            }
 
-            $product->features = implode(", ", $features);
+            $product->features = implode(", ", $translateFeatures);
         }
         if (! empty($newMainImage)) {
             $product->image = str_replace(config('app.url'), '', $newMainImage->getFullUrl());
