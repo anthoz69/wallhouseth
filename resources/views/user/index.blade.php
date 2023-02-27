@@ -26,7 +26,7 @@
     </section>
     <!-- collection banner end -->
     @foreach($categorySections as $categorySection)
-        @if (!empty($category->products))
+        @if (!empty($categorySection->products))
             <div>
                 @include('components.user.section-category-product', ['category' => $categorySection])
             </div>
