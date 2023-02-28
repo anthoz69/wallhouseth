@@ -77,7 +77,7 @@ Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
     Route::post('checkout/shipping-list', [CheckoutController::class, 'getShippingList']);
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'only.admin']], function () {
     Route::get('/re-convert', [ProductController::class, 'reConvert']);
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/excel-download', [ProductController::class, 'download'])->name('excel-download');
