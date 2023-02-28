@@ -9,16 +9,16 @@
                     </div>
                     <div class="footer-contant">
                         <div class="footer-logo"><img src="{{ asset('assets/logo/logo-landv2.png') }}" alt=""></div>
-                        <p>สเปค คอร์รัปชัน รีดไถแคชเชียร์เซอร์ไพรส์ เพทนาการมวลชนรีทัช มาร์เก็ตติ้งแครอท โฟล์คแผดเผาแมคเคอเรล ตุ๋ยพีเรียดมอนสเตอร์มิวสิคคอมเพล็กซ์ อพาร์ตเมนท์พาสปอร์ตเกมส์ เกย์แบรนด์ซีเรียสแกสโซฮอล์สไตรค์</p>
-                        <div class="footer-social">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
+                        <p>Shoda 3 Plus</p>
+{{--                        <div class="footer-social">--}}
+{{--                            <ul>--}}
+{{--                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>--}}
+{{--                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>--}}
+{{--                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>--}}
+{{--                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>--}}
+{{--                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
                 <div class="col offset-xl-1">
@@ -43,10 +43,18 @@
                         </div>
                         <div class="footer-contant">
                             <ul>
-                                <li><a href="#">หมวดหมู่ 1</a></li>
-                                <li><a href="#">หมวดหมู่ 2</a></li>
-                                <li><a href="#">หมวดหมู่ 3</a></li>
-                                <li><a href="#">หมวดหมู่ 4</a></li>
+                                <li>
+                                    <a href="{{ route('category.show', ['category' => 10]) }}">เครื่องครัว</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('category.show', ['category' => 2]) }}">ความงาม</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('category.show', ['category' => 6]) }}">ของเล่นเด็ก</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('category.show', ['category' => 7]) }}">อิเล็กทรอนิกส์</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -25,34 +25,28 @@
                                         <a href="#">หมวดหมู่</a>
                                         <ul class="sm-nowrap">
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 8]) }}">เทศกาล</a>
+                                                <a href="{{ route('category.show', ['category' => 9]) }}">เทศกาล</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 2]) }}">เบ็ดเตล็ด</a>
+                                                <a href="{{ route('category.show', ['category' => 3]) }}">เบ็ดเตล็ด</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 3]) }}">ของใช้ในบ้าน</a>
+                                                <a href="{{ route('category.show', ['category' => 4]) }}">ของใช้ในบ้าน</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 4]) }}">อุปกรณ์สำนักงาน</a>
+                                                <a href="{{ route('category.show', ['category' => 5]) }}">อุปกรณ์สำนักงาน</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 9]) }}">เครื่องครัว</a>
+                                                <a href="{{ route('category.show', ['category' => 10]) }}">เครื่องครัว</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 1]) }}">ความงาม</a>
+                                                <a href="{{ route('category.show', ['category' => 2]) }}">ความงาม</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 7]) }}">รัดผม</a>
+                                                <a href="{{ route('category.show', ['category' => 6]) }}">ของเล่นเด็ก</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 5]) }}">ของเล่นเด็ก</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 6]) }}">อิเล็กทรอนิกส์</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 10]) }}">พรีออเดอร์</a>
+                                                <a href="{{ route('category.show', ['category' => 7]) }}">อิเล็กทรอนิกส์</a>
                                             </li>
                                         </ul>
                                     </li>
