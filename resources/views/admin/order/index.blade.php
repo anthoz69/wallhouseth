@@ -9,11 +9,11 @@
                     {{ trans('global.list') }}
                 </h6>
 
-                @can('order_create')
-                    <a class="btn btn-indigo" href="{{ route('admin.orders.create') }}">
-                        {{ trans('global.add') }} {{ trans('cruds.order.title_singular') }}
-                    </a>
-                @endcan
+{{--                @can('order_create')--}}
+{{--                    <a class="btn btn-indigo" href="{{ route('admin.orders.create') }}">--}}
+{{--                        {{ trans('global.add') }} {{ trans('cruds.order.title_singular') }}--}}
+{{--                    </a>--}}
+{{--                @endcan--}}
             </div>
         </div>
         @livewire('order.index')

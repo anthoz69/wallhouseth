@@ -16,7 +16,7 @@ class OnlyAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->isAdmin) {
+        if ($request->user()->can('admin_access')) {
             return $next($request);
         }
 

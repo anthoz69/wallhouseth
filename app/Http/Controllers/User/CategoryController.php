@@ -26,12 +26,11 @@ class CategoryController extends Controller
                 $products->orderByRaw('CASE WHEN discount = 0 THEN price ELSE discount END ASC');
         }
         $products = $products->paginate(24)->withQueryString();
-
-        $siblingCategory = Category::where('category_id_map', $category->category_id_map)
-            ->whereNotIn('id', [$category->id])
-            ->canShow()
-            ->limit(12)
-            ->get();
+        if ($category->child !== null && $category->child->isNotEmpty()) {
+            $siblingCategory = $category->child;
+        } else {
+            $siblingCategory = [];
+        }
 
         return view('user.category.list', compact('category', 'products', 'siblingCategory'));
     }

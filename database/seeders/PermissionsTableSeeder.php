@@ -262,6 +262,14 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 63,
                 'title' => 'popup_access',
             ],
+            [
+                'id'    => 64,
+                'title' => 'user_access',
+            ],
+            [
+                'id'    => 65,
+                'title' => 'admin_access',
+            ],
         ];
 
         Permission::insert($permissions);
