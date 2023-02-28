@@ -16,9 +16,10 @@ class OnlyAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->can('admin_access')) {
-            return $next($request);
-        }
+//        if ($request->user()->can('admin_access')) {
+        return $next($request);
+
+//        }
 
         return abort(404);
     }
