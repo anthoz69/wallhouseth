@@ -43,18 +43,11 @@
                         </div>
                         <div class="footer-contant">
                             <ul>
+                                @foreach($footCategories as $fc)
                                 <li>
-                                    <a href="{{ route('category.show', ['category' => 10]) }}">เครื่องครัว</a>
+                                    <a href="{{ route('category.show', ['category' => $fc->id]) }}">{{ $fc->name }}</a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('category.show', ['category' => 2]) }}">ความงาม</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('category.show', ['category' => 6]) }}">ของเล่นเด็ก</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('category.show', ['category' => 7]) }}">อิเล็กทรอนิกส์</a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

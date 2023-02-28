@@ -36,6 +36,11 @@ class ViewServiceProvider extends ServiceProvider
             ], function ($view) use ($popup) {
                 $view->with('popup', $popup);
             });
+
+            View::composer([
+                'layouts.header',
+                'layouts.footer',
+            ], App\View\CategoryComposer::class);
         }
     }
 }

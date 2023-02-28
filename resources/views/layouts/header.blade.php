@@ -24,30 +24,11 @@
                                     <li>
                                         <a href="#">หมวดหมู่</a>
                                         <ul class="sm-nowrap">
+                                            @foreach($headCategories as $hc)
                                             <li>
-                                                <a href="{{ route('category.show', ['category' => 9]) }}">เทศกาล</a>
+                                                <a href="{{ route('category.show', ['category' => $hc->id]) }}">{{ $hc->name }}</a>
                                             </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 3]) }}">เบ็ดเตล็ด</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 4]) }}">ของใช้ในบ้าน</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 5]) }}">อุปกรณ์สำนักงาน</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 10]) }}">เครื่องครัว</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 2]) }}">ความงาม</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 6]) }}">ของเล่นเด็ก</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('category.show', ['category' => 7]) }}">อิเล็กทรอนิกส์</a>
-                                            </li>
+                                            @endforeach
                                         </ul>
                                     </li>
                                     <li>
