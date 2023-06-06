@@ -88,16 +88,16 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
             'kg'              => $this->onEmpty($row[12], 0),
             'original_data'   => $row,
         ];
-        if (!$hasProduct) {
+        if (! $hasProduct) {
             $data['status'] = 0;
         }
         $product = Product::updateOrCreate([
-            'sku'             => $row[0],
+            'sku' => $row[0],
         ], $data);
 
         $product->categories()->sync($cateId);
 
-        if (!$hasProduct) {
+        if (! $hasProduct) {
             $this->datas[] = $product;
         }
 

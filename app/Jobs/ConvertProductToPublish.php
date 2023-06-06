@@ -47,7 +47,8 @@ class ConvertProductToPublish implements ShouldQueue
 
         $newMainImage = null;
         if (! empty($mainImage)) {
-            $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $mainImage);
+//            $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $mainImage);
+            $url = $mainImage;
             $product->clearMediaCollection('product_main_image');
             $newMainImage = $product->addMediaFromUrl($url)
                 ->toMediaCollection('product_main_image');
@@ -55,7 +56,8 @@ class ConvertProductToPublish implements ShouldQueue
 
         if (! empty($otherImages)) {
             foreach ($otherImages as $image) {
-                $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
+//                $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
+                $url = $image;
                 $product->clearMediaCollection('product_other_image');
                 $product->addMediaFromUrl($url)
                     ->toMediaCollection('product_other_image');
