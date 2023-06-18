@@ -25,7 +25,7 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
 
         $categories = explode(",", $row[5]);
 
-        $hasProduct = Product::where('sku', $row[0])->exists();
+        $hasProduct = Product::where('sku', $row[0])->where('status', '>', 0)->exists();
 
         // ไม่ใช้เพราะ id ใน excel export มาเป็น number เช่น 245256514 แต่จริงๆแล้วต้องเป็น string ที่แยกเลขแบบนี้ 245,256,514 กรณีนี้ทำให้ใช้ id ในการ map ไม่ได้
 //        $categoryIds = explode(",", $row[8]);
