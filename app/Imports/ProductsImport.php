@@ -132,7 +132,7 @@ class ProductsImport implements WithValidation, SkipsEmptyRows, WithStartRow, On
                 'nullable',
             ],
             '8'  => [
-                'required',
+                'nullable',
             ],
             '9'  => [
                 'nullable', 'numeric',
