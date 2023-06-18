@@ -49,7 +49,6 @@ class ConvertProductToPublish implements ShouldQueue
         if (! empty($mainImage)) {
 //            $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $mainImage);
             $url = $mainImage;
-            dd($url);
              if (!empty($url)) {
                 $product->clearMediaCollection('product_main_image');
                 $newMainImage = $product->addMediaFromUrl($url)
