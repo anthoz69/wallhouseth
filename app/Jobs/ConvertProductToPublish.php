@@ -16,15 +16,19 @@ class ConvertProductToPublish implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $productSku;
+    private $translate;
+    private $pull_image;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($productSku)
+    public function __construct($productSku, $translate, $pull_image)
     {
         $this->productSku = $productSku;
+        $this->translate = $translate;
+        $this->pull_image = $pull_image;
     }
 
     /**
@@ -46,46 +50,56 @@ class ConvertProductToPublish implements ShouldQueue
         $otherImages = explode("|", $originalData[7]) ?? [];
 
         $newMainImage = null;
-        if (! empty($mainImage)) {
+        if (!empty($mainImage) && $this->pull_image) {
 //            $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $mainImage);
             $url = $mainImage;
-             if (!empty($url)) {
+            if (!empty($url)) {
                 $product->clearMediaCollection('product_main_image');
                 $newMainImage = $product->addMediaFromUrl($url)
                     ->toMediaCollection('product_main_image');
-             }
+            }
         }
 
-        if (! empty($otherImages)) {
+        if (!empty($otherImages) && $this->pull_image) {
             foreach ($otherImages as $image) {
 //                $url = 'https://img.5jihua.com/' . Str::replaceFirst("/", '', $image);
                 $url = $image;
                 if (!empty($url)) {
-                     $product->clearMediaCollection('product_other_image');
-                $product->addMediaFromUrl($url)
-                    ->toMediaCollection('product_other_image');
+                    $product->clearMediaCollection('product_other_image');
+                    $product->addMediaFromUrl($url)
+                        ->toMediaCollection('product_other_image');
                 }
             }
         }
 
-        if (! app()->environment(['local', 'staging'])) {
-            $newStr = str_replace([",", "、"], ",", $originalData[4]);
-            $features = explode(",", $newStr);
-            $translateFeatures = [];
-            foreach ($features as $f) {
-                try {
-                    $feature = \GoogleTranslate::justTranslate($f);
-                    $translateFeatures[] = is_array($feature)
-                        ? $feature['translated_text']
-                        : $feature;
-                } catch (\Exception $e) {
-                    $translateFeatures[] = $f;
-                }
+        if (preg_match('/[\p{Han}]+/u', $originalData[3]) && $this->translate) {
+            try {
+                $name = \GoogleTranslate::justTranslate($originalData[3]);
+                $product->name = is_array($name)
+                    ? $name['translated_text']
+                    : $name;
+            } catch (\Exception $e) {
+                \Log::error($e->getMessage());
             }
-
-            $product->features = implode(", ", $translateFeatures);
         }
-        if (! empty($newMainImage)) {
+
+        $newStr = str_replace([",", "、"], ",", $originalData[4]);
+        $features = explode(",", $newStr);
+        $translateFeatures = [];
+        foreach ($features as $f) {
+            try {
+                $feature = \GoogleTranslate::justTranslate($f);
+                $translateFeatures[] = is_array($feature)
+                    ? $feature['translated_text']
+                    : $feature;
+            } catch (\Exception $e) {
+                $translateFeatures[] = $f;
+            }
+        }
+
+        $product->features = implode(", ", $translateFeatures);
+
+        if (!empty($newMainImage)) {
             $product->image = str_replace(config('app.url'), '', $newMainImage->getFullUrl());
         }
         $product->status = 2;

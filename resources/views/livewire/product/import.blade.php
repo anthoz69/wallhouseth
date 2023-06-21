@@ -20,6 +20,18 @@
 
     </div>
 
+    <div class="form-group ">
+        <label class="form-label required">เปิดใช้งาน "แปลภาษา"</label>
+        <label class="radio-label"><input type="radio" wire:model="translate" value="1">เปิด</label>
+        <label class="radio-label"><input type="radio" wire:model="translate" value="0">ปิด</label>
+    </div>
+
+    <div class="form-group ">
+        <label class="form-label required">เปิดใช้งาน "ดึงรูปภาพ"</label>
+        <label class="radio-label"><input type="radio" wire:model="pull_image" value="1">เปิด</label>
+        <label class="radio-label"><input type="radio" wire:model="pull_image" value="0">ปิด</label>
+    </div>
+
     <div class="form-group flex justify-between mt-4">
         <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">
             {{ trans('global.cancel') }}

@@ -16,6 +16,8 @@ class Import extends Component
     use WithFileUploads;
 
     public $file = '';
+    public $translate = 1;
+    public $pull_image = 1;
 
     public function submit()
     {
@@ -26,7 +28,7 @@ class Import extends Component
             Excel::import($import, $this->file);
 
             foreach ($import->datas as $item) {
-                ConvertProductToPublish::dispatch($item->sku);
+                ConvertProductToPublish::dispatch($item->sku, $this->translate, $this->pull_image);
             }
         } catch (ValidationException $e) {
             $failures = $e->failures();
@@ -53,6 +55,14 @@ class Import extends Component
                 'required',
                 'mimes:xlsx,csv,xls',
             ],
+            'translate' => [
+                'required',
+                'numeric'
+            ],
+            'pull_image' => [
+                'required',
+                'numeric'
+            ]
         ];
     }
 }
