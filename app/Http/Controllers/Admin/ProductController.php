@@ -84,7 +84,7 @@ class ProductController extends Controller
     {
         $products = Product::where('status', 0)->get();
         foreach ($products as $product) {
-            ConvertProductToPublish::dispatch($product->sku);
+            ConvertProductToPublish::dispatch($product->sku, true, true);
         }
     }
 }
