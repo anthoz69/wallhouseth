@@ -6,10 +6,9 @@ return [
 
     'shippop_key' => env('SHIPPOP_KEY', null),
 
-    'ksher_gateway_domain' => env('KSHER_GATEWAY_DOMAIN', null),
-    'ksher_gateway_token'  => env('KSHER_GATEWAY_TOKEN', null),
-    'ksher_webhook_key'    => env('KSHER_WEBHOOK_KEY', null),
-    'ksher_app_id'         => env('KSHER_APP_ID', null),
+    'ksher_appid' => env('KSHER_APPID', null),
+    'ksher_secret_webhook' => env('KSHER_SECRET_WEBHOOK', ''),
+    'ksher_private_key' => file_get_contents(storage_path('pkksher.pem')),
 
     'name' => env('APP_NAME', 'Laravel'),
 

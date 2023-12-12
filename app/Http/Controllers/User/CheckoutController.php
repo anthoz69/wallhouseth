@@ -202,8 +202,7 @@ class CheckoutController extends Controller
 
     public function complete(Request $request)
     {
-        $order = Order::where('id', $request->order)
-            ->where('owner_id', auth()->id())
+        $order = Order::where('owner_id', auth()->id())
             ->where('ref', $request->ref)
             ->firstOrFail();
 
