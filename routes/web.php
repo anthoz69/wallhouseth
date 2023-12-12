@@ -41,7 +41,7 @@ Route::get('products/{product}', [\App\Http\Controllers\User\ProductController::
 Route::get('category/{category}', [\App\Http\Controllers\User\CategoryController::class, 'show'])
     ->name('category.show');
 
-Route::get('webhook/ksher', [KsherWebhookController::class, 'index'])
+Route::post('webhook/ksher', [KsherWebhookController::class, 'index'])
     ->name('webhook.ksher');
 
 Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {

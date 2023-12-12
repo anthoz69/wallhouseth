@@ -3,62 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Services\KsherPay;
 use App\Services\ksherPaymentService;
 use Illuminate\Http\Request;
 
 class KsherWebhookController extends Controller
 {
+    private KsherPay $ksherPay;
+
+    public function __construct(KsherPay $ksherPay)
+    {
+        $this->ksherPay = $ksherPay;
+    }
+
     public function index(Request $request)
     {
         try {
             // check key for webhook
             if ($request->query('key', null) !== config('app.ksher_webhook_key')) {
                 return response()->json([
-                    'status'  => false,
-                    'message' => 'webhook token invalid.',
-                ], 401);
+                    'result' => 'FAIL',
+                    'msg' => 'Verify private key invalid',
+                ]);
             }
 
-            $order_id = $request->query('instance', null);
-            $message = $request->query('message', null);
-
-            // check message type if not order paid return and not process
-            if (! empty($order_id) && trim($message) !== "Order Paid") {
+            $input = file_get_contents("php://input");
+            $query = urldecode($input);
+            if (!$query) {
                 return response()->json([
-                    'status'  => true,
-                    'message' => 'webhook received. but status is ' . $message,
-                ], 400);
+                    'result' => 'FAIL',
+                    'msg' => 'No return data',
+                ]);
             }
 
-            // verify sign key
-            // $endpoint ให่้ใช้ลิงก์ valet share หรือ ngrok มาสร้าง endpoint แทนตอน dev
-            if (app()->environment(['production'])) {
-                $endpoint = route('webhook.ksher', ['key' => config('app.ksher_webhook_key')]);
-            } else {
-                $endpoint = 'https://2cca-14-207-80-28.ap.ngrok.io' . '/webhook/ksher?key=' . config('app.ksher_webhook_key');
-            }
-            $ksher = new ksherPaymentService();
-            if (! $ksher->verify_sign($endpoint, $request->only([
-                'type', 'instance', 'code', 'message', 'signature',
-            ]))) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'webhook verify sign invalid',
-                ], 400);
-            }
+            $data_array = json_decode($query, true);
 
-            // relative data
-            $response = $ksher->infoOrder($order_id);
-            if (app()->environment(['production'])) {
-                if ($response['status'] !== "Paid") {
-                    return response()->json([
-                        'status'  => false,
-                        'message' => 'order not paid',
-                    ], 400);
+            if (app()->environment('production')) {
+                $verify = $this->ksherPay->verify_ksher_sign($data_array['data'], $data_array['sign']);
+                if ($verify != 1) {
+                    throw new \Exception('Verify sign error.');
                 }
             }
 
-            $order = Order::where('ref', $order_id)
+            if ($data_array['data']['result'] !== 'SUCCESS') {
+                throw new \Exception('Ksher order not success.');
+            }
+
+            // relative data
+            $response = $this->ksherPay->gateway_order_query([
+                'mch_order_no' => $data_array['data']['mch_order_no'],
+            ]);
+            $response = json_decode($response, true);
+
+            if ($response['result'] !== "SUCCESS") {
+                return response()->json([
+                    'result' => 'FAIL',
+                    'msg' => 'status not paid.',
+                ]);
+            }
+
+            $order = Order::where('ref', $data_array['data']['mch_order_no'])
                 ->whereIn('payment_status', [1, 2])
                 ->first();
 
@@ -69,14 +73,15 @@ class KsherWebhookController extends Controller
             }
 
             return response()->json([
-                'status'  => true,
-                'message' => 'webhook received.',
+                'result' => 'SUCCESS',
+                'msg' => 'OK',
             ]);
         } catch (\Exception $e) {
+            \Log::error($e->getMessage());
             return response()->json([
-                'status'  => false,
-                'message' => $e->getMessage(),
-            ], 400);
+                'result' => 'FAIL',
+                'msg' => 'Internal server error.',
+            ]);
         }
     }
 }

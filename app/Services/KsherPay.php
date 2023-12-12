@@ -40,10 +40,8 @@ EOD;
         for ($i = 0; $i < $len; $i++) {
             $nonce_str .= $chars[mt_rand(0, strlen($chars) - 1)];
         }
-
         return $nonce_str;
     }
-
     /**
      * 生成sign
      * @param $data
@@ -56,10 +54,8 @@ EOD;
         openssl_sign($message, $encoded_sign, $private_key, OPENSSL_ALGO_MD5);
         openssl_free_key($private_key);
         $encoded_sign = bin2hex($encoded_sign);
-
         return $encoded_sign;
     }
-
     /**
      * 验证签名
      */
@@ -70,10 +66,8 @@ EOD;
         $res = openssl_get_publickey($this->pubkey);
         $result = openssl_verify($message, $sign, $res, OPENSSL_ALGO_MD5);
         openssl_free_key($res);
-
         return $result;
     }
-
     /**
      * 处理待加密的数据
      */
@@ -85,66 +79,60 @@ EOD;
             $message .= $key . "=" . $value;
         }
         $message = mb_convert_encoding($message, "UTF-8");
-
         return $message;
     }
-
     /**
      * @access get方式请求数据
      * @params url //请求地址
      * @params data //请求的数据，数组格式
      * */
-    public function _request($url, $data = [])
+    public function _request($url, $data = array())
     {
         try {
             $data['sign'] = $this->ksher_sign($data);
-            $queryData = http_build_query($data);
+            $queryData=http_build_query($data);
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $queryData);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/x-www-form-urlencoded',
-            ]);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/x-www-form-urlencoded'
+            ));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
             $output = curl_exec($ch);
 
             if ($output !== false) {
                 $response_array = json_decode($output, true);
                 if ($response_array['code'] == 0) {
-                    if (! $this->verify_ksher_sign($response_array['data'], $response_array['sign'])) {
-                        $temp = [
-                            "code"        => 0,
-                            "data"        => [
+                    if (!$this->verify_ksher_sign($response_array['data'], $response_array['sign'])) {
+                        $temp = array(
+                            "code" => 0,
+                            "data" => array(
                                 "err_code" => "VERIFY_KSHER_SIGN_FAIL",
-                                "err_msg"  => "verify signature failed",
-                                "result"   => "FAIL",
-                            ],
-                            "msg"         => "ok",
-                            "sign"        => "",
+                                "err_msg" => "verify signature failed",
+                                "result" => "FAIL"
+                            ),
+                            "msg" => "ok",
+                            "sign" => "",
                             "status_code" => "",
-                            "status_msg"  => "",
-                            "time_stamp"  => $this->time,
-                            "version"     => $this->version,
-                        ];
-
+                            "status_msg" => "",
+                            "time_stamp" => $this->time,
+                            "version" => $this->version
+                        );
                         return json_encode($temp);
                     }
                 }
             }
             curl_close($ch);
-
             return $output;
         } catch (Exception $e) {
             echo 'curl error';
-
             return false;
         }
     }
-
     /**
      * B扫C支付
      * 必传参数
@@ -162,7 +150,6 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/quick_pay', $data);
-
         return $response;
     }
 
@@ -185,7 +172,6 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/jsapi_pay', $data);
-
         return $response;
     }
 
@@ -212,7 +198,6 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/native_pay', $data);
-
         return $response;
     }
 
@@ -239,10 +224,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/mini_program_pay', $data);
-
         return $response;
     }
-
     /**
      * app支付
      * 必传参数
@@ -267,10 +250,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/app_pay', $data);
-
         return $response;
     }
-
     /**
      * H5支付，仅支持channel=alipay
      *
@@ -295,10 +276,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/wap_pay', $data);
-
         return $response;
     }
-
     /**
      * PC网站支付，仅支持channel=alipay
      * 必传参数
@@ -322,10 +301,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/web_pay', $data);
-
         return $response;
     }
-
     /**
      * 订单查询
      * 必传参数
@@ -337,10 +314,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/order_query', $data);
-
         return $response;
     }
-
     /**
      * 订单关闭
      * 必传参数
@@ -354,10 +329,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/order_close', $data);
-
         return $response;
     }
-
     /**
      * 订单撤销
      * 必传参数
@@ -371,10 +344,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/order_reverse', $data);
-
         return $response;
     }
-
     /**
      * 订单退款
      * 必传参数
@@ -393,10 +364,8 @@ EOD;
         $data['time_stamp'] = $this->time;
         $data['version'] = $this->version;
         $response = $this->_request($this->pay_domain . '/order_refund', $data);
-
         return $response;
     }
-
     /**
      * 退款查询
      * 必传参数
@@ -409,10 +378,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/refund_query', $data);
-
         return $response;
     }
-
     /**
      * 汇率查询
      * 必传参数
@@ -426,10 +393,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/rate_query', $data);
-
         return $response;
     }
-
     /**
      *聚合支付商户查询订单支付状态
      * 必传参数
@@ -441,10 +406,8 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->gateway_domain . '/gateway_order_query', $data);
-
         return $response;
     }
-
     /**
      *
      * 聚合支付商户通过API提交数据
@@ -481,7 +444,6 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->gateway_domain . '/gateway_pay', $data);
-
         return $response;
     }
 
@@ -496,7 +458,6 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/get_payout_balance', $data);
-
         return $response;
     }
 
@@ -517,7 +478,6 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/payout', $data);
-
         return $response;
     }
 
@@ -533,8 +493,6 @@ EOD;
         $data['nonce_str'] = $this->generate_nonce_str();
         $data['time_stamp'] = $this->time;
         $response = $this->_request($this->pay_domain . '/order_query_payout', $data);
-
         return $response;
     }
 }
-

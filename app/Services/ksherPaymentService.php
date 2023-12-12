@@ -9,22 +9,16 @@ use Illuminate\Support\Str;
 
 class ksherPaymentService
 {
-    const CREATE_ORDER = "/api/gateway_pay";
-    const INFO_ORDER = "/api/gateway_order_query";
-    const DELETE_ORDER = "/api/cancel_order";
+    private KsherPay $ksherPay;
 
-    public function __construct()
+    public function __construct(KsherPay $ksherPay)
     {
-        $this->ksherPay = new KsherPay(
-            config('app.ksher_app_id'),
-            file_get_contents(storage_path('ksher-key/Mch41273_PrivateKey.pem'))
-        );
+        $this->ksherPay = $ksherPay;
     }
 
     public function infoOrder($orderRef)
     {
         $responseKsher = $this->ksherPay->gateway_order_query([
-            'appid'        => config('app.ksher_app_id'),
             'mch_order_no' => $orderRef,
         ]);
         $response = json_decode($responseKsher, true);
@@ -41,7 +35,6 @@ class ksherPaymentService
             $amount = bcmul(1, 100);
         }
         $data = [
-            'appid'                 => config('app.ksher_app_id'),
             'channel_list'          => 'promptpay',
             'fee_type'              => 'THB',
             'mch_code'              => $order->ref,
@@ -52,7 +45,9 @@ class ksherPaymentService
             'mch_redirect_url'      => route('user.checkout.complete', ['ref' => $order->ref]),
             'mch_redirect_url_fail' => route('user.dashboard',
                 ['tab' => 'orders', 'order' => $order->id, 'ks' => 'fail', 'ref' => $order->ref]),
+            'mch_notify_url' => route('webhook.ksher', ['key' => config('app.ksher_secret_webhook')]),
             'product_name'          => $order->ref,
+            'lang' => 'th',
         ];
         $gateway_pay_response = $this->ksherPay->gateway_pay($data);
         $response = json_decode($gateway_pay_response, true);
