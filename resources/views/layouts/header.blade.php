@@ -7,7 +7,7 @@
                 <div class="main-menu">
                     <div class="menu-left">
                         <div class="brand-logo">
-                            <a href="/"><img src="{{ asset('assets/logo/logo-landv2.png') }}"
+                            <a href="/"><img src="{{ asset('assets/logo/wallhouselogo.png') }}"
                                     class="blur-up lazyload" style="height: 30px;"></a>
                         </div>
                     </div>

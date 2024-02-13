@@ -5,7 +5,7 @@
             <div class="w-full md:w-4/12 px-4">
                 <div class="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
                     <div>
-                        Copyright © <span id="get-current-year">{{ date('Y') }}</span> SHODA 3 PLUS
+                        Copyright © <span id="get-current-year">{{ date('Y') }}</span> Wallhouse TH
                     </div>
                 </div>
             </div>

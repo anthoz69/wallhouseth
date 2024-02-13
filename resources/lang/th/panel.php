@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'Shoda3Plus',
+    'site_title' => 'Wallhouse TH',
 ];

@@ -5,12 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Shoda 3 plus">
-    <meta name="keywords" content="Shoda 3 plus">
+    <meta name="description" content="Wallhouse TH">
+    <meta name="keywords" content="Wallhouse TH">
     <meta name="author" content="Itthipat">
-    <link rel="icon" href="{{ asset('assets/logo/logo.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/logo/logo.png') }}" type="image/x-icon">
-    <title>@yield('title', 'Home') - Shoda 3 Plus</title>
+    <link rel="icon" href="{{ asset('assets/logo/wallhouselogo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/logo/wallhouselogo.png') }}" type="image/x-icon">
+    <title>@yield('title', 'Home') - Wallhouse TH</title>
 
     <!--Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
