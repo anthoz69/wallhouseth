@@ -8,7 +8,7 @@
                         <h4>เกี่ยวกับเรา</h4>
                     </div>
                     <div class="footer-contant">
-                        <div class="footer-logo"><img src="{{ asset('assets/logo/wallhouselogo.png') }}" alt=""></div>
+                        <div class="footer-logo"><img src="{{ asset('assets/logo/wallhouselogo.png') }}" alt="" height="75px"></div>
                         <p>Wallhouse TH</p>
 {{--                        <div class="footer-social">--}}
 {{--                            <ul>--}}
